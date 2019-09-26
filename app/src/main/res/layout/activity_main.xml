@@ -7,7 +7,7 @@
     android:background="?attr/back"
     tools:context="com.reiya.pixiv.main.MainActivity">
 
-    <androidx.core.widget.DrawerLayout
+    <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -91,7 +91,7 @@
 
                 </com.google.android.material.appbar.AppBarLayout>
 
-                <android.support.v4.view.ViewPager
+                <androidx.viewpager.widget.ViewPager
                     android:id="@+id/viewPager"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -119,6 +119,6 @@
             app:itemTextAppearance="@style/MenuText"
             app:itemTextColor="?attr/attrTextColor"
             app:menu="@menu/navigation" />
-    </androidx.core.widget.DrawerLayout>
+    </androidx.drawerlayout.widget.DrawerLayout>
 
 </RelativeLayout>

@@ -30,7 +30,7 @@ public class PathSelectDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         View view = View.inflate(getActivity(), R.layout.dialog_path, null);
-        String oldPath = Environment.getExternalStorageDirectory() + PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("path", "/MyPictures/");
+        String oldPath = Environment.getExternalStorageDirectory() + PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("path", "/Pictures/PivisionM/");
         File path  = new File(PreferenceManager.getDefaultSharedPreferences(getActivity()).getString(getString(R.string.key_path), oldPath));
         final EditText editText = (EditText) view.findViewById(R.id.editText);
         editText.setText(path.getPath());

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Pivision</string>
+    <string name="app_name">PivisionM</string>
 
     <string name="app_update_log">1. 增加批量保存收藏作品功能 \n2. 增加收藏附加标签功能</string>
 

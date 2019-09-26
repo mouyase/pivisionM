@@ -330,7 +330,7 @@ public class ItemOperation {
         }
         name = name.replace("/", "|");
 
-        String oldPath = Environment.getExternalStorageDirectory() + PreferenceManager.getDefaultSharedPreferences(context).getString("path", "/MyPictures/");
+        String oldPath = Environment.getExternalStorageDirectory() + PreferenceManager.getDefaultSharedPreferences(context).getString("path", "/Pictures/PivisionM/");
         File path = new File(PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.key_path), oldPath) + "/");
         String subfolderName = "_";
         if (independentFolderName == null || independentFolderName.equals("")) {

@@ -26,12 +26,12 @@ public class ArticleActivity extends AppCompatActivity {
         setTheme(Theme.getTheme());
         setContentView(R.layout.activity_article);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24px);
 
-        WebView webView = (WebView) findViewById(R.id.webView);
+        WebView webView = findViewById(R.id.webView);
         if (webView != null) {
             webView.setWebViewClient(new WebViewClient() {
                 @Override
@@ -56,45 +56,12 @@ public class ArticleActivity extends AppCompatActivity {
             header.put("Accept-Language", "zh_CN");
             webView.loadUrl(getIntent().getStringExtra("url"), header);
         }
-
-
-//        TextView tvTitle = (TextView) findViewById(R.id.tvTitle);
-//        TextView tvDate = (TextView) findViewById(R.id.tvDate);
-//        TextView tvCaption = (TextView) findViewById(R.id.tvCaption);
-//
-//        tvTitle.setText(getIntent().getStringExtra("title"));
-//        tvDate.setText(getIntent().getStringExtra("date"));
-//        tvCaption.setText(Html.fromHtml(getIntent().getStringExtra("caption")));
-//
-//        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        recyclerView.setItemAnimator(new DefaultItemAnimator());
-//
-//        ArticleDetailAdapter adapter = new ArticleDetailAdapter(this, JsonReader.getWorksInArticle(getIntent().getStringExtra("works")));
-//        adapter.setOnItemClickListener(new ArticleDetailAdapter.OnItemClickListener() {
-//            @Override
-//            public void onClick(IllustItem item, int type) {
-//                if (type == 0) {
-//                    Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-//                    intent.putExtra("id", item.getUserId());
-//                    startActivity(intent);
-//                } else {
-//                    Intent intent = new Intent(getApplicationContext(), ViewActivity.class);
-//                    intent.putExtra("id", item.getId());
-//                    startActivity(intent);
-//                }
-//            }
-//        });
-//        adapter.setHeader(findViewById(R.id.header));
-//        recyclerView.setAdapter(adapter);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                break;
+        if (item.getItemId() == android.R.id.home) {
+            finish();
         }
         return true;
     }

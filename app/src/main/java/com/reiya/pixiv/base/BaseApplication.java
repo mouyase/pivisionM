@@ -53,12 +53,7 @@ public class BaseApplication extends Application {
         new RecordDAO(this).removeRecords(System.currentTimeMillis() - 1000 * 60 * 60 * 24 * 7);
 
         if (IO.getImageCacheSizeMB() > Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.key_cache_limit), "100"))) {
-            AsyncTask.execute(new Runnable() {
-                @Override
-                public void run() {
-                    Glide.get(getApplicationContext()).clearDiskCache();
-                }
-            });
+            AsyncTask.execute(() -> Glide.get(getApplicationContext()).clearDiskCache());
         }
 
         Theme.init(this);
@@ -76,12 +71,7 @@ public class BaseApplication extends Application {
         String password = sharedPreferences.getString(getString(R.string.key_password), "");
         if (account.equals("") || password.equals("") && force) {
             LoginDialog loginDialog = new LoginDialog();
-            loginDialog.setListener(new LoginDialog.LoginListener() {
-                @Override
-                public void onLogin(String account, String password) {
-                    login(account, password, true, onLoginDone);
-                }
-            });
+            loginDialog.setListener((account1, password1) -> login(account1, password1, true, onLoginDone));
             loginDialog.show(((FragmentActivity) activity).getSupportFragmentManager(), "Login");
         } else {
             login(account, password, false, onLoginDone);
@@ -247,7 +237,7 @@ public class BaseApplication extends Application {
     }
 
     public static String getUA() {
-        return "PixivAndroidApp/5.0.4 " + getDeviceInfo();
+        return "PixivAndroidApp/5.0.156 " + getDeviceInfo();
     }
 
     public static String getAppVersionName(Context context) {

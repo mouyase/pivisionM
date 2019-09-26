@@ -4,6 +4,9 @@ import android.content.Context;
 import android.os.Build;
 
 import com.reiya.pixiv.base.BaseApplication;
+import com.reiya.pixiv.network.fuckgfw.PixivDNS;
+import com.reiya.pixiv.network.fuckgfw.PixivSSLSocketFactory;
+import com.reiya.pixiv.network.fuckgfw.PixivTrustManager;
 import com.reiya.pixiv.util.Value;
 
 import java.io.File;
@@ -49,7 +52,9 @@ public class HttpClient {
                         .header("Accept-Language", "zh_CN")
                         .header("App-OS", "android")
                         .header("App-OS-Version", "" + Build.VERSION.RELEASE)
-                        .header("App-Version", "5.0.51")
+                        .header("App-Version", "5.0.156")
+                        .header("x-client-time", "3000-01-01T00:00:00+00:00")
+                        .header("x-client-hash", "93771864335ef0c8e52db10be563eab3")
                         .build();
                 return chain.proceed(request);
             }
@@ -61,6 +66,8 @@ public class HttpClient {
                 .addInterceptor(logging)
                 .addInterceptor(interceptor)
                 .addNetworkInterceptor(interceptor)
+                .sslSocketFactory(new PixivSSLSocketFactory(), new PixivTrustManager())
+                .dns(PixivDNS.getInstance())
                 .build();
         service = getRetrofit(BASE_URL).create(HttpService.class);
     }

@@ -1,190 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="tech.yojigen.pivisionm">
+    package="tech.yojigen.pivisionm">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name="com.reiya.pixiv.base.BaseApplication"
-        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:supportsRtl="true"
         android:largeHeap="true"
+        android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name="com.reiya.pixiv.other.SplashActivity"
             android:theme="@style/Splash">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
 
-                <data
-                    android:scheme="http"/>
-                <data
-                    android:scheme="https"/>
-                <data
-                    android:host="touch.pixiv.net"/>
-                <data
-                    android:host="www.pixiv.net"/>
-                <data
-                    android:path="/member.php"/>
-                <data
-                    android:path="/member_illust.php"/>
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+                <data android:host="touch.pixiv.net" />
+                <data android:host="www.pixiv.net" />
+                <data android:path="/member.php" />
+                <data android:path="/member_illust.php" />
             </intent-filter>
         </activity>
         <activity
             android:name="com.reiya.pixiv.work.ViewActivity"
-            android:theme="@style/Translucent">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.VIEW"/> -->
-
-
-            <!-- <category android:name="android.intent.category.DEFAULT"/> -->
-            <!-- <category android:name="android.intent.category.BROWSABLE"/> -->
-
-
-            <!-- <data -->
-            <!-- android:host="touch.pixiv.net" -->
-            <!-- android:path="/member_illust.php?mode=medium" -->
-            <!-- android:scheme="http"/> -->
-            <!-- <data -->
-            <!-- android:host="www.pixiv.net" -->
-            <!-- android:path="/member_illust.php?mode=medium" -->
-            <!-- android:scheme="http"/> -->
-            <!-- </intent-filter> -->
-        </activity>
+            android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.zoom.ZoomActivity"
-            android:theme="@style/Translucent"/>
+            android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.group.GroupViewActivity"
-            android:theme="@style/Translucent"/>
+            android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.gif.GifActivity"
-            android:theme="@style/Translucent"/>
+            android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.search.SearchActivity"
             android:theme="@style/Translucent"
             android:windowSoftInputMode="adjustPan">
             <meta-data
                 android:name="android.app.shortcuts"
-                android:resource="@xml/shortcuts"/>
+                android:resource="@xml/shortcuts" />
         </activity>
         <activity
             android:name="com.reiya.pixiv.profile.ProfileActivity"
-            android:theme="@style/Translucent">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.VIEW"/> -->
-
-
-            <!-- <category android:name="android.intent.category.DEFAULT"/> -->
-            <!-- <category android:name="android.intent.category.BROWSABLE"/> -->
-
-
-            <!-- <data -->
-            <!-- android:host="touch.pixiv.net" -->
-            <!-- android:path="/member.php" -->
-            <!-- android:scheme="http"/> -->
-            <!-- &lt;!&ndash; <data &ndash;&gt; -->
-            <!-- &lt;!&ndash; android:host="touch.pixiv.net" &ndash;&gt; -->
-            <!-- &lt;!&ndash; android:pathPattern="/member_illust.php?id*" &ndash;&gt; -->
-            <!-- &lt;!&ndash; android:scheme="http"/> &ndash;&gt; -->
-            <!-- <data -->
-            <!-- android:host="www.pixiv.net" -->
-            <!-- android:path="/member.php" -->
-            <!-- android:scheme="http"/> -->
-            <!-- &lt;!&ndash; <data &ndash;&gt; -->
-            <!-- &lt;!&ndash; android:host="www.pixiv.net" &ndash;&gt; -->
-            <!-- &lt;!&ndash; android:pathPattern="/member_illust.php?id*" &ndash;&gt; -->
-            <!-- &lt;!&ndash; android:scheme="http"/> &ndash;&gt; -->
-            <!-- </intent-filter> -->
-        </activity>
+            android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.collection.FavoriteWorksActivity"
-            android:theme="@style/Translucent"/>
+            android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.concern.FavoriteUsersActivity"
-            android:theme="@style/Translucent"/>
+            android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.history.HistoryActivity"
-            android:theme="@style/Translucent"/>
+            android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.spotlight.SpotlightActivity"
-            android:theme="@style/Translucent"/>
+            android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.article.ArticleActivity"
-            android:theme="@style/Translucent"/>
+            android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.other.SettingsActivity"
-            android:theme="@style/Translucent"/>
+            android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.comment.CommentActivity"
-            android:theme="@style/Translucent"/>
+            android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.grid.GridActivity"
-            android:theme="@style/Translucent"/>
+            android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.historyranking.HistoryRankingActivity"
-            android:theme="@style/Translucent"/>
+            android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.download.DownloadActivity"
-            android:theme="@style/Translucent"/>
+            android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.other.OpenSourceActivity"
-            android:theme="@style/Translucent"/>
+            android:theme="@style/Translucent" />
 
-        <service android:name="com.reiya.pixiv.service.DownloadService"/>
+        <service android:name="com.reiya.pixiv.service.DownloadService" />
 
-        <!--
-             ATTENTION: This was auto-generated to add Google Play services to your project for
-             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
-        -->
-
-
-        <!-- <activity android:name="com.reiya.pixiv.other.PointerActivity"> -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.VIEW"/> -->
-
-
-        <!-- <category android:name="android.intent.category.DEFAULT"/> -->
-        <!-- <category android:name="android.intent.category.BROWSABLE"/> -->
-
-
-        <!-- <data -->
-        <!-- android:host="touch.pixiv.net" -->
-        <!-- android:path="/member_illust.php" -->
-        <!-- android:scheme="http"/> -->
-        <!-- <data -->
-        <!-- android:host="www.pixiv.net" -->
-        <!-- android:path="/member_illust.php" -->
-        <!-- android:scheme="http"/> -->
-        <!-- </intent-filter> -->
-        <!-- </activity> -->
         <activity
             android:name="com.reiya.pixiv.ranking.RankingActivity"
-            android:theme="@style/Translucent"/>
+            android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.main.MainActivity"
-            android:theme="@style/TranslucentNoActionBar"/>
+            android:theme="@style/TranslucentNoActionBar" />
         <activity
             android:name="com.reiya.pixiv.search.KeywordActivity"
             android:theme="@style/Translucent"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name="com.reiya.pixiv.other.LoginActivity"
-            android:theme="@style/Translucent"/>
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.reiya.pixiv.other.LoginActivity"
+            android:theme="@style/Translucent" />
     </application>
 
 </manifest>
