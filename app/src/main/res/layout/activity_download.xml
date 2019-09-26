@@ -8,7 +8,7 @@
     android:background="?attr/back"
     tools:context="com.reiya.pixiv.download.DownloadActivity">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
@@ -17,7 +17,7 @@
         app:title="@string/download_queue"
         app:titleTextColor="@android:color/white" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar"

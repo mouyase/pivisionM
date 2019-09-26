@@ -7,7 +7,7 @@
     android:background="?attr/back"
     tools:context=".ranking.RankingActivity">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
@@ -16,7 +16,7 @@
         app:title="@string/ranking"
         app:titleTextColor="@android:color/white" />
 
-    <android.support.design.widget.TabLayout
+    <com.google.android.material.tabs.TabLayout
         app:tabSelectedTextColor="@color/white"
         app:tabTextColor="@color/white_translucent"
         app:tabIndicatorColor="@color/white"
@@ -32,7 +32,7 @@
         android:layout_alignParentStart="true"
         android:background="?attr/base" />
 
-    <androidx.core.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tabLayout"

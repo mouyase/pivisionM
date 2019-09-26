@@ -6,14 +6,14 @@
               xmlns:app="http://schemas.android.com/apk/res-auto"
               tools:context="com.reiya.pixiv.article.ArticleActivity"
               android:orientation="vertical">
-    <!--<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
                                                      <!--xmlns:tools="http://schemas.android.com/tools"-->
                                                      <!--android:layout_width="match_parent"-->
                                                      <!--android:layout_height="match_parent"-->
                                                      <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
                                                      <!--tools:context="com.reiya.pixive.article.ArticleActivity">-->
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
@@ -27,7 +27,7 @@
         android:layout_height="match_parent"
         android:id="@+id/webView"/>
 
-    <!--<android.support.design.widget.AppBarLayout-->
+    <!--<com.google.android.material.appbar.AppBarLayout-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="wrap_content"-->
         <!--android:background="?attr/base"-->
@@ -77,9 +77,9 @@
                 <!--android:shadowColor="@color/black"-->
                 <!--android:shadowRadius="4" />-->
         <!--</LinearLayout>-->
-    <!--</android.support.design.widget.AppBarLayout>-->
+    <!--</com.google.android.material.appbar.AppBarLayout>-->
 
-    <!--<android.support.v7.widget.RecyclerView-->
+    <!--<androidx.recyclerview.widget.RecyclerView-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="match_parent"-->
         <!--android:id="@+id/recyclerView"-->

@@ -16,7 +16,7 @@
         <!--android:id="@+id/relativeLayout3"-->
         <!--android:background="?attr/base"/>-->
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
@@ -52,14 +52,14 @@
                 android:layout_margin="4dp" />
         </LinearLayout>
 
-    </android.support.v7.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar">
 
-        <android.support.design.widget.TabLayout
+        <com.google.android.material.tabs.TabLayout
             app:tabSelectedTextColor="@color/white"
             app:tabTextColor="@color/white_translucent"
             app:tabIndicatorColor="@color/white"
@@ -75,7 +75,7 @@
             android:background="?attr/base"
             android:visibility="gone"/>
 
-        <androidx.core.view.ViewPager
+        <androidx.viewpager.widget.ViewPager
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tabLayout"
@@ -89,7 +89,7 @@
 
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/recyclerView"
