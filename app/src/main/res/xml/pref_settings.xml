@@ -1,0 +1,124 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/account">
+
+        <EditTextPreference
+            android:inputType="text"
+            android:key="@string/key_account"
+            android:maxLines="1"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/account" />
+
+        <EditTextPreference
+            android:inputType="textPassword"
+            android:key="@string/key_password"
+            android:maxLines="1"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/password" />
+
+        <!--<SwitchPreference-->
+            <!--android:defaultValue="false"-->
+            <!--android:key="@string/key_auto_login"-->
+            <!--android:title="自动登录" />-->
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/pic_saving">
+
+        <Preference
+            android:key="@string/key_path"
+            android:title="@string/saving_path" />
+
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/pref_file_name_mode_out"
+            android:entryValues="@array/pref_file_name_mode_in"
+            android:key="@string/key_file_name_mode"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/saving_file_name" />
+
+        <ListPreference
+            android:defaultValue="0"
+            android:entries="@array/pref_auto_create_subfolder_out"
+            android:entryValues="@array/pref_auto_create_subfolder_in"
+            android:key="@string/key_auto_create_subfolder"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/auto_create_subfolder" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/user_interface">
+
+        <Preference
+            android:key="@string/key_theme_color"
+            android:title="@string/theme_color" />
+
+        <ListPreference
+            android:key="@string/key_columns_count"
+            android:title="@string/list_columns_count"
+            android:defaultValue="3"
+            android:entries="@array/pref_columns_count"
+            android:entryValues="@array/pref_columns_count"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"/>
+
+        <ListPreference
+            android:key="@string/key_list_style"
+            android:title="@string/list_style"
+            android:defaultValue="1"
+            android:entries="@array/pref_list_style_out"
+            android:entryValues="@array/pref_list_style_in"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/pic_cache">
+
+        <ListPreference
+            android:defaultValue="100"
+            android:entries="@array/pref_cache_size_values"
+            android:entryValues="@array/pref_cache_size_values"
+            android:key="@string/key_cache_limit"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/cache_size_limit" />
+
+        <Preference
+            android:key="@string/key_current_cache_size"
+            android:title="@string/clear_pic_cache" />
+    </PreferenceCategory>
+
+    <!--<PreferenceCategory-->
+        <!--android:title="默认选项">-->
+
+        <!--<ListPreference-->
+            <!--android:key="@string/key_favorite_work_option"-->
+            <!--android:defaultValue="query"-->
+            <!--android:entries="@array/pref_favorite_option_out"-->
+            <!--android:entryValues="@array/pref_favorite_option_in"-->
+            <!--android:title="默认收藏选项" />-->
+
+        <!--<ListPreference-->
+            <!--android:key="@string/key_favorite_user_option"-->
+            <!--android:defaultValue="query"-->
+            <!--android:entries="@array/pref_favorite_option_out"-->
+            <!--android:entryValues="@array/pref_favorite_option_in"-->
+            <!--android:title="默认关注选项" />-->
+    <!--</PreferenceCategory>-->
+
+    <PreferenceCategory
+        android:title="@string/filter">
+
+        <EditTextPreference
+            android:key="@string/key_blacklist"
+            android:inputType="textMultiLine"
+            android:title="@string/blacklist_title"
+            android:summary="@string/blacklist_summary"/>
+    </PreferenceCategory>
+</PreferenceScreen>

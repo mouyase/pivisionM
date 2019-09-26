@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/back"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:divider="@android:drawable/divider_horizontal_textfield"
+        android:showDividers="middle">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvName"
+            android:gravity="center_vertical"
+            android:layout_margin="8dp"
+            android:textSize="16sp"
+            android:textColor="?attr/attrTextColor"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvComment"
+            android:layout_margin="8dp"
+            android:autoLink="web"
+            android:textColor="?attr/attrTextColor"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvInfo"
+            android:layout_margin="8dp"
+            android:textColor="?attr/attrTextColor"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvHomepage"
+            android:layout_margin="8dp"
+            android:autoLink="web"
+            android:textColor="?attr/attrTextColor"/>
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

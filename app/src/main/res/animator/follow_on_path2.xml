@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<objectAnimator xmlns:android="http://schemas.android.com/apk/res/android"
+                android:duration="100"
+                android:propertyName="pathData"
+                android:valueFrom="@string/svg_add_2"
+                android:valueTo="@string/svg_done_2"
+                android:valueType="pathType">
+</objectAnimator>

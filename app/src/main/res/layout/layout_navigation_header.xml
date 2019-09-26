@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp"
+                android:background="?attr/base">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:id="@+id/ivProfile"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/ic_face_white_48dp"
+        app:riv_oval="true"
+        android:scaleType="centerCrop"
+        android:layout_marginLeft="8dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/click_to_login"
+        android:id="@+id/tvName"
+        android:layout_below="@+id/ivProfile"
+        android:layout_marginLeft="8dp"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:shadowColor="@color/black"
+        android:shadowRadius="8"
+        android:gravity="center_vertical"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"/>
+</RelativeLayout>

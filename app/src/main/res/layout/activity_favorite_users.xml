@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/back"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.reiya.pixiv.concern.FavoriteUsersActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout"
+        android:background="?attr/base">
+
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            android:id="@+id/toolbar"
+            app:title="关注"
+            app:titleTextColor="@android:color/white"/>
+
+        <android.support.design.widget.TabLayout
+            app:tabSelectedTextColor="@color/white"
+            app:tabTextColor="@color/white_translucent"
+            app:tabIndicatorColor="@color/white"
+            app:tabGravity="fill"
+            app:tabMode="fixed"
+            app:tabTextAppearance="@style/TabText"
+            app:tabIndicatorHeight="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tabLayout"/>
+    </LinearLayout>
+
+    <androidx.core.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linearLayout"
+        android:id="@+id/viewPager" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linearLayout"
+        android:background="@drawable/shadow"/>
+
+</RelativeLayout>

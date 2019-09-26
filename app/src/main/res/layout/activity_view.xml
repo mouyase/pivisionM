@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                tools:context="com.reiya.pixiv.work.ViewActivity">
+
+
+    <androidx.core.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/viewPager" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/toolbar_margin_top">
+
+        <ImageView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            app:srcCompat="@drawable/ic_arrow_back_grey_24px"
+            android:id="@+id/btnBack"
+            android:padding="14dp"
+            android:layout_alignTop="@+id/btnSave"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
+
+        <ImageView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            app:srcCompat="@drawable/ic_save_grey_24px"
+            android:id="@+id/btnSave"
+            android:padding="14dp"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+
+    <!--<android.support.v7.widget.Toolbar-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:fitsSystemWindows="true"-->
+        <!--android:id="@+id/toolbar"-->
+        <!--android:background="@android:color/transparent"-->
+        <!--app:title=" "/>-->
+
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_above="@+id/sheet"-->
+        <!--android:id="@+id/tvPage"-->
+        <!--android:shadowDx="0"-->
+        <!--android:shadowDy="0"-->
+        <!--android:shadowRadius="4"-->
+        <!--android:shadowColor="@android:color/black"-->
+        <!--android:textColor="@android:color/white"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:textSize="16sp"-->
+        <!--android:padding="4dp" />-->
+
+    <!--<ImageView-->
+        <!--android:layout_width="128dp"-->
+        <!--android:layout_height="128dp"-->
+        <!--android:id="@+id/ivDyn"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--app:srcCompat="@drawable/ic_play_circle_filled_black_36px"-->
+        <!--android:visibility="gone" />-->
+
+    <!--<LinearLayout-->
+        <!--android:orientation="vertical"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:id="@+id/sheet"-->
+        <!--android:visibility="invisible">-->
+
+        <!--<LinearLayout-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/linearLayout"-->
+            <!--android:background="#80212121">-->
+
+            <!--<ImageButton-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--app:srcCompat="@drawable/ic_info_white_24px"-->
+                <!--style="@style/Widget.AppCompat.Button.Borderless"-->
+                <!--android:id="@+id/btnInfo" />-->
+            <!--<ImageButton-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--app:srcCompat="@drawable/ic_label_white_24px"-->
+                <!--style="@style/Widget.AppCompat.Button.Borderless"-->
+                <!--android:id="@+id/btnTag" />-->
+            <!--&lt;!&ndash;<ImageButton&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
+            <!--&lt;!&ndash;app:srcCompat="@drawable/ic_zoom_in_white_24px"&ndash;&gt;-->
+            <!--&lt;!&ndash;style="@style/Widget.AppCompat.Button.Borderless"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:id="@+id/btnZoom"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:padding="8dp" />&ndash;&gt;-->
+            <!--<ImageButton-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--app:srcCompat="@drawable/ic_star_white_24px"-->
+                <!--style="@style/Widget.AppCompat.Button.Borderless"-->
+                <!--android:id="@+id/btnFav" />-->
+            <!--<ImageButton-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--app:srcCompat="@drawable/ic_save_white_24px"-->
+                <!--style="@style/Widget.AppCompat.Button.Borderless"-->
+                <!--android:id="@+id/btnSave" />-->
+            <!--<ImageButton-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--app:srcCompat="@drawable/ic_open_in_browser_white_24px"-->
+                <!--style="@style/Widget.AppCompat.Button.Borderless"-->
+                <!--android:id="@+id/btnBrowser" />-->
+        <!--</LinearLayout>-->
+
+        <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/relativeLayout2"-->
+            <!--android:background="#80212121">-->
+
+            <!--<com.makeramen.roundedimageview.RoundedImageView-->
+                <!--android:layout_width="64dp"-->
+                <!--android:layout_height="64dp"-->
+                <!--android:id="@+id/ivProfile"-->
+                <!--android:layout_alignParentTop="true"-->
+                <!--android:layout_alignParentLeft="true"-->
+                <!--android:layout_alignParentStart="true"-->
+                <!--android:layout_margin="4dp"-->
+                <!--app:riv_oval="true"-->
+                <!--android:padding="4dp"-->
+                <!--android:scaleType="centerCrop" />-->
+
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/tvTitle"-->
+                <!--android:layout_alignTop="@+id/ivProfile"-->
+                <!--android:layout_toRightOf="@+id/ivProfile"-->
+                <!--android:layout_toEndOf="@+id/ivProfile"-->
+                <!--android:textSize="18sp"-->
+                <!--android:padding="4dp"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:layout_toLeftOf="@+id/btnZoom" />-->
+
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/tvName"-->
+                <!--android:layout_below="@+id/tvTitle"-->
+                <!--android:layout_toRightOf="@+id/ivProfile"-->
+                <!--android:layout_toEndOf="@+id/ivProfile"-->
+                <!--android:textSize="16sp"-->
+                <!--android:padding="4dp"-->
+                <!--android:textColor="@color/material_grey_300" />-->
+
+            <!--<ImageButton-->
+                <!--android:layout_width="64dp"-->
+                <!--android:layout_height="64dp"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--app:srcCompat="@drawable/ic_zoom_in_white_36px"-->
+                <!--style="@style/Widget.AppCompat.Button.Borderless"-->
+                <!--android:id="@+id/btnZoom"-->
+                <!--android:padding="16dp" />-->
+        <!--</RelativeLayout>-->
+    <!--</LinearLayout>-->
+
+</RelativeLayout>

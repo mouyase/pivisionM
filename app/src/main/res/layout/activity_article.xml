@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              tools:context="com.reiya.pixiv.article.ArticleActivity"
+              android:orientation="vertical">
+    <!--<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+                                                     <!--xmlns:tools="http://schemas.android.com/tools"-->
+                                                     <!--android:layout_width="match_parent"-->
+                                                     <!--android:layout_height="match_parent"-->
+                                                     <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+                                                     <!--tools:context="com.reiya.pixive.article.ArticleActivity">-->
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:id="@+id/toolbar"
+        android:background="?attr/base"
+        app:title="@string/pixivision"
+        app:titleTextColor="@android:color/white" />
+
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/webView"/>
+
+    <!--<android.support.design.widget.AppBarLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="?attr/base"-->
+        <!--android:id="@+id/view">-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/header"-->
+            <!--android:orientation="vertical"-->
+            <!--app:layout_scrollFlags="scroll|exitUntilCollapsed">-->
+
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="New Text"-->
+                <!--android:id="@+id/tvTitle"-->
+                <!--android:textSize="18sp"-->
+                <!--android:padding="8dp"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:gravity="center_horizontal"-->
+                <!--android:shadowColor="@color/black"-->
+                <!--android:shadowRadius="4"-->
+                <!--android:fitsSystemWindows="true"/>-->
+
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="New Text"-->
+                <!--android:id="@+id/tvDate"-->
+                <!--android:textSize="14sp"-->
+                <!--android:padding="4dp"-->
+                <!--android:textColor="@color/material_grey_300"-->
+                <!--android:gravity="center_horizontal"-->
+                <!--android:shadowColor="@color/black"-->
+                <!--android:shadowRadius="4" />-->
+
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginBottom="16dp"-->
+                <!--android:text="New Text"-->
+                <!--android:id="@+id/tvCaption"-->
+                <!--android:padding="8dp"-->
+                <!--android:textSize="16sp"-->
+                <!--android:textColor="@color/material_grey_300"-->
+                <!--android:shadowColor="@color/black"-->
+                <!--android:shadowRadius="4" />-->
+        <!--</LinearLayout>-->
+    <!--</android.support.design.widget.AppBarLayout>-->
+
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:id="@+id/recyclerView"-->
+        <!--android:layout_below="@+id/toolbar"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:scrollbars="vertical"-->
+        <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"/>-->
+
+</LinearLayout>

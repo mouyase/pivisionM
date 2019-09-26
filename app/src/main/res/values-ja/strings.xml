@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Pivision</string>
+    <string name="app_update_log">1.バッチ保存収集機能を追加する \n2.追加のラベル機能のコレクションを増やす</string>
+    <string name="about">について</string>
+    <string name="account">アカウント</string>
+    <string name="action_register">にアクセス登録アカウント</string>
+    <string name="action_sign_in">ログイン</string>
+    <string name="cannot_be_null">空ではありません</string>
+    <string name="clear_history">閲覧履歴をクリアする</string>
+    <string name="cleared">クリーンアップ</string>
+    <string name="click_to_login">ログインをクリックします</string>
+    <string name="clip_info_id">IDがクリップボードにコピーされました</string>
+    <string name="collect_successfully">コレクション成功</string>
+    <string name="collection">コレクション</string>
+    <string name="concern">フォロー</string>
+    <string name="concern_successfully">フォロー成功</string>
+    <string name="daily">今日</string>
+    <string name="detail">詳細</string>
+    <string name="download_queue">ダウンロードキュー</string>
+    <string name="error_field_required">空ではありません</string>
+    <string name="fail_to_collect">コレクション失敗</string>
+    <string name="fail_to_concern">フォロー失敗</string>
+    <string name="fail_to_load">読み込みに失敗した</string>
+    <string name="fail_to_login_account_err">ログインに失敗しました</string>
+    <string name="fail_to_login_network_err">ログインに失敗しました</string>
+    <string name="fail_to_remove_collection">失敗</string>
+    <string name="fail_to_remove_concern">失敗</string>
+    <string name="female">女性</string>
+    <string name="file_already_exists">ファイルは既に存在します</string>
+    <string name="hint_search">タグ／作品ID／アーティストID</string>
+    <string name="history">閲覧履歴</string>
+    <string name="history_ranking">過去のランキング</string>
+    <string name="invalid_object">オブジェクトが無効です</string>
+    <string name="login_successfully">オブジェクトが無効です</string>
+    <string name="male">男性</string>
+    <string name="mobile_network_now">現在のネットワークはモバイルネットワークです</string>
+    <string name="monthly">今月</string>
+    <string name="more">もっと</string>
+    <string name="negative">取り消された</string>
+    <string name="no_network_now">現在、ネットワークはありません</string>
+    <string name="no_result_found">関連する結果が見つかりませんでした</string>
+    <string name="onLogin">ログイン</string>
+    <string name="open_in_browser">ブラウザで開く</string>
+    <string name="open_source">オープンソース</string>
+    <string name="password">パスワード</string>
+    <string name="path_to_save_pic">画像を保存する</string>
+    <string name="personal_info">個人情報</string>
+    <string name="pic_cache">イメージキャッシング</string>
+    <string name="pixiv_login">pixivアカウントのログイン</string>
+    <string name="please_input_keyword">キーワードを入力してください</string>
+    <string name="please_login_first">最初にログインしてください</string>
+    <string name="please_wait">お待ちください</string>
+    <string name="positive">OK</string>
+    <string name="pri">プライベート</string>
+    <string name="processing_login">ログイン中</string>
+    <string name="prompt_account">ユーザー名</string>
+    <string name="prompt_password">パスワード</string>
+    <string name="pub">公開</string>
+    <string name="ranking">ランキング</string>
+    <string name="recommend">おすすめ</string>
+    <string name="related_works">関連作品</string>
+    <string name="remove_collection">リリース</string>
+    <string name="remove_concern">リリース</string>
+    <string name="removed_collection">持ち上げられている</string>
+    <string name="removed_concern">持ち上げられている</string>
+    <string name="retry">再度お試しください</string>
+    <string name="save_all_works">すべての作品を保存</string>
+    <string name="save_pic">画像を保存する</string>
+    <string name="save_to">保存先</string>
+    <string name="saving_please_wait">保存中,お待ちください</string>
+    <string name="search">検索</string>
+    <string name="select_all">すべて選択</string>
+    <string name="settings">セットアップ</string>
+    <string name="show_comments">コメントを見る</string>
+    <string name="subscription">購読する</string>
+    <string name="tag">タグ</string>
+    <string name="theme_color">テーマの色</string>
+    <string name="title_activity_login">ログイン</string>
+    <string name="toast_long_click_private">長押しプライベート</string>
+    <string name="upper_level">次のレベルで</string>
+    <string name="weekly">今週</string>
+    <string name="works">作品</string>
+    <string name="app_ranking">評価</string>
+    <string name="pic_saving">画像保存</string>
+    <string name="saving_path">保存された位置</string>
+    <string name="saving_file_name">ファイル名</string>
+    <string name="auto_create_subfolder">サブフォルダを自動的に作成する</string>
+    <string name="user_interface">インターフェイス</string>
+    <string name="list_columns_count">列のリスト</string>
+    <string name="list_style">リストフォーム</string>
+    <string name="cache_size_limit">キャッシュ上限（MB）</string>
+    <string name="clear_pic_cache">画像キャッシュを消去する</string>
+    <string name="filter">フィルター</string>
+    <string name="blacklist_title">シールドラベル</string>
+    <string name="blacklist_summary">ランキングと検索のために改行で区切られています</string>
+
+    <string-array name="pref_file_name_mode_out">
+        <item>作品ID</item>
+        <item>作品名</item>
+        <item>作品名_作品ID</item>
+        <item>アーティストID_作品ID</item>
+        <item>アーティスト名_作品ID</item>
+        <item>アーティストID_作品名</item>
+        <item>アーティスト名_作品名</item>
+    </string-array>
+
+    <string-array name="pref_auto_create_subfolder_out">
+        <item>Never</item>
+        <item>アーティストID</item>
+        <item>アーティスト名</item>
+        <item>アーティストID_アーティスト名</item>
+        <item>アーティスト名_アーティストID</item>
+    </string-array>
+
+    <string-array name="pref_list_style_out">
+        <item>グリッド</item>
+        <item>滝の流れ</item>
+    </string-array>
+    <string name="add_collection">コレクション</string>
+    <string name="bookmark_tag">コレクションタグ</string>
+    <string name="download_all_author_hint">あなたはアーティストのすべての作品を保存しますか（これは時間がかかることがありますか？） パスとストレージスペースの残りのサイズを必ず保存してください。</string>
+    <string name="download_all_bookmark_hint">すべてのコレクションを保存しますか（これには時間がかかることがあります）。 パスとストレージスペースの残りのサイズを必ず保存してください。</string>
+    <string name="too_many_tags">タグの数が上限を超えています</string>
+</resources>

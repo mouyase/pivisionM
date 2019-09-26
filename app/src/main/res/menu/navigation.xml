@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group>
+        <item
+            android:id="@+id/collection"
+            android:icon="@drawable/ic_star_colored_24px"
+            android:title="@string/collection"/>
+        <item
+            android:id="@+id/concern"
+            android:icon="@drawable/ic_person_colored_24px"
+            android:title="@string/concern"/>
+        <item
+            android:id="@+id/history"
+            android:icon="@drawable/ic_history_colored_24px"
+            android:title="@string/history"/>
+        <item
+            android:id="@+id/download"
+            android:icon="@drawable/ic_file_download_colored_24px"
+            android:title="@string/download_queue"/>
+        <item
+            android:id="@+id/spotlight"
+            android:icon="@drawable/pixiv_p"
+            android:title="@string/pixivision"/>
+    </group>
+    <group>
+        <item
+            android:id="@+id/settings"
+            android:icon="@drawable/ic_settings_colored_24px"
+            android:title="@string/settings"/>
+        <item
+            android:id="@+id/about"
+            android:icon="@drawable/ic_info_colored_24px"
+            android:title="@string/about"/>
+    </group>
+</menu>

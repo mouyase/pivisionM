@@ -1,0 +1,122 @@
+<resources>
+
+    <style name="ThemeRed" parent="Translucent">
+        <item name="colorPrimary">@color/red</item>
+        <item name="colorPrimaryDark">@color/red</item>
+        <item name="base">@color/red</item>
+        <item name="back">@color/white</item>
+    </style>
+
+    <style name="ThemePink" parent="Translucent">
+        <item name="colorPrimary">@color/pink</item>
+        <item name="colorPrimaryDark">@color/pink</item>
+        <item name="base">@color/pink</item>
+        <item name="back">@color/white</item>
+    </style>
+
+    <style name="ThemePurple" parent="Translucent">
+        <item name="colorPrimary">@color/purple</item>
+        <item name="colorPrimaryDark">@color/purple</item>
+        <item name="base">@color/purple</item>
+        <item name="back">@color/white</item>
+    </style>
+
+    <style name="ThemeIndigo" parent="Translucent">
+        <item name="colorPrimary">@color/indigo</item>
+        <item name="colorPrimaryDark">@color/indigo</item>
+        <item name="base">@color/indigo</item>
+        <item name="back">@color/white</item>
+    </style>
+
+    <style name="ThemeBlue" parent="Translucent">
+        <item name="colorPrimary">@color/blue</item>
+        <item name="colorPrimaryDark">@color/blue</item>
+        <item name="base">@color/blue</item>
+        <item name="back">@color/white</item>
+    </style>
+
+    <style name="ThemeTeal" parent="Translucent">
+        <item name="colorPrimary">@color/teal</item>
+        <item name="colorPrimaryDark">@color/teal</item>
+        <item name="base">@color/teal</item>
+        <item name="back">@color/white</item>
+    </style>
+
+    <style name="ThemeGreen" parent="Translucent">
+        <item name="colorPrimary">@color/green</item>
+        <item name="colorPrimaryDark">@color/green</item>
+        <item name="base">@color/green</item>
+        <item name="back">@color/white</item>
+    </style>
+
+    <style name="ThemeLime" parent="Translucent">
+        <item name="colorPrimary">@color/lime</item>
+        <item name="colorPrimaryDark">@color/lime</item>
+        <item name="base">@color/lime</item>
+        <item name="back">@color/white</item>
+    </style>
+
+    <style name="ThemeYellow" parent="Translucent">
+        <item name="colorPrimary">@color/yellow</item>
+        <item name="colorPrimaryDark">@color/yellow</item>
+        <item name="base">@color/yellow</item>
+        <item name="back">@color/white</item>
+    </style>
+
+    <style name="ThemeOrange" parent="Translucent">
+        <item name="colorPrimary">@color/orange</item>
+        <item name="colorPrimaryDark">@color/orange</item>
+        <item name="base">@color/orange</item>
+        <item name="back">@color/white</item>
+    </style>
+
+    <style name="ThemeGrey" parent="Translucent">
+        <item name="colorPrimary">@color/grey</item>
+        <item name="colorPrimaryDark">@color/grey</item>
+        <item name="base">@color/grey</item>
+        <item name="back">@color/white</item>
+    </style>
+
+    <style name="ThemeBlack" parent="Translucent">
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="base">@color/black</item>
+        <item name="back">@color/black</item>
+        <item name="attrTextColor">@color/white</item>
+    </style>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="attrTextColor">@color/black</item>
+    </style>
+
+    <style name="TabText" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Translucent" parent="AppTheme">
+
+    </style>
+
+    <style name="TranslucentNoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+
+    </style>
+
+    <style name="MenuText" parent="TextAppearance.AppCompat.Menu">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Splash" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/splash</item>
+    </style>
+
+    <style name="WindowTheme" parent="AppTheme">
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/black_translucent</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+</resources>

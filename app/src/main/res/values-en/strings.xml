@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Pivision</string>
+    <string name="app_update_log">1. Add the batch save collection function \n2. Add the collection of additional label function</string>
+    <string name="about">About</string>
+    <string name="account">Account</string>
+    <string name="action_register">Visit pixiv to register</string>
+    <string name="action_sign_in">Login</string>
+    <string name="clear_history">Clear history</string>
+    <string name="cannot_be_null">Cannot be null</string>
+    <string name="cleared">Cleared</string>
+    <string name="click_to_login">Click to login</string>
+    <string name="clip_info_id">ID has been copied to cilpboard</string>
+    <string name="collect_successfully">Collect successfully</string>
+    <string name="collection">Collection</string>
+    <string name="concern">Following</string>
+    <string name="concern_successfully">Follow successfully</string>
+    <string name="daily">Daily</string>
+    <string name="detail">Detail</string>
+    <string name="download_queue">Download queue</string>
+    <string name="error_field_required">Cannot be null</string>
+    <string name="fail_to_collect">Failed to collect</string>
+    <string name="fail_to_concern">Failed to follow</string>
+    <string name="fail_to_load">Failed to load</string>
+    <string name="fail_to_login_account_err">Failed to login</string>
+    <string name="fail_to_login_network_err">Failed to login</string>
+    <string name="fail_to_remove_collection">Failed</string>
+    <string name="fail_to_remove_concern">Failed</string>
+    <string name="female">Female</string>
+    <string name="file_already_exists">This file already exists</string>
+    <string name="hint_search">Tag/Work\'s ID/Illustrator\'s ID</string>
+    <string name="history">History</string>
+    <string name="history_ranking">History ranking</string>
+    <string name="invalid_object">Invalid object</string>
+    <string name="login_successfully">Login successfully</string>
+    <string name="male">Male</string>
+    <string name="mobile_network_now">Now under mobile network</string>
+    <string name="monthly">Monthly</string>
+    <string name="more">More</string>
+    <string name="negative">Cancel</string>
+    <string name="no_network_now">No network now</string>
+    <string name="no_result_found">No result found</string>
+    <string name="onLogin">Login</string>
+    <string name="open_in_browser">Open in browser</string>
+    <string name="open_source">Open source</string>
+    <string name="password">Password</string>
+    <string name="path_to_save_pic">Path to save pic</string>
+    <string name="personal_info">Personal info</string>
+    <string name="pic_cache">Pic cache</string>
+    <string name="pixiv_login">Login with pixiv account</string>
+    <string name="please_input_keyword">Please input keyword</string>
+    <string name="please_login_first">Please login first</string>
+    <string name="please_wait">Please wait</string>
+    <string name="positive">OK</string>
+    <string name="pri">private</string>
+    <string name="processing_login">Logging in</string>
+    <string name="prompt_account">User name</string>
+    <string name="prompt_password">Password</string>
+    <string name="pub">Public</string>
+    <string name="ranking">Ranking</string>
+    <string name="recommend">Recommend</string>
+    <string name="related_works">Related works</string>
+    <string name="remove_collection">Remove collection</string>
+    <string name="remove_concern">Remove concern</string>
+    <string name="removed_collection">Removed</string>
+    <string name="removed_concern">Removed</string>
+    <string name="retry">Retry</string>
+    <string name="save_all_works">Save all works</string>
+    <string name="save_pic">Save pic</string>
+    <string name="save_to">Save to</string>
+    <string name="saving_please_wait">Saving,please wait</string>
+    <string name="search">Search</string>
+    <string name="select_all">Select all</string>
+    <string name="settings">Settings</string>
+    <string name="show_comments">Show comments</string>
+    <string name="subscription">Subscription</string>
+    <string name="tag">Tag</string>
+    <string name="theme_color">Theme color</string>
+    <string name="title_activity_login">Login</string>
+    <string name="toast_long_click_private">Long click for private</string>
+    <string name="upper_level">Upper level</string>
+    <string name="weekly">Weekly</string>
+    <string name="works">Works</string>
+    <string name="app_ranking">Rate me</string>
+    <string name="pic_saving">Pic saving</string>
+    <string name="saving_path">Path</string>
+    <string name="saving_file_name">File name</string>
+    <string name="auto_create_subfolder">Automatically create subfolders</string>
+    <string name="user_interface">User interface</string>
+    <string name="list_columns_count">List columns count</string>
+    <string name="list_style">List style</string>
+    <string name="cache_size_limit">Cache size limit（MB）</string>
+    <string name="clear_pic_cache">Clear cache</string>
+    <string name="filter">Filter</string>
+    <string name="blacklist_title">Tags</string>
+    <string name="blacklist_summary">Separated by line breaks, for rankings and search</string>
+
+    <string-array name="pref_file_name_mode_out">
+        <item>Work\'s ID</item>
+        <item>Work\'s name</item>
+        <item>Work\'s name_work\'s ID</item>
+        <item>Illustrator\'s ID_work\'s ID</item>
+        <item>Illustrator\'s name_work\'s ID</item>
+        <item>Illustrator\'s ID_work\'s name</item>
+        <item>Illustrator\'s name_work\'s name</item>
+    </string-array>
+
+    <string-array name="pref_auto_create_subfolder_out">
+        <item>Never</item>
+        <item>Illustrator\'s ID</item>
+        <item>Illustrator\'s name</item>
+        <item>Illustrator\'s ID_illustrator\'s name</item>
+        <item>Illustrator\'s name_illustrator\'s ID</item>
+    </string-array>
+
+    <string-array name="pref_list_style_out">
+        <item>Grid</item>
+        <item>Waterfalls flow</item>
+    </string-array>
+    <string name="add_collection">Add to collection</string>
+    <string name="bookmark_tag">Collection tag</string>
+    <string name="download_all_author_hint">Save all the works of the artist (which may take long)? Make sure to save the path and the remaining size of the storage space.</string>
+    <string name="download_all_bookmark_hint">Save all your collection (which may take long)? Make sure to save the path and the remaining size of the storage space.</string>
+    <string name="too_many_tags">The number of tags exceeds the upper limit</string>
+
+</resources>

@@ -1,0 +1,209 @@
+<resources>
+    <string name="app_name">Pivision</string>
+
+    <string name="app_update_log">1. 增加批量保存收藏作品功能 \n2. 增加收藏附加标签功能</string>
+
+    <string name="about">关于</string>
+    <string name="account">账号</string>
+    <string name="clear_history">清除浏览历史</string>
+    <string name="click_to_login">点击登录</string>
+    <string name="clip_info_donate" translatable="false">" 已复制到剪贴板（支付宝）"</string>
+    <string name="clip_info_id">id已复制到剪贴板</string>
+    <string name="concern">关注</string>
+    <string name="donate" translatable="false">捐助</string>
+    <string name="app_ranking">评分</string>
+    <string name="hint_search">标签／作品id／画师id</string>
+    <string name="onLogin">登录</string>
+    <string name="negative">取消</string>
+    <string name="open_in_browser">在浏览器中打开</string>
+    <string name="password">密码</string>
+    <string name="positive">确定</string>
+    <string name="search">搜索</string>
+    <string name="upper_level">上一级</string>
+    <string name="pub">公开</string>
+    <string name="pri">私人</string>
+    <string name="fail_to_concern">关注失败</string>
+    <string name="concern_successfully">关注成功</string>
+    <string name="collection">收藏</string>
+    <string name="fail_to_collect">收藏失败</string>
+    <string name="collect_successfully">收藏成功</string>
+    <string name="cannot_be_null">不能为空</string>
+    <string name="path_to_save_pic">图片保存位置</string>
+    <string name="remove_concern">解除关注</string>
+    <string name="fail_to_remove_concern">解除关注失败</string>
+    <string name="removed_concern">已解除关注</string>
+    <string name="fail_to_load">很抱歉， 加载失败</string>
+    <string name="remove_collection">解除收藏</string>
+    <string name="fail_to_remove_collection">解除收藏失败</string>
+    <string name="removed_collection">已解除收藏</string>
+    <string name="invalid_object">无效的对象</string>
+    <string name="no_result_found">很遗憾,没有找到相关结果</string>
+    <string name="fail_to_login_network_err">登录失败</string>
+    <string name="fail_to_login_account_err">登录失败</string>
+    <string name="login_successfully">登录成功</string>
+    <string name="detail">详情</string>
+    <string name="tag">标签</string>
+    <string name="please_wait">请稍等</string>
+    <string name="saving_please_wait">保存中,请稍等</string>
+    <string name="save_to">保存到</string>
+    <string name="please_login_first">请先登录</string>
+    <string name="save_pic">保存图片</string>
+    <string name="subscription">订阅</string>
+    <string name="history">浏览历史</string>
+    <string name="pixivision" translatable="false">pixivision</string>
+    <string name="settings">设置</string>
+    <string name="no_network_now">当前无网络</string>
+    <string name="mobile_network_now">当前网络为移动网络</string>
+    <string name="daily">本日</string>
+    <string name="weekly">本周</string>
+    <string name="monthly">本月</string>
+    <string name="please_input_keyword">请输入关键词</string>
+    <string name="cleared">已清理</string>
+    <string name="pic_cache">图片缓存</string>
+
+    <!-- Strings related to Settings -->
+    <string name="key_account" translatable="false">account</string>
+    <string name="key_password" translatable="false">password</string>
+    <string name="key_auto_login" translatable="false">auto_login</string>
+    <string name="key_path" translatable="false">saving_path</string>
+    <string name="key_file_name_mode" translatable="false">file_name_mode</string>
+    <string name="key_cache_limit" translatable="false">cache_limit</string>
+    <string name="key_current_cache_size" translatable="false">current_cache_size</string>
+
+    <string-array name="pref_file_name_mode_out">
+        <item>作品id</item>
+        <item>作品名称</item>
+        <item>作品名称_作品id</item>
+        <item>作者id_作品id</item>
+        <item>作者名称_作品id</item>
+        <item>作者id_作品名称</item>
+        <item>作者名称_作品名称</item>
+    </string-array>
+
+    <string-array name="pref_file_name_mode_in" translatable="false">
+        <item>1</item>
+        <item>2</item>
+        <item>21</item>
+        <item>31</item>
+        <item>41</item>
+        <item>32</item>
+        <item>42</item>
+    </string-array>
+
+    <string-array name="pref_auto_create_subfolder_in" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>12</item>
+        <item>21</item>
+    </string-array>
+
+    <string-array name="pref_auto_create_subfolder_out">
+        <item>不</item>
+        <item>作者id</item>
+        <item>作者名称</item>
+        <item>作者id_作者名称</item>
+        <item>作者名称_作者id</item>
+    </string-array>
+
+    <string-array name="pref_cache_size_values" translatable="false">
+        <item>10</item>
+        <item>20</item>
+        <item>50</item>
+        <item>100</item>
+    </string-array>
+
+    <string-array name="pref_columns_count" translatable="false">
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+    <string-array name="pref_list_style_out">
+        <item>方格</item>
+        <item>瀑布流</item>
+    </string-array>
+
+    <string-array name="pref_list_style_in" translatable="false">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="open_source_list" translatable="false">
+        <item>Android</item>
+        <item>Glide</item>
+        <item>Gson</item>
+        <item>OkHttp</item>
+        <item>PhotoView</item>
+        <item>Retrofit</item>
+        <item>RoundedImageView</item>
+        <item>RxAndroid</item>
+        <item>RxJava</item>
+    </string-array>
+
+    <string name="key_theme_color" translatable="false">theme_color</string>
+    <string name="theme_color">主题颜色</string>
+    <string name="file_already_exists">该文件已存在</string>
+    <string name="select_all">全选</string>
+    <string name="show_comments">查看评论</string>
+    <string name="save_all_works">保存所有作品</string>
+    <string name="key_favorite_work_option" translatable="false">favorite_work_option</string>
+    <string name="key_favorite_user_option" translatable="false">favorite_user_option</string>
+    <string name="personal_info">个人资料</string>
+    <string name="works">作品</string>
+    <string name="male">男性</string>
+    <string name="female">女性</string>
+    <string name="r18" translatable="false">R18</string>
+    <string name="key_auto_create_subfolder" translatable="false">auto_create_subfolder</string>
+    <string name="key_blacklist" translatable="false">blacklist</string>
+    <string name="history_ranking">历史排行</string>
+    <string name="download_queue">下载队列</string>
+    <string name="open_source">开源</string>
+    <string name="key_columns_count" translatable="false">key_columns_count</string>
+    <string name="key_list_style" translatable="false">key_list_style_v2</string>
+    <string name="key_show_toast_long_click_favorite" translatable="false">key_show_toast_long_click_favorite</string>
+    <string name="key_show_toast_long_click_follow" translatable="false">key_show_toast_long_click_follow</string>
+    <string name="toast_long_click_private">长按私人，很重要所以只说一遍哟</string>
+    <string name="key_splash_screen_url" translatable="false">key_splash_screen_url</string>
+    <string name="key_splash_screen_showed_times" translatable="false">key_splash_screen_showed_times</string>
+
+    <string name="svg_heart" translatable="false">M12,21.35l-1.45,-1.32C5.4,15.36 2,12.28 2,8.5 2,5.42 4.42,3 7.5,3c1.74,0 3.41,0.81 4.5,2.09C13.09,3.81 14.76,3 16.5,3 19.58,3 22,5.42 22,8.5c0,3.78 -3.4,6.86 -8.55,11.54L12,21.35z</string>
+    <string name="svg_add_1" translatable="false">M20 45 L80 45 L80 55 L20 55 Z</string>
+    <string name="svg_add_2" translatable="false">M45 20 L55 20 L55 80 L45 80 Z</string>
+    <string name="svg_done_1" translatable="false">M23.5 46.5 L47 70 L40 77 L16.5 53.5 Z</string>
+    <string name="svg_done_2" translatable="false">M76.5 26.5 L83.5 33.5 L43.5 73.5 L36.5 66.5 Z</string>
+    <string name="more">更多</string>
+    <string name="related_works">相关作品</string>
+    <string name="ranking">排行榜</string>
+    <string name="recommend">推荐</string>
+    <string name="retry">重试</string>
+    <string name="title_activity_login">登录</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_account">用户名</string>
+    <string name="prompt_password">密码</string>
+    <string name="action_sign_in">登录</string>
+    <string name="error_field_required">不能为空</string>
+    <string name="action_register">访问pixiv注册账号</string>
+    <string name="key_show_about_dialog_time" translatable="false">show_about_dialog_time</string>
+    <string name="pixiv_login">pixiv账号登录</string>
+    <string name="processing_login">登录中</string>
+    <string name="pic_saving">图片保存</string>
+    <string name="saving_path">保存位置</string>
+    <string name="saving_file_name">保存文件名</string>
+    <string name="auto_create_subfolder">自动建立子文件夹</string>
+    <string name="user_interface">界面</string>
+    <string name="list_columns_count">列表列数</string>
+    <string name="list_style">列表形式</string>
+    <string name="cache_size_limit">图片缓存上限（MB）</string>
+    <string name="clear_pic_cache">清理图片缓存</string>
+    <string name="filter">过滤</string>
+    <string name="blacklist_title">屏蔽标签</string>
+    <string name="blacklist_summary">以换行分隔，适用于排行榜和搜索</string>
+    <string name="download_all_author_hint">是否保存该画师的所有作品（可能耗时较长）？ 请确认保存路径和存储空间剩余大小。</string>
+    <string name="download_all_bookmark_hint">是否保存所有收藏作品（可能耗时较长）？ 请确认保存路径和存储空间剩余大小。</string>
+    <string name="bookmark_tag">收藏标签</string>
+    <string name="add_collection">收藏</string>
+    <string name="too_many_tags">标签数量超过上限</string>
+</resources>

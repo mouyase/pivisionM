@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@android:drawable/divider_horizontal_bright"
+        android:showDividers="middle">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/iv"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/iv"
+                android:id="@+id/relativeLayout"
+                android:background="#80212121">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:id="@+id/ivProfile"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_margin="8dp"
+                    android:padding="4dp"
+                    app:riv_oval="true"
+                    android:scaleType="centerCrop" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvTitle"
+                    android:layout_alignTop="@+id/ivProfile"
+                    android:layout_toRightOf="@+id/ivProfile"
+                    android:layout_toEndOf="@+id/ivProfile"
+                    android:textSize="16sp"
+                    android:padding="2dp"
+                    android:textColor="@color/white"
+                    android:layout_marginRight="60dp"
+                    android:lines="1"
+                    android:ellipsize="end"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvName"
+                    android:layout_below="@+id/tvTitle"
+                    android:layout_toRightOf="@+id/ivProfile"
+                    android:layout_toEndOf="@+id/ivProfile"
+                    android:textSize="14sp"
+                    android:padding="2dp"
+                    android:textColor="@color/material_grey_300"
+                    android:lines="1"
+                    android:ellipsize="end" />
+
+                <CheckBox
+                    android:layout_width="36dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:button="@drawable/ic_favourite"
+                    android:id="@+id/btnFav"
+                    android:layout_margin="8dp" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/relativeLayout"
+                android:id="@+id/tvPage"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="4"
+                android:shadowColor="@android:color/black"
+                android:textColor="@android:color/white"
+                android:gravity="center_vertical"
+                android:textSize="16sp"
+                android:padding="4dp" />
+
+            <ImageView
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:id="@+id/ivDyn"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                app:srcCompat="@drawable/ic_play_circle_filled_black_36px"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <!--<TextView-->
+            <!--android:text="TextView"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/tvCaption"-->
+            <!--android:layout_margin="16dp"/>-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvCaption"
+            android:layout_margin="16dp"/>
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvInfo"
+            android:layout_margin="8dp"/>
+
+        <me.gujun.android.taggroup.TagGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tagLayout"
+            android:layout_margin="8dp"
+            app:atg_borderColor="@android:color/darker_gray"
+            app:atg_borderStrokeWidth="1dp"
+            app:atg_textSize="14sp"
+            app:atg_textColor="@color/grey_128"
+            app:atg_verticalPadding="8dp">
+        </me.gujun.android.taggroup.TagGroup>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/userInfoLayout">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:id="@+id/ivProfile2"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_margin="8dp"
+                android:padding="4dp"
+                app:riv_oval="true"
+                android:scaleType="centerCrop" />
+
+            <TextView
+                android:layout_width="240dp"
+                android:layout_height="48dp"
+                android:id="@+id/tvName2"
+                android:layout_alignTop="@+id/ivProfile2"
+                android:layout_toRightOf="@+id/ivProfile2"
+                android:layout_toEndOf="@+id/ivProfile2"
+                android:textSize="18sp"
+                android:padding="2dp"
+                android:layout_toLeftOf="@+id/btnFollow"
+                android:lines="1"
+                android:ellipsize="end"
+                android:gravity="center_vertical"/>
+
+            <CheckBox
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:button="@drawable/ic_follow"
+                android:id="@+id/btnFollow"
+                android:padding="16dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/commentLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ProgressBar
+                style="?android:attr/progressBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/RelatedWorksLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/related_works"
+                android:padding="8dp"/>
+            <ProgressBar
+                style="?android:attr/progressBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_search_white_24px"
+        android:shortcutId="search"
+        android:shortcutLongLabel="@string/search"
+        android:shortcutShortLabel="@string/search">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass=".search.SearchActivity"
+            android:targetPackage=".Search"/>
+    </shortcut>
+    <!--<shortcut-->
+        <!--android:enabled="true"-->
+        <!--android:icon="@drawable/ic_share_24dp"-->
+        <!--android:shortcutDisabledMessage="@string/shortcut_disabled_message1"-->
+        <!--android:shortcutId="shortcutId2"-->
+        <!--android:shortcutLongLabel="@string/shortcut_long_label2"-->
+        <!--android:shortcutShortLabel="@string/shortcut_short_label2">-->
+        <!--<intent-->
+            <!--android:action="action2"-->
+            <!--android:targetClass="com.wuxiaolong.designsupportlibrarysample.BottomNavigationActivity"-->
+            <!--android:targetPackage="com.wuxiaolong.designsupportlibrarysample"/>-->
+    <!--</shortcut>-->
+</shortcuts>

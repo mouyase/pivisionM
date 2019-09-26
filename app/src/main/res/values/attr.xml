@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="base" format="reference" />
+    <attr name="back" format="reference" />
+    <attr name="attrTextColor" format="reference" />
+
+    <declare-styleable name="RippleView">
+        <attr name="ripple_color" format="color"/>
+    </declare-styleable>
+</resources>

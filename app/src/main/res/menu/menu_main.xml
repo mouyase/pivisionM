@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/search"
+        android:icon="@drawable/ic_search_white_24px"
+        app:showAsAction="collapseActionView|ifRoom"
+        android:title="@string/search" />
+    <!--<item-->
+        <!--android:id="@+id/download"-->
+        <!--android:icon="@drawable/ic_file_download_shadow_24dp"-->
+        <!--app:showAsAction="collapseActionView|ifRoom"-->
+        <!--android:title="@string/download_queue"/>-->
+    <!--<item-->
+        <!--android:id="@+id/subscription"-->
+        <!--android:icon="@drawable/ic_bookmark_white_24px"-->
+        <!--app:showAsAction="collapseActionView|xifRoom"-->
+        <!--android:title="@string/subscription"/>-->
+</menu>

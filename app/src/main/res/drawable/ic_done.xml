@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+        android:width="36dp"
+        android:height="36dp"
+        android:viewportHeight="100"
+        android:viewportWidth="100">
+
+    <group>
+        <path
+            android:name="path1"
+            android:fillColor="@color/grey_128"
+            android:pathData="@string/svg_done_1"/>
+        <path
+            android:name="path2"
+            android:fillColor="@color/grey_128"
+            android:pathData="@string/svg_done_2"/>
+    </group>
+</vector>
