@@ -22,7 +22,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.tabs.TabLayout;
-import tech.yojigen.pivisionm.R;
 import com.reiya.pixiv.base.BaseFragment;
 import com.reiya.pixiv.bean.Profile;
 import com.reiya.pixiv.bean.Theme;
@@ -30,6 +29,8 @@ import com.reiya.pixiv.bean.User;
 import com.reiya.pixiv.dialog.DownloadAllDialog;
 import com.reiya.pixiv.image.ImageLoader;
 import com.reiya.pixiv.util.UserOperation;
+
+import tech.yojigen.pivisionm.R;
 
 public class ProfileActivity extends AppCompatActivity {
     private CollapsingToolbarLayout mCollapsingToolbarLayout;

@@ -1,14 +1,16 @@
 package com.reiya.pixiv.grid;
 
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.RecyclerView;
 
-import tech.yojigen.pivisionm.R;
 import com.reiya.pixiv.adapter.GridAdapter;
 import com.reiya.pixiv.bean.Work;
 import com.reiya.pixiv.view.WorkGridLayoutManager;
+
+import tech.yojigen.pivisionm.R;
 
 public class GridActivity extends AppCompatActivity {
 

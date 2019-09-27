@@ -17,110 +17,144 @@ import java.util.List;
 
 public class Work implements Parcelable {
 
+    public static final Creator<Work> CREATOR = new Creator<Work>() {
+        @Override
+        public Work createFromParcel(Parcel source) {
+            return new Work(source);
+        }
+
+        @Override
+        public Work[] newArray(int size) {
+            return new Work[size];
+        }
+    };
     @SerializedName("id")
     @Expose
-     int id;
+    int id;
     @SerializedName("title")
     @Expose
-     String title;
+    String title;
     @SerializedName("type")
     @Expose
-     String type;
+    String type;
     @SerializedName("image_urls")
     @Expose
-     ImageUrls imageUrls;
+    ImageUrls imageUrls;
     @SerializedName("caption")
     @Expose
-     String caption;
+    String caption;
     @SerializedName("restrict")
     @Expose
-     int restrict;
+    int restrict;
     @SerializedName("user")
     @Expose
-     User user;
+    User user;
     @SerializedName("tags")
     @Expose
-     List<Tag> tags = new ArrayList<>();
+    List<Tag> tags = new ArrayList<>();
     @SerializedName("tools")
     @Expose
-     List<String> tools = new ArrayList<>();
+    List<String> tools = new ArrayList<>();
     @SerializedName("create_date")
     @Expose
-     String createDate;
+    String createDate;
     @SerializedName("page_count")
     @Expose
-     int pageCount;
+    int pageCount;
     @SerializedName("width")
     @Expose
-     int width;
+    int width;
     @SerializedName("height")
     @Expose
-     int height;
+    int height;
     @SerializedName("sanity_level")
     @Expose
-     int sanityLevel;
+    int sanityLevel;
     @SerializedName("meta_single_page")
     @Expose
-     MetaSinglePage metaSinglePage;
+    MetaSinglePage metaSinglePage;
     @SerializedName("meta_pages")
     @Expose
-     List<MetaPage> metaPages = new ArrayList<>();
+    List<MetaPage> metaPages = new ArrayList<>();
     @SerializedName("total_view")
     @Expose
-     int totalView;
+    int totalView;
     @SerializedName("total_bookmarks")
     @Expose
-     int totalBookmarks;
+    int totalBookmarks;
     @SerializedName("is_bookmarked")
     @Expose
-     boolean isBookmarked;
+    boolean isBookmarked;
     @SerializedName("visible")
     @Expose
-     boolean visible;
+    boolean visible;
+
+    protected Work(Parcel in) {
+        this.id = in.readInt();
+        this.title = in.readString();
+        this.type = in.readString();
+        this.imageUrls = in.readParcelable(ImageUrls.class.getClassLoader());
+        this.caption = in.readString();
+        this.restrict = in.readInt();
+        this.user = in.readParcelable(User.class.getClassLoader());
+        this.tags = in.createTypedArrayList(Tag.CREATOR);
+        this.tools = in.createStringArrayList();
+        this.createDate = in.readString();
+        this.pageCount = in.readInt();
+        this.width = in.readInt();
+        this.height = in.readInt();
+        this.sanityLevel = in.readInt();
+        this.metaSinglePage = in.readParcelable(MetaSinglePage.class.getClassLoader());
+        this.metaPages = in.createTypedArrayList(MetaPage.CREATOR);
+        this.totalView = in.readInt();
+        this.totalBookmarks = in.readInt();
+        this.isBookmarked = in.readByte() != 0;
+        this.visible = in.readByte() != 0;
+    }
+
+    public Work() {
+    }
 
     /**
-     *
-     * @return
-     * The id
+     * @return The id
      */
     public int getId() {
         return id;
     }
 
     /**
-     *
-     * @param id
-     * The id
+     * @param id The id
      */
     public void setId(int id) {
         this.id = id;
     }
 
     /**
-     *
-     * @return
-     * The title
+     * @return The title
      */
     public String getTitle() {
         return title;
     }
 
     /**
-     *
-     * @param title
-     * The title
+     * @param title The title
      */
     public void setTitle(String title) {
         this.title = title;
     }
 
     /**
-     *
-     * @return
-     * The type
+     * @return The type
      */
     public String getType() {
         return type;
+    }
+
+    /**
+     * @param type The type
+     */
+    public void setType(String type) {
+        this.type = type;
     }
 
     public boolean isDynamic() {
@@ -128,21 +162,17 @@ public class Work implements Parcelable {
     }
 
     /**
-     *
-     * @param type
-     * The type
-     */
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    /**
-     *
-     * @return
-     * The imageUrls
+     * @return The imageUrls
      */
     public ImageUrls getImageUrls() {
         return imageUrls;
+    }
+
+    /**
+     * @param imageUrls The image_urls
+     */
+    public void setImageUrls(ImageUrls imageUrls) {
+        this.imageUrls = imageUrls;
     }
 
     public String getImageUrl(int level) {
@@ -170,111 +200,87 @@ public class Work implements Parcelable {
     }
 
     /**
-     *
-     * @param imageUrls
-     * The image_urls
-     */
-    public void setImageUrls(ImageUrls imageUrls) {
-        this.imageUrls = imageUrls;
-    }
-
-    /**
-     *
-     * @return
-     * The caption
+     * @return The caption
      */
     public String getCaption() {
         return caption;
     }
 
     /**
-     *
-     * @param caption
-     * The caption
+     * @param caption The caption
      */
     public void setCaption(String caption) {
         this.caption = caption;
     }
 
     /**
-     *
-     * @return
-     * The restrict
+     * @return The restrict
      */
     public int getRestrict() {
         return restrict;
     }
 
     /**
-     *
-     * @param restrict
-     * The restrict
+     * @param restrict The restrict
      */
     public void setRestrict(int restrict) {
         this.restrict = restrict;
     }
 
     /**
-     *
-     * @return
-     * The user
+     * @return The user
      */
     public User getUser() {
         return user;
     }
 
     /**
-     *
-     * @param user
-     * The user
+     * @param user The user
      */
     public void setUser(User user) {
         this.user = user;
     }
 
     /**
-     *
-     * @return
-     * The tags
+     * @return The tags
      */
     public List<Tag> getTags() {
         return tags;
     }
 
     /**
-     *
-     * @param tags
-     * The tags
+     * @param tags The tags
      */
     public void setTags(List<Tag> tags) {
         this.tags = tags;
     }
 
     /**
-     *
-     * @return
-     * The tools
+     * @return The tools
      */
     public List<String> getTools() {
         return tools;
     }
 
     /**
-     *
-     * @param tools
-     * The tools
+     * @param tools The tools
      */
     public void setTools(List<String> tools) {
         this.tools = tools;
     }
 
     /**
-     *
-     * @return
-     * The createDate
+     * @return The createDate
      */
     public String getCreateDate() {
         return createDate;
+    }
+
+    /**
+     * @param createDate The create_date
+     */
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
     }
 
     public String getTime() {
@@ -282,189 +288,140 @@ public class Work implements Parcelable {
     }
 
     /**
-     *
-     * @param createDate
-     * The create_date
-     */
-    public void setCreateDate(String createDate) {
-        this.createDate = createDate;
-    }
-
-    /**
-     *
-     * @return
-     * The pageCount
+     * @return The pageCount
      */
     public int getPageCount() {
         return pageCount;
     }
 
     /**
-     *
-     * @param pageCount
-     * The page_count
+     * @param pageCount The page_count
      */
     public void setPageCount(int pageCount) {
         this.pageCount = pageCount;
     }
 
     /**
-     *
-     * @return
-     * The width
+     * @return The width
      */
     public int getWidth() {
         return width;
     }
 
     /**
-     *
-     * @param width
-     * The width
+     * @param width The width
      */
     public void setWidth(int width) {
         this.width = width;
     }
 
     /**
-     *
-     * @return
-     * The height
+     * @return The height
      */
     public int getHeight() {
         return height;
     }
 
     /**
-     *
-     * @param height
-     * The height
+     * @param height The height
      */
     public void setHeight(int height) {
         this.height = height;
     }
 
     /**
-     *
-     * @return
-     * The sanityLevel
+     * @return The sanityLevel
      */
     public int getSanityLevel() {
         return sanityLevel;
     }
 
     /**
-     *
-     * @param sanityLevel
-     * The sanity_level
+     * @param sanityLevel The sanity_level
      */
     public void setSanityLevel(int sanityLevel) {
         this.sanityLevel = sanityLevel;
     }
 
     /**
-     *
-     * @return
-     * The metaSinglePage
+     * @return The metaSinglePage
      */
     public MetaSinglePage getMetaSinglePage() {
         return metaSinglePage;
     }
 
     /**
-     *
-     * @param metaSinglePage
-     * The meta_single_page
+     * @param metaSinglePage The meta_single_page
      */
     public void setMetaSinglePage(MetaSinglePage metaSinglePage) {
         this.metaSinglePage = metaSinglePage;
     }
 
     /**
-     *
-     * @return
-     * The metaPages
+     * @return The metaPages
      */
     public List<MetaPage> getMetaPages() {
         return metaPages;
     }
 
     /**
-     *
-     * @param metaPages
-     * The meta_pages
+     * @param metaPages The meta_pages
      */
     public void setMetaPages(List<MetaPage> metaPages) {
         this.metaPages = metaPages;
     }
 
     /**
-     *
-     * @return
-     * The totalView
+     * @return The totalView
      */
     public int getTotalView() {
         return totalView;
     }
 
     /**
-     *
-     * @param totalView
-     * The total_view
+     * @param totalView The total_view
      */
     public void setTotalView(int totalView) {
         this.totalView = totalView;
     }
 
     /**
-     *
-     * @return
-     * The totalBookmarks
+     * @return The totalBookmarks
      */
     public int getTotalBookmarks() {
         return totalBookmarks;
     }
 
     /**
-     *
-     * @param totalBookmarks
-     * The total_bookmarks
+     * @param totalBookmarks The total_bookmarks
      */
     public void setTotalBookmarks(int totalBookmarks) {
         this.totalBookmarks = totalBookmarks;
     }
 
     /**
-     *
-     * @return
-     * The isBookmarked
+     * @return The isBookmarked
      */
     public boolean isIsBookmarked() {
         return isBookmarked;
     }
 
     /**
-     *
-     * @param isBookmarked
-     * The is_bookmarked
+     * @param isBookmarked The is_bookmarked
      */
     public void setIsBookmarked(boolean isBookmarked) {
         this.isBookmarked = isBookmarked;
     }
 
     /**
-     *
-     * @return
-     * The visible
+     * @return The visible
      */
     public boolean isVisible() {
         return visible;
     }
 
     /**
-     *
-     * @param visible
-     * The visible
+     * @param visible The visible
      */
     public void setVisible(boolean visible) {
         this.visible = visible;
@@ -497,43 +454,5 @@ public class Work implements Parcelable {
         dest.writeInt(this.totalBookmarks);
         dest.writeByte(isBookmarked ? (byte) 1 : (byte) 0);
         dest.writeByte(visible ? (byte) 1 : (byte) 0);
-    }
-
-    protected Work(Parcel in) {
-        this.id = in.readInt();
-        this.title = in.readString();
-        this.type = in.readString();
-        this.imageUrls = in.readParcelable(ImageUrls.class.getClassLoader());
-        this.caption = in.readString();
-        this.restrict = in.readInt();
-        this.user = in.readParcelable(User.class.getClassLoader());
-        this.tags = in.createTypedArrayList(Tag.CREATOR);
-        this.tools = in.createStringArrayList();
-        this.createDate = in.readString();
-        this.pageCount = in.readInt();
-        this.width = in.readInt();
-        this.height = in.readInt();
-        this.sanityLevel = in.readInt();
-        this.metaSinglePage = in.readParcelable(MetaSinglePage.class.getClassLoader());
-        this.metaPages = in.createTypedArrayList(MetaPage.CREATOR);
-        this.totalView = in.readInt();
-        this.totalBookmarks = in.readInt();
-        this.isBookmarked = in.readByte() != 0;
-        this.visible = in.readByte() != 0;
-    }
-
-    public static final Creator<Work> CREATOR = new Creator<Work>() {
-        @Override
-        public Work createFromParcel(Parcel source) {
-            return new Work(source);
-        }
-
-        @Override
-        public Work[] newArray(int size) {
-            return new Work[size];
-        }
-    };
-
-    public Work() {
     }
 }

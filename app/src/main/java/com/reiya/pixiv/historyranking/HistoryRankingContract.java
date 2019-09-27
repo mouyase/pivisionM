@@ -13,12 +13,15 @@ import java.util.List;
 interface HistoryRankingContract {
     interface View extends BaseView {
         void showList(List<Work> works, String nextUrl);
+
         void showMore(List<Work> works, String nextUrl);
+
         void failToLoad();
     }
 
     abstract class Presenter extends BasePresenter<View> {
         abstract void loadList(int page, String type, String date);
+
         abstract void loadMore(int page, String url);
     }
 }

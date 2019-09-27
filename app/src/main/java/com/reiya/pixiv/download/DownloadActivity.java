@@ -5,21 +5,24 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.view.MenuItem;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
-import android.view.MenuItem;
 
-import tech.yojigen.pivisionm.R;
 import com.reiya.pixiv.adapter.DownloadAdapter;
 import com.reiya.pixiv.bean.Theme;
 import com.reiya.pixiv.service.DownloadService;
 
+import tech.yojigen.pivisionm.R;
+
 public class DownloadActivity extends AppCompatActivity {
     DownloadAdapter mAdapter;
     BroadcastReceiver mReceiver;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

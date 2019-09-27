@@ -9,13 +9,13 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentActivity;
 import android.util.Log;
 import android.widget.Toast;
 
-import tech.yojigen.pivisionm.R;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
+
 import com.reiya.pixiv.bean.Task;
 import com.reiya.pixiv.bean.Work;
 import com.reiya.pixiv.dialog.DetailDialog;
@@ -36,6 +36,7 @@ import okhttp3.ResponseBody;
 import rx.Observable;
 import rx.Subscriber;
 import rx.schedulers.Schedulers;
+import tech.yojigen.pivisionm.R;
 
 /**
  * Created by lenovo on 2016/2/27.
@@ -178,7 +179,7 @@ public class ItemOperation {
             int hasWriteContactsPermission = activity.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
             if (hasWriteContactsPermission != PackageManager.PERMISSION_GRANTED) {
                 int REQUEST_CODE_ASK_WRITE_EXTERNAL_STORAGE = 111;
-                activity.requestPermissions(new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                activity.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         REQUEST_CODE_ASK_WRITE_EXTERNAL_STORAGE);
                 return;
             }
@@ -266,11 +267,11 @@ public class ItemOperation {
 //            });
 
 //        } else {
-            if (single) {
-                downloadPic(context, work.getImageUrl(3), file, onSavingDone);
-            } else {
-                downloadPic(context, work.getImageUrl(3, index).replace("p0", "p" + index), file, onSavingDone);
-            }
+        if (single) {
+            downloadPic(context, work.getImageUrl(3), file, onSavingDone);
+        } else {
+            downloadPic(context, work.getImageUrl(3, index).replace("p0", "p" + index), file, onSavingDone);
+        }
 //        }
     }
 
@@ -366,55 +367,6 @@ public class ItemOperation {
         downloadPic(context, url, file, onSavingDone);
     }
 
-    static class DownloadRunnable implements Runnable {
-        Activity mActivity;
-        List<Task> mTasks;
-        private final static int PARALLEL_NUM = 4;
-
-        public DownloadRunnable(Activity activity, List<Task> tasks) {
-            mActivity = activity;
-            mTasks = tasks;
-        }
-
-        @Override
-        public void run() {
-            int n = Math.min(mTasks.size(), PARALLEL_NUM);
-            for (int i = 0; i < n && mTasks.size() > 0; i++) {
-                saveMulti(mActivity);
-            }
-        }
-
-        private void saveMulti(final Activity activity) {
-            Task task = mTasks.remove(0);
-            save(activity, task.work, false, task.index,
-                    new OnSavingDone() {
-                        @Override
-                        public void onDo(final File file) {
-                            activity.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(activity, activity.getString(R.string.save_to) + file.getPath(), Toast.LENGTH_LONG).show();
-                                }
-                            });
-                            if (!mTasks.isEmpty()) {
-                                saveMulti(mActivity);
-                            }
-                        }
-                    },
-                    new OnCheckExist() {
-                        @Override
-                        public void onDo(File file, boolean exist) {
-                            if (exist) {
-                                Toast.makeText(activity, R.string.file_already_exists, Toast.LENGTH_SHORT).show();
-                                if (!mTasks.isEmpty()) {
-                                    saveMulti(mActivity);
-                                }
-                            }
-                        }
-                    });
-        }
-    }
-
     public static void downloadPic(final Context context, final String url, final File file, final OnSavingDone onSavingDone) {
         Log.e("url", url);
         final Timer timer = new Timer();
@@ -475,6 +427,10 @@ public class ItemOperation {
         }, 100000);
     }
 
+    public interface OnCheckExist {
+        void onDo(File file, boolean exist);
+    }
+
 //    public static void downloadGif(final int id, String url, final OnGifDownloaded onGifDownloaded, OldHttpClient.ProgressListener listener) {
 //        OldHttpClient.request(url, new Callback() {
 //                    @Override
@@ -510,15 +466,60 @@ public class ItemOperation {
 //        });
 //    }
 
-    public interface OnCheckExist {
-        void onDo(File file, boolean exist);
-    }
-
     public interface OnSavingDone {
         void onDo(File file);
     }
 
     public interface OnGifDownloaded {
         void onDo(int id);
+    }
+
+    static class DownloadRunnable implements Runnable {
+        private final static int PARALLEL_NUM = 4;
+        Activity mActivity;
+        List<Task> mTasks;
+
+        public DownloadRunnable(Activity activity, List<Task> tasks) {
+            mActivity = activity;
+            mTasks = tasks;
+        }
+
+        @Override
+        public void run() {
+            int n = Math.min(mTasks.size(), PARALLEL_NUM);
+            for (int i = 0; i < n && mTasks.size() > 0; i++) {
+                saveMulti(mActivity);
+            }
+        }
+
+        private void saveMulti(final Activity activity) {
+            Task task = mTasks.remove(0);
+            save(activity, task.work, false, task.index,
+                    new OnSavingDone() {
+                        @Override
+                        public void onDo(final File file) {
+                            activity.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(activity, activity.getString(R.string.save_to) + file.getPath(), Toast.LENGTH_LONG).show();
+                                }
+                            });
+                            if (!mTasks.isEmpty()) {
+                                saveMulti(mActivity);
+                            }
+                        }
+                    },
+                    new OnCheckExist() {
+                        @Override
+                        public void onDo(File file, boolean exist) {
+                            if (exist) {
+                                Toast.makeText(activity, R.string.file_already_exists, Toast.LENGTH_SHORT).show();
+                                if (!mTasks.isEmpty()) {
+                                    saveMulti(mActivity);
+                                }
+                            }
+                        }
+                    });
+        }
     }
 }

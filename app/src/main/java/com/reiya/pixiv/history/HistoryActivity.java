@@ -1,14 +1,14 @@
 package com.reiya.pixiv.history;
 
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import tech.yojigen.pivisionm.R;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.reiya.pixiv.adapter.ImageAdapter;
 import com.reiya.pixiv.bean.Theme;
 import com.reiya.pixiv.bean.Work;
@@ -20,8 +20,11 @@ import com.reiya.pixiv.view.WorkGridLayoutManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import tech.yojigen.pivisionm.R;
+
 public class HistoryActivity extends AppCompatActivity {
     private ImageAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

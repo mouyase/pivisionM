@@ -15,14 +15,19 @@ import java.util.List;
 interface ProfileContract {
     interface View extends BaseView {
         void showWorks(List<Work> works, String nextUrl);
+
         void showMore(List<Work> works, String nextUrl);
+
         void showUserInfo(User user, Profile profile);
+
         void failToLoad();
     }
 
     abstract class Presenter extends BasePresenter<View> {
         abstract void getWorks(int id);
+
         abstract void getMore(String url);
+
         abstract void getUser(int id);
     }
 }

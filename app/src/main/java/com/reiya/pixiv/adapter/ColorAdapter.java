@@ -1,12 +1,13 @@
 package com.reiya.pixiv.adapter;
 
 import android.content.Context;
-import androidx.core.content.ContextCompat;
 
-import tech.yojigen.pivisionm.R;
+import androidx.core.content.ContextCompat;
 
 import java.util.Arrays;
 import java.util.List;
+
+import tech.yojigen.pivisionm.R;
 
 /**
  * Created by lenovo on 2016/1/27.

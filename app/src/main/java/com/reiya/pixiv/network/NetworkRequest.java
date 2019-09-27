@@ -91,7 +91,7 @@ public class NetworkRequest {
                 .compose(RxHelper.<HttpService.IllustListResponse>getSchedulerHelper());
     }
 
-//    https://app-api.pixiv.net/v2/illust/bookmark/detail?illust_id=59486769
+    //    https://app-api.pixiv.net/v2/illust/bookmark/detail?illust_id=59486769
 //{
 //    "bookmark_detail": {
 //        "is_bookmarked": false,

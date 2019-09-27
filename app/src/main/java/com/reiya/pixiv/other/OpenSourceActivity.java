@@ -1,15 +1,17 @@
 package com.reiya.pixiv.other;
 
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 
-import tech.yojigen.pivisionm.R;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.reiya.pixiv.adapter.StringArrayAdapter;
 import com.reiya.pixiv.bean.Theme;
+
+import tech.yojigen.pivisionm.R;
 
 public class OpenSourceActivity extends AppCompatActivity {
 

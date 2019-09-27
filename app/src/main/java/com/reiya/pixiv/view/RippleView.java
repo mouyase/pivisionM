@@ -5,9 +5,10 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
+
+import androidx.annotation.Nullable;
 
 import tech.yojigen.pivisionm.R;
 
@@ -21,6 +22,7 @@ public class RippleView extends View {
     private int mRadius = 0;
     private int mMaxRadius;
     private Paint mPaint = new Paint();
+
     public RippleView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 

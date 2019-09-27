@@ -12,7 +12,7 @@ public class InputStreamReader {
         try {
             ByteArrayOutputStream bo = new ByteArrayOutputStream();
             int i = is.read();
-            while(i != -1) {
+            while (i != -1) {
                 bo.write(i);
                 i = is.read();
             }

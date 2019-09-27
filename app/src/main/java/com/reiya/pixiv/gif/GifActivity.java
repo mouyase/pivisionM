@@ -2,13 +2,13 @@ package com.reiya.pixiv.gif;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import android.widget.VideoView;
 
-import tech.yojigen.pivisionm.R;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.reiya.pixiv.bean.Work;
 import com.reiya.pixiv.network.HttpClient;
 import com.reiya.pixiv.network.HttpService;
@@ -20,6 +20,7 @@ import java.io.File;
 
 import okhttp3.ResponseBody;
 import rx.Subscriber;
+import tech.yojigen.pivisionm.R;
 
 public class GifActivity extends AppCompatActivity {
     private VideoView mVideoView;

@@ -4,10 +4,11 @@ import android.content.Context;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
-import tech.yojigen.pivisionm.R;
 import com.reiya.pixiv.bean.BookmarkTag;
 
 import java.util.List;
+
+import tech.yojigen.pivisionm.R;
 
 /**
  * Created by zhengyirui on 2017/9/7.
@@ -15,6 +16,7 @@ import java.util.List;
 
 public class BookmarkTagAddAdapter extends BaseAdapter<BookmarkTag> {
     private OnRegisterChangedCallback mOnRegisterChangedCallback;
+
     public BookmarkTagAddAdapter(Context context, List<BookmarkTag> items) {
         super(context, R.layout.item_bookmark_tag_add, items);
     }

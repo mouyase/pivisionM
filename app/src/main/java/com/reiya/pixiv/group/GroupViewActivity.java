@@ -1,17 +1,19 @@
 package com.reiya.pixiv.group;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
-import android.view.View;
-import android.widget.TextView;
 
-import tech.yojigen.pivisionm.R;
 import com.reiya.pixiv.bean.Work;
 import com.reiya.pixiv.util.ItemOperation;
+
+import tech.yojigen.pivisionm.R;
 
 public class GroupViewActivity extends AppCompatActivity implements View.OnClickListener {
     private Work mWork;
@@ -82,42 +84,6 @@ public class GroupViewActivity extends AppCompatActivity implements View.OnClick
         viewPager.setCurrentItem(index);
     }
 
-    class GroupPagerAdapter extends FragmentPagerAdapter {
-//        private String url;
-//        private String urlBig;
-        private final int count;
-
-        public GroupPagerAdapter(FragmentManager fm, int count) {
-            super(fm);
-            this.count = count;
-//            this.url = url;
-//            this.urlBig = urlBig;
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            GroupFragment fragment = (GroupFragment) GroupFragment.newInstance(position, mWork.getImageUrl(2, position));
-//            fragment.setOnClick(new Runnable() {
-//                @Override
-//                public void run() {
-//                    if (showSheet) {
-//                        Animater.fadeOut(sheet);
-//                        showSheet = false;
-//                    } else {
-//                        Animater.fadeIn(sheet);
-//                        showSheet = true;
-//                    }
-//                }
-//            });
-            return fragment;
-        }
-
-        @Override
-        public int getCount() {
-            return count;
-        }
-    }
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -171,6 +137,42 @@ public class GroupViewActivity extends AppCompatActivity implements View.OnClick
 //                startActivity(intent);
 //                overridePendingTransition(0, 0);
 //                break;
+        }
+    }
+
+    class GroupPagerAdapter extends FragmentPagerAdapter {
+        //        private String url;
+//        private String urlBig;
+        private final int count;
+
+        public GroupPagerAdapter(FragmentManager fm, int count) {
+            super(fm);
+            this.count = count;
+//            this.url = url;
+//            this.urlBig = urlBig;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            GroupFragment fragment = (GroupFragment) GroupFragment.newInstance(position, mWork.getImageUrl(2, position));
+//            fragment.setOnClick(new Runnable() {
+//                @Override
+//                public void run() {
+//                    if (showSheet) {
+//                        Animater.fadeOut(sheet);
+//                        showSheet = false;
+//                    } else {
+//                        Animater.fadeIn(sheet);
+//                        showSheet = true;
+//                    }
+//                }
+//            });
+            return fragment;
+        }
+
+        @Override
+        public int getCount() {
+            return count;
         }
     }
 }

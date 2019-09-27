@@ -11,7 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 
-import tech.yojigen.pivisionm.R;
 import com.reiya.pixiv.adapter.BaseAdapter;
 import com.reiya.pixiv.adapter.ImageAdapter;
 import com.reiya.pixiv.base.BaseFragment;
@@ -24,16 +23,18 @@ import com.reiya.pixiv.view.WorkGridLayoutManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import tech.yojigen.pivisionm.R;
+
 /**
  * Created by Administrator on 2015/12/16 0016.
  */
 public class FavoriteWorksFragment extends BaseFragment<CollectionPresenter> implements CollectionContract.View, BookmarkTagFilterDialog.OnBookmarkTagSelectedCallback {
+    public static final String[] TYPE = new String[]{Value.PUBLIC, Value.PRIVATE};
     private int mPage;
     private ImageAdapter mAdapter;
     private CollectionPresenter mPresenter;
     private LoaderRecyclerView mRecyclerView;
     private boolean mIsVisible = false;
-    public static final String[] TYPE = new String[]{Value.PUBLIC, Value.PRIVATE};
     private String mType;
 
     public static FavoriteWorksFragment newInstance(int page) {

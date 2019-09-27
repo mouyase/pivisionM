@@ -3,20 +3,21 @@ package com.reiya.pixiv.article;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.view.MenuItem;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.reiya.pixiv.profile.ProfileActivity;
-import tech.yojigen.pivisionm.R;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.reiya.pixiv.bean.Theme;
+import com.reiya.pixiv.profile.ProfileActivity;
 import com.reiya.pixiv.work.ViewActivity;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import tech.yojigen.pivisionm.R;
 
 public class ArticleActivity extends AppCompatActivity {
 

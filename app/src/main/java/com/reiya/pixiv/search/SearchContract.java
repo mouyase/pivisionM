@@ -13,15 +13,18 @@ import java.util.List;
 interface SearchContract {
     interface View extends BaseView {
         void showList(List<Work> works, String nextUrl);
+
         void showMore(List<Work> works, String nextUrl);
+
         void failToLoad();
     }
 
     abstract class Presenter extends BasePresenter<View> {
-//        abstract void fromBmob(String keyword);
+        //        abstract void fromBmob(String keyword);
 //        abstract void fromPixiv(String keyword);
 //        abstract void fromPixivNext(String url);
         abstract void search(String keyword, int index);
+
         abstract void next(String url);
     }
 }

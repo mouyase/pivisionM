@@ -16,7 +16,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import tech.yojigen.pivisionm.R;
 import com.reiya.pixiv.base.BaseApplication;
 import com.reiya.pixiv.bean.Work;
 import com.reiya.pixiv.gif.GifActivity;
@@ -29,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rx.Subscriber;
+import tech.yojigen.pivisionm.R;
 
 public class ViewActivity extends AppCompatActivity implements View.OnClickListener {
     private List<Work> mWorks;
@@ -220,28 +220,6 @@ public class ViewActivity extends AppCompatActivity implements View.OnClickListe
         Toast.makeText(getApplicationContext(), R.string.fail_to_load, Toast.LENGTH_SHORT).show();
     }
 
-    class ImagePagerAdapter extends FragmentStatePagerAdapter {
-        private final List<Work> mWorks;
-        private final int count;
-
-        public ImagePagerAdapter(FragmentManager fm, List<Work> works) {
-            super(fm);
-            this.mWorks = works;
-            this.count = mWorks.size();
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            ImageFragment fragment = (ImageFragment) ImageFragment.newInstance(position, mWorks.get(position));
-            return fragment;
-        }
-
-        @Override
-        public int getCount() {
-            return count;
-        }
-    }
-
     @Override
     public void onClick(View v) {
         if (mWorks == null) {
@@ -339,5 +317,27 @@ public class ViewActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
         return true;
+    }
+
+    class ImagePagerAdapter extends FragmentStatePagerAdapter {
+        private final List<Work> mWorks;
+        private final int count;
+
+        public ImagePagerAdapter(FragmentManager fm, List<Work> works) {
+            super(fm);
+            this.mWorks = works;
+            this.count = mWorks.size();
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            ImageFragment fragment = (ImageFragment) ImageFragment.newInstance(position, mWorks.get(position));
+            return fragment;
+        }
+
+        @Override
+        public int getCount() {
+            return count;
+        }
     }
 }

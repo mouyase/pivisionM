@@ -7,6 +7,17 @@ import android.os.Parcelable;
  * Created by lenovo on 2016/3/19.
  */
 public class Task implements Parcelable {
+    public static final Creator<Task> CREATOR = new Creator<Task>() {
+        @Override
+        public Task createFromParcel(Parcel in) {
+            return new Task(in);
+        }
+
+        @Override
+        public Task[] newArray(int size) {
+            return new Task[size];
+        }
+    };
     public final Work work;
     public final int index;
 
@@ -19,18 +30,6 @@ public class Task implements Parcelable {
         work = in.readParcelable(Work.class.getClassLoader());
         index = in.readInt();
     }
-
-    public static final Creator<Task> CREATOR = new Creator<Task>() {
-        @Override
-        public Task createFromParcel(Parcel in) {
-            return new Task(in);
-        }
-
-        @Override
-        public Task[] newArray(int size) {
-            return new Task[size];
-        }
-    };
 
     @Override
     public int describeContents() {

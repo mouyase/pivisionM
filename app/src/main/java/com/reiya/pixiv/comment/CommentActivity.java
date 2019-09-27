@@ -1,14 +1,14 @@
 package com.reiya.pixiv.comment;
 
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 
-import tech.yojigen.pivisionm.R;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.reiya.pixiv.adapter.CommentAdapter;
 import com.reiya.pixiv.bean.Theme;
 import com.reiya.pixiv.network.HttpService;
@@ -16,9 +16,11 @@ import com.reiya.pixiv.network.NetworkRequest;
 import com.reiya.pixiv.view.LoaderRecyclerView;
 
 import rx.Subscriber;
+import tech.yojigen.pivisionm.R;
 
 public class CommentActivity extends AppCompatActivity {
     private CommentAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

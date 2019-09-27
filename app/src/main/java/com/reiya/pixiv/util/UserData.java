@@ -4,17 +4,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
-import tech.yojigen.pivisionm.R;
 import com.reiya.pixiv.bean.User;
 import com.reiya.pixiv.collection.FavoriteWorksActivity;
 import com.reiya.pixiv.concern.FavoriteUsersActivity;
+
+import tech.yojigen.pivisionm.R;
 
 /**
  * Created by lenovo on 2016/4/4.
  */
 public class UserData {
+    public static User user;
     private static String bearer;
     private static boolean mSpecialMode = false;
+    private static UserState mUserState = new DefaultState();
 
     public static boolean isLoggedIn() {
         return bearer != null;
@@ -36,10 +39,6 @@ public class UserData {
         mSpecialMode = b;
     }
 
-    public static User user;
-
-    private static UserState mUserState = new DefaultState();
-
     public static void openCollection(Context context) {
         mUserState.openCollection(context);
     }
@@ -58,7 +57,9 @@ public class UserData {
 
     interface UserState {
         void openCollection(Context context);
+
         void openConcern(Context context);
+
         void openNewWorks(Context context);
     }
 

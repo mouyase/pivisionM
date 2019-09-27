@@ -13,13 +13,17 @@ import java.util.List;
 interface CollectionContract {
     interface View extends BaseView {
         void showList(List<Work> works, String nextUrl);
+
         void failToRemove();
+
         void removed(int id);
     }
 
     abstract class Presenter extends BasePresenter<View> {
         abstract void loadList(int page, String type, String tag);
+
         abstract void loadMore(int page, String url);
+
         abstract void remove(int page, int id);
     }
 }

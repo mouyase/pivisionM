@@ -7,19 +7,21 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
-import androidx.fragment.app.FragmentActivity;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentActivity;
+
 import com.bumptech.glide.Glide;
-import tech.yojigen.pivisionm.R;
 import com.reiya.pixiv.adapter.ColorAdapter;
 import com.reiya.pixiv.bean.Theme;
 import com.reiya.pixiv.dialog.ColorSelectDialog;
 import com.reiya.pixiv.dialog.PathSelectDialog;
 import com.reiya.pixiv.util.IO;
+
+import tech.yojigen.pivisionm.R;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -35,6 +37,12 @@ public class SettingsActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24px);
 
         getFragmentManager().beginTransaction().replace(R.id.fragment, new MyPreferenceFragment()).commit();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        finish();
+        return true;
     }
 
     public static class MyPreferenceFragment extends PreferenceFragment {
@@ -102,11 +110,5 @@ public class SettingsActivity extends AppCompatActivity {
             }
             return false;
         }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        finish();
-        return true;
     }
 }

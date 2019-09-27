@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import androidx.appcompat.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -16,10 +15,13 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import tech.yojigen.pivisionm.R;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.reiya.pixiv.base.BaseApplication;
 import com.reiya.pixiv.bean.User;
 import com.reiya.pixiv.view.RippleView;
+
+import tech.yojigen.pivisionm.R;
 
 
 /**
@@ -35,6 +37,13 @@ public class LoginActivity extends AppCompatActivity {
     private View mLoginFormView;
     private View mProcessingLoginView;
     private Handler mHandler;
+    private Runnable mLoginRunnable = new Runnable() {
+        @Override
+        public void run() {
+            mLoginFormView.setVisibility(View.GONE);
+            mProcessingLoginView.setVisibility(View.VISIBLE);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,14 +137,6 @@ public class LoginActivity extends AppCompatActivity {
 
         mHandler = new Handler(getMainLooper());
     }
-
-    private Runnable mLoginRunnable = new Runnable() {
-        @Override
-        public void run() {
-            mLoginFormView.setVisibility(View.GONE);
-            mProcessingLoginView.setVisibility(View.VISIBLE);
-        }
-    };
 
     @Override
     protected void onDestroy() {

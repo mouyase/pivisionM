@@ -1,4 +1,3 @@
-
 package com.reiya.pixiv.bean;
 
 
@@ -9,17 +8,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class MetaSinglePage implements Parcelable {
-
-    @SerializedName("original_image_url")
-    @Expose
-     String originalImageUrl;
-
-    public MetaSinglePage() {
-    }
-
-    protected MetaSinglePage(Parcel in) {
-        originalImageUrl = in.readString();
-    }
 
     public static final Creator<MetaSinglePage> CREATOR = new Creator<MetaSinglePage>() {
         @Override
@@ -32,6 +20,16 @@ public class MetaSinglePage implements Parcelable {
             return new MetaSinglePage[size];
         }
     };
+    @SerializedName("original_image_url")
+    @Expose
+    String originalImageUrl;
+
+    public MetaSinglePage() {
+    }
+
+    protected MetaSinglePage(Parcel in) {
+        originalImageUrl = in.readString();
+    }
 
     public String getOriginalImageUrl() {
         return originalImageUrl;

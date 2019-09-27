@@ -11,6 +11,7 @@ import rx.Subscriber;
 
 class SearchPresenter extends SearchContract.Presenter {
     private static final String[] SUFFIX = {" 10000users入り", " 5000users入り", " 1000users入り", ""};
+
     @Override
     void search(String keyword, int index) {
         NetworkRequest.getSearchFromPixiv(keyword + SUFFIX[index])

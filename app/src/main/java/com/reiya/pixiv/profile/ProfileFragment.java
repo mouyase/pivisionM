@@ -1,8 +1,6 @@
 package com.reiya.pixiv.profile;
 
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.DefaultItemAnimator;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +8,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import tech.yojigen.pivisionm.R;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+
 import com.reiya.pixiv.adapter.ImageAdapter;
 import com.reiya.pixiv.base.BaseFragment;
 import com.reiya.pixiv.bean.Profile;
@@ -22,12 +22,14 @@ import com.reiya.pixiv.view.WorkGridLayoutManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import tech.yojigen.pivisionm.R;
+
 /**
  * Created by lenovo on 2016/3/4.
  */
 public class ProfileFragment extends BaseFragment<ProfilePresenter> implements ProfileContract.View {
-    private int mPage;
     private static final String ID = "id";
+    private int mPage;
     private int id;
     private ImageAdapter adapter;
     private View mView;

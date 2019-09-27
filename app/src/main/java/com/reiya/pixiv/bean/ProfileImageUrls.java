@@ -12,6 +12,17 @@ import com.google.gson.annotations.SerializedName;
 
 public class ProfileImageUrls implements Parcelable {
 
+    public static final Creator<ProfileImageUrls> CREATOR = new Creator<ProfileImageUrls>() {
+        @Override
+        public ProfileImageUrls createFromParcel(Parcel in) {
+            return new ProfileImageUrls(in);
+        }
+
+        @Override
+        public ProfileImageUrls[] newArray(int size) {
+            return new ProfileImageUrls[size];
+        }
+    };
     @SerializedName("px_16x16")
     @Expose
     String px16x16;
@@ -35,40 +46,22 @@ public class ProfileImageUrls implements Parcelable {
         medium = in.readString();
     }
 
-    public static final Creator<ProfileImageUrls> CREATOR = new Creator<ProfileImageUrls>() {
-        @Override
-        public ProfileImageUrls createFromParcel(Parcel in) {
-            return new ProfileImageUrls(in);
-        }
-
-        @Override
-        public ProfileImageUrls[] newArray(int size) {
-            return new ProfileImageUrls[size];
-        }
-    };
-
     /**
-     *
-     * @return
-     * The px16x16
+     * @return The px16x16
      */
     public String getPx16x16() {
         return px16x16;
     }
 
     /**
-     *
-     * @return
-     * The px50x50
+     * @return The px50x50
      */
     public String getPx50x50() {
         return px50x50;
     }
 
     /**
-     *
-     * @return
-     * The px170x170
+     * @return The px170x170
      */
     public String getPx170x170() {
         return px170x170;

@@ -4,11 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.reiya.pixiv.article.ArticleActivity;
-import tech.yojigen.pivisionm.R;
 import com.reiya.pixiv.bean.Article;
 import com.reiya.pixiv.image.ImageLoader;
 
 import java.util.List;
+
+import tech.yojigen.pivisionm.R;
 
 /**
  * Created by Administrator on 2016/1/12 0012.

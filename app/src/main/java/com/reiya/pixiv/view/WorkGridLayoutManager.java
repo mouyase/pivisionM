@@ -2,6 +2,7 @@ package com.reiya.pixiv.view;
 
 import android.content.Context;
 import android.preference.PreferenceManager;
+
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import tech.yojigen.pivisionm.R;

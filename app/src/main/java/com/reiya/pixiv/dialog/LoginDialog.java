@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.textfield.TextInputLayout;
+
 import tech.yojigen.pivisionm.R;
 
 /**
@@ -61,11 +62,11 @@ public class LoginDialog extends DialogFragment {
         return dialog;
     }
 
-    public interface LoginListener {
-        void onLogin(String account, String password);
-    }
-
     public void setListener(LoginListener listener) {
         this.listener = listener;
+    }
+
+    public interface LoginListener {
+        void onLogin(String account, String password);
     }
 }

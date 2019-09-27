@@ -22,72 +22,56 @@ public class Comment {
     private User user;
 
     /**
-     *
-     * @return
-     * The id
+     * @return The id
      */
     public int getId() {
         return id;
     }
 
     /**
-     *
-     * @param id
-     * The id
+     * @param id The id
      */
     public void setId(int id) {
         this.id = id;
     }
 
     /**
-     *
-     * @return
-     * The comment
+     * @return The comment
      */
     public String getComment() {
         return comment;
     }
 
     /**
-     *
-     * @param comment
-     * The comment
+     * @param comment The comment
      */
     public void setComment(String comment) {
         this.comment = comment;
     }
 
     /**
-     *
-     * @return
-     * The date
+     * @return The date
      */
     public String getDate() {
         return StringHelper.getFormattedTime(date);
     }
 
     /**
-     *
-     * @param date
-     * The date
+     * @param date The date
      */
     public void setDate(String date) {
         this.date = date;
     }
 
     /**
-     *
-     * @return
-     * The user
+     * @return The user
      */
     public User getUser() {
         return user;
     }
 
     /**
-     *
-     * @param user
-     * The user
+     * @param user The user
      */
     public void setUser(User user) {
         this.user = user;

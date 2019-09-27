@@ -2,11 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="tech.yojigen.pivisionm">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     <application
         android:name="com.reiya.pixiv.base.BaseApplication"
         android:icon="@mipmap/ic_launcher"
@@ -93,11 +88,10 @@
             android:name="com.reiya.pixiv.other.OpenSourceActivity"
             android:theme="@style/Translucent" />
 
-        <service android:name="com.reiya.pixiv.service.DownloadService" />
-
         <activity
             android:name="com.reiya.pixiv.ranking.RankingActivity"
             android:theme="@style/Translucent" />
+
         <activity
             android:name="com.reiya.pixiv.main.MainActivity"
             android:theme="@style/TranslucentNoActionBar" />
@@ -108,6 +102,12 @@
         <activity
             android:name="com.reiya.pixiv.other.LoginActivity"
             android:theme="@style/Translucent" />
+        <service android:name="com.reiya.pixiv.service.DownloadService" />
     </application>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

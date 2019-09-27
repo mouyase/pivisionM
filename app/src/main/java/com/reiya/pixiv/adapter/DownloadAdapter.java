@@ -2,11 +2,12 @@ package com.reiya.pixiv.adapter;
 
 import android.content.Context;
 
-import tech.yojigen.pivisionm.R;
 import com.reiya.pixiv.bean.Task;
 import com.reiya.pixiv.image.ImageLoader;
 
 import java.util.List;
+
+import tech.yojigen.pivisionm.R;
 
 /**
  * Created by lenovo on 2016/3/19.
@@ -22,7 +23,7 @@ public class DownloadAdapter extends BaseAdapter<Task> {
         holder.loadImage(R.id.imageView,
                 ImageLoader.loadImage(mContext, item.work.getImageUrl(0))
                         .centerCrop()
-                )
+        )
                 .setText(R.id.textView, item.work.getTitle() + "\n" + item.work.getId() + "   p" + item.index);
     }
 }

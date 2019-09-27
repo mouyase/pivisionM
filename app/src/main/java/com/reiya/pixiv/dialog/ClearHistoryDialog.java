@@ -3,18 +3,21 @@ package com.reiya.pixiv.dialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
+
+import com.reiya.pixiv.db.RecordDAO;
 
 import tech.yojigen.pivisionm.R;
-import com.reiya.pixiv.db.RecordDAO;
 
 /**
  * Created by Administrator on 2015/12/17 0017.
  */
 public class ClearHistoryDialog extends DialogFragment {
     private Runnable runnable;
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

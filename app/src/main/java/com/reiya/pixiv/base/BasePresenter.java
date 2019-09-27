@@ -7,12 +7,12 @@ package com.reiya.pixiv.base;
 public class BasePresenter<T extends BaseView> {
     private T mView;
 
-    public void setView(T view) {
-        mView = view;
-    }
-
     protected T getView() {
         return mView;
+    }
+
+    public void setView(T view) {
+        mView = view;
     }
 
 //    abstract void subscribe();

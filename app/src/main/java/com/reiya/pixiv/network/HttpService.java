@@ -29,12 +29,12 @@ import rx.Observable;
 public interface HttpService {
     @FormUrlEncoded
     @POST("auth/token")
-    Observable<AuthResponse> getAuth(@Field("username")String userName,
-                                     @Field("password")String password,
-                                     @Field("grant_type")String gt,
+    Observable<AuthResponse> getAuth(@Field("username") String userName,
+                                     @Field("password") String password,
+                                     @Field("grant_type") String gt,
                                      @Field("client_id") String ci,
-                                     @Field("client_secret")String cs,
-                                     @Field("device_token")String dt);
+                                     @Field("client_secret") String cs,
+                                     @Field("device_token") String dt);
 
 //    @GET("v1/illust/ranking")
 //    Observable<IllustListResponse> getRanking(@Query("mode") String mode);
@@ -62,8 +62,8 @@ public interface HttpService {
 
     @GET("v1/user/bookmark-tags/illust")
     Observable<BookmarkTagsResponse> getBookmarkTags(@Header("Authorization") String authorization,
-                                                   @Query("user_id") int userId,
-                                                   @Query("restrict") String restrict);
+                                                     @Query("user_id") int userId,
+                                                     @Query("restrict") String restrict);
 
     @GET
     Observable<BookmarkTagsResponse> getBookmarkTagsNext(@Header("Authorization") String authorization, @Url String url);

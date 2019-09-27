@@ -1,14 +1,12 @@
-
 package com.reiya.pixiv.adapter;
 
 import android.content.Context;
 import android.content.Intent;
 import android.preference.PreferenceManager;
 
-import tech.yojigen.pivisionm.R;
 import com.reiya.pixiv.bean.Work;
-import com.reiya.pixiv.ranking.RankingActivity;
 import com.reiya.pixiv.image.ImageLoader;
+import com.reiya.pixiv.ranking.RankingActivity;
 import com.reiya.pixiv.util.TempData;
 import com.reiya.pixiv.util.WorkFilter;
 import com.reiya.pixiv.view.RatioImageView;
@@ -16,6 +14,8 @@ import com.reiya.pixiv.work.ViewActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import tech.yojigen.pivisionm.R;
 
 /**
  * Created by Administrator on 2015/11/21 0021.

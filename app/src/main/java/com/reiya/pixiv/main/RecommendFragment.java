@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 
 import com.google.android.material.snackbar.Snackbar;
-import tech.yojigen.pivisionm.R;
 import com.reiya.pixiv.adapter.ImageAdapter;
 import com.reiya.pixiv.bean.Work;
 import com.reiya.pixiv.network.HttpService;
@@ -19,6 +18,7 @@ import com.reiya.pixiv.view.LoaderRecyclerView;
 import com.reiya.pixiv.view.WorkGridLayoutManager;
 
 import rx.Subscriber;
+import tech.yojigen.pivisionm.R;
 
 /**
  * Created by lenovo on 2016/10/4.
@@ -41,7 +41,7 @@ public class RecommendFragment extends MainFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBlacklist =  PreferenceManager.getDefaultSharedPreferences(getActivity()).getString(getString(R.string.key_blacklist), "").split("\n");
+        mBlacklist = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString(getString(R.string.key_blacklist), "").split("\n");
     }
 
     @Nullable

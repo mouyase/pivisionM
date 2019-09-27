@@ -13,11 +13,13 @@ import java.util.List;
 interface SpotlightContract {
     interface View extends BaseView {
         void showList(List<Article> articles, String nextUrl);
+
         void showMore(List<Article> articles, String nextUrl);
     }
 
     abstract class Presenter extends BasePresenter<View> {
         abstract void loadList();
+
         abstract void loadMore(String nextUrl);
     }
 }

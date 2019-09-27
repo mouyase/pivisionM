@@ -3,14 +3,15 @@ package com.reiya.pixiv.view;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import tech.yojigen.pivisionm.R;
 
@@ -19,6 +20,7 @@ import tech.yojigen.pivisionm.R;
  */
 public class ClearEditText extends AutoCompleteWithNothingText implements OnTouchListener, TextWatcher {
     private Drawable mClearTextIcon;
+
     public ClearEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);

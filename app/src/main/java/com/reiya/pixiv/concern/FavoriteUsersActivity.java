@@ -1,18 +1,20 @@
 package com.reiya.pixiv.concern;
 
 import android.os.Bundle;
-import com.google.android.material.tabs.TabLayout;
+import android.view.MenuItem;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import android.view.MenuItem;
 
-import tech.yojigen.pivisionm.R;
+import com.google.android.material.tabs.TabLayout;
 import com.reiya.pixiv.base.BaseFragment;
 import com.reiya.pixiv.bean.Theme;
+
+import tech.yojigen.pivisionm.R;
 
 public class FavoriteUsersActivity extends AppCompatActivity {
     @Override
@@ -32,6 +34,12 @@ public class FavoriteUsersActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        finish();
+        return true;
     }
 
     class MyFragmentPagerAdapter extends FragmentPagerAdapter {
@@ -57,11 +65,5 @@ public class FavoriteUsersActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return titles[position];
         }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        finish();
-        return true;
     }
 }

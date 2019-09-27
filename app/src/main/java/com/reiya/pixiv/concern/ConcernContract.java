@@ -13,13 +13,17 @@ import java.util.List;
 public interface ConcernContract {
     interface View extends BaseView {
         void showList(List<UserPreview> users, String nextUrl);
+
         void failToRemove();
+
         void removed(int id);
     }
 
     abstract class Presenter extends BasePresenter<View> {
         abstract void loadList(int page, String type);
+
         abstract void loadMore(int page, String url);
+
         abstract void remove(int page, int id);
     }
 }

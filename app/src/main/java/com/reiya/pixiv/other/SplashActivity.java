@@ -5,10 +5,10 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import androidx.appcompat.app.AppCompatActivity;
 import android.widget.ImageView;
 
-import tech.yojigen.pivisionm.R;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.reiya.pixiv.base.BaseApplication;
 import com.reiya.pixiv.bean.User;
 import com.reiya.pixiv.image.ImageLoader;
@@ -16,6 +16,8 @@ import com.reiya.pixiv.main.MainActivity;
 import com.reiya.pixiv.profile.ProfileActivity;
 import com.reiya.pixiv.util.UserData;
 import com.reiya.pixiv.work.ViewActivity;
+
+import tech.yojigen.pivisionm.R;
 
 import static com.reiya.pixiv.base.BaseApplication.AUTH_EXPIRE_TIME;
 
@@ -30,7 +32,7 @@ public class SplashActivity extends AppCompatActivity {
 
         if (UserData.isLoggedIn()) {
             enter();
-        } else if (BaseApplication.getAuthTime() + AUTH_EXPIRE_TIME > System.currentTimeMillis()){
+        } else if (BaseApplication.getAuthTime() + AUTH_EXPIRE_TIME > System.currentTimeMillis()) {
             UserData.setBearer(BaseApplication.getToken());
             UserData.user = BaseApplication.getUser();
             UserData.setLoggedInState();

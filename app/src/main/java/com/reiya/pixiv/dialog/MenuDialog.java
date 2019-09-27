@@ -3,9 +3,10 @@ package com.reiya.pixiv.dialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
 
 /**
  * Created by Administrator on 2015/11/23 0023.
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AlertDialog;
 public class MenuDialog extends DialogFragment {
     private String[] items;
     private DialogInterface.OnClickListener listener;
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

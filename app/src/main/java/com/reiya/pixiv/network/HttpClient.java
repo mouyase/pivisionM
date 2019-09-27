@@ -159,6 +159,10 @@ public class HttpClient {
         return clone;
     }
 
+    public interface ProgressListener {
+        void update(long bytesRead, long contentLength, boolean done);
+    }
+
     private static class ProgressResponseBody extends ResponseBody {
 
         private final ResponseBody responseBody;
@@ -202,9 +206,5 @@ public class HttpClient {
                 }
             };
         }
-    }
-
-    public interface ProgressListener {
-        void update(long bytesRead, long contentLength, boolean done);
     }
 }

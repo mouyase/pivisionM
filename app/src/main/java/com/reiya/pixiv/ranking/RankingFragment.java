@@ -2,15 +2,15 @@ package com.reiya.pixiv.ranking;
 
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import androidx.annotation.Nullable;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import tech.yojigen.pivisionm.R;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.snackbar.Snackbar;
 import com.reiya.pixiv.adapter.ImageAdapter;
 import com.reiya.pixiv.base.BaseFragment;
 import com.reiya.pixiv.bean.Work;
@@ -20,18 +20,20 @@ import com.reiya.pixiv.view.WorkGridLayoutManager;
 
 import java.util.List;
 
+import tech.yojigen.pivisionm.R;
+
 /**
  * Created by Administrator on 2015/11/24 0024.
  */
 public class RankingFragment extends BaseFragment<RankingPresenter> implements RankingContract.View {
-    private int mPage;
     private static final String MODE = "mMode";
     private static final String DATE = "date";
+    private static final String[] TYPE = {Value.DAILY, Value.WEEKLY, Value.MONTHLY, Value.DAILY_R18, Value.WEEKLY_R18, Value.MALE_R18, Value.FEMALE_R18};
+    private int mPage;
     private ImageAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private int mMode = 0;
     private String mDate;
-    private static final String[] TYPE = {Value.DAILY, Value.WEEKLY, Value.MONTHLY, Value.DAILY_R18, Value.WEEKLY_R18, Value.MALE_R18, Value.FEMALE_R18};
     private String[] blacklist;
     private RankingPresenter mPresenter;
     private LoaderRecyclerView mRecyclerView;
@@ -52,7 +54,7 @@ public class RankingFragment extends BaseFragment<RankingPresenter> implements R
         mPage = getArguments().getInt(PAGE);
         mMode = getArguments().getInt(MODE);
         mDate = getArguments().getString(DATE);
-        blacklist =  PreferenceManager.getDefaultSharedPreferences(getActivity()).getString(getString(R.string.key_blacklist), "").split("\n");
+        blacklist = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString(getString(R.string.key_blacklist), "").split("\n");
         mPresenter = new RankingPresenter();
         mPresenter.setView(this);
     }

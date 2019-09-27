@@ -3,12 +3,13 @@ package com.reiya.pixiv.adapter;
 import android.content.Context;
 import android.content.Intent;
 
-import com.reiya.pixiv.profile.ProfileActivity;
-import tech.yojigen.pivisionm.R;
 import com.reiya.pixiv.bean.UserPreview;
 import com.reiya.pixiv.image.ImageLoader;
+import com.reiya.pixiv.profile.ProfileActivity;
 
 import java.util.List;
+
+import tech.yojigen.pivisionm.R;
 
 /**
  * Created by Administrator on 2015/12/16 0016.
@@ -32,7 +33,7 @@ public class UserAdapter extends BaseAdapter<UserPreview> {
         holder.loadImage(R.id.ivProfile,
                 ImageLoader.loadImage(mContext, item.getUser().getMediumImageUrl())
                         .centerCrop()
-                )
+        )
                 .setText(R.id.tvName, item.getUser().getName())
                 .setOnClickListener(item, position)
                 .setOnLongClickListener(item);

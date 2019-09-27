@@ -1,4 +1,3 @@
-
 package com.reiya.pixiv.bean;
 
 
@@ -9,17 +8,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class MetaPage implements Parcelable {
-
-    @SerializedName("image_urls")
-    @Expose
-     ImageUrls imageUrls;
-
-    public MetaPage() {
-    }
-
-    protected MetaPage(Parcel in) {
-        imageUrls = in.readParcelable(ImageUrls.class.getClassLoader());
-    }
 
     public static final Creator<MetaPage> CREATOR = new Creator<MetaPage>() {
         @Override
@@ -32,20 +20,26 @@ public class MetaPage implements Parcelable {
             return new MetaPage[size];
         }
     };
+    @SerializedName("image_urls")
+    @Expose
+    ImageUrls imageUrls;
+
+    public MetaPage() {
+    }
+
+    protected MetaPage(Parcel in) {
+        imageUrls = in.readParcelable(ImageUrls.class.getClassLoader());
+    }
 
     /**
-     * 
-     * @return
-     *     The imageUrls
+     * @return The imageUrls
      */
     public ImageUrls getImageUrls() {
         return imageUrls;
     }
 
     /**
-     * 
-     * @param imageUrls
-     *     The image_urls
+     * @param imageUrls The image_urls
      */
     public void setImageUrls(ImageUrls imageUrls) {
         this.imageUrls = imageUrls;

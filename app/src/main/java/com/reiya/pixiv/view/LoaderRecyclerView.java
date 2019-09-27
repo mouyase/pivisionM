@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 public class LoaderRecyclerView extends RecyclerView {
     private OnLoadMoreListener mOnLoadMoreListener;
     private boolean mIsLoading = false;
+
     public LoaderRecyclerView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         addOnScrollListener(new OnScrollListener() {
@@ -32,7 +33,7 @@ public class LoaderRecyclerView extends RecyclerView {
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-               super.onScrolled(recyclerView, dx, dy);
+                super.onScrolled(recyclerView, dx, dy);
                 LayoutManager layoutManager = getLayoutManager();
                 if (layoutManager instanceof LinearLayoutManager) {
                     lastVisibleItem = ((LinearLayoutManager) getLayoutManager()).findLastVisibleItemPosition() + 1;
@@ -43,15 +44,15 @@ public class LoaderRecyclerView extends RecyclerView {
         });
     }
 
-    public interface OnLoadMoreListener {
-        void load();
-    }
-
     public void setOnLoadMoreListener(OnLoadMoreListener onLoadMoreListener) {
         mOnLoadMoreListener = onLoadMoreListener;
     }
 
     public void finishLoading() {
         mIsLoading = false;
+    }
+
+    public interface OnLoadMoreListener {
+        void load();
     }
 }

@@ -4,13 +4,15 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
 
 import com.reiya.pixiv.download.DownloadActivity;
-import tech.yojigen.pivisionm.R;
 import com.reiya.pixiv.service.DownloadService;
+
+import tech.yojigen.pivisionm.R;
 
 /**
  * Created by lenovo on 2016/2/23.

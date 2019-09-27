@@ -18,6 +18,7 @@ public class CollapsingTextView extends LinearLayout {
     private TextView mTextView;
     private TextView mTextView2;
     private boolean mCollapsed = true;
+
     public CollapsingTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.view_collapsing_text_view, this);

@@ -17,6 +17,6 @@ public class PixivTrustManager implements X509TrustManager {
     }
 
     public X509Certificate[] getAcceptedIssuers() {
-        return new X509Certificate[0];
+        return new X509Certificate[]{};
     }
 }

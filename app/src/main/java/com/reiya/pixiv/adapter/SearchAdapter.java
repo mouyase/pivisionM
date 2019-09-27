@@ -10,7 +10,6 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
-import tech.yojigen.pivisionm.R;
 import com.reiya.pixiv.base.BaseApplication;
 import com.reiya.pixiv.profile.ProfileActivity;
 import com.reiya.pixiv.work.ViewActivity;
@@ -18,15 +17,17 @@ import com.reiya.pixiv.work.ViewActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+import tech.yojigen.pivisionm.R;
+
 /**
  * Created by Administrator on 2015/12/20 0020.
  */
 public class SearchAdapter extends BaseAdapter implements Filterable {
     private final ArrayFilter filter = new ArrayFilter();
-    private List<String> strings;
-    private List<Item> items;
     private final Context context;
     private final Activity activity;
+    private List<String> strings;
+    private List<Item> items;
     private OnTextSelected onTextSelected;
     private boolean close = false;
 
@@ -55,13 +56,13 @@ public class SearchAdapter extends BaseAdapter implements Filterable {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view;
         ViewHolder holder;
-        if(convertView == null){
+        if (convertView == null) {
             view = View.inflate(context, R.layout.item_search, null);
             holder = new ViewHolder();
             holder.tv1 = (TextView) view.findViewById(R.id.textView1);
             holder.tv2 = (TextView) view.findViewById(R.id.textView2);
             view.setTag(holder);
-        }else{
+        } else {
             view = convertView;
             holder = (ViewHolder) view.getTag();
         }
@@ -121,6 +122,39 @@ public class SearchAdapter extends BaseAdapter implements Filterable {
     @Override
     public Filter getFilter() {
         return filter;
+    }
+
+    public void setStrings(List<String> list) {
+        this.strings = list;
+        notifyDataSetChanged();
+    }
+
+    public void setOnTextSelected(OnTextSelected onTextSelected) {
+        this.onTextSelected = onTextSelected;
+    }
+
+    public void open() {
+        close = false;
+        notifyDataSetChanged();
+    }
+
+    public void close() {
+        close = true;
+        notifyDataSetChanged();
+    }
+
+    public interface OnTextSelected {
+        void onTextSelected(String s);
+    }
+
+    static class Item {
+        String text;
+        int type;
+    }
+
+    static class ViewHolder {
+        public TextView tv1;
+        public TextView tv2;
     }
 
     private class ArrayFilter extends Filter {
@@ -188,38 +222,5 @@ public class SearchAdapter extends BaseAdapter implements Filterable {
                 notifyDataSetInvalidated();
             }
         }
-    }
-
-    public void setStrings(List<String> list) {
-        this.strings = list;
-        notifyDataSetChanged();
-    }
-
-    static class Item {
-        String text;
-        int type;
-    }
-
-    static class ViewHolder{
-        public TextView tv1;
-        public TextView tv2;
-    }
-
-    public interface OnTextSelected {
-        void onTextSelected(String s);
-    }
-
-    public void setOnTextSelected(OnTextSelected onTextSelected) {
-        this.onTextSelected = onTextSelected;
-    }
-
-    public void open() {
-        close = false;
-        notifyDataSetChanged();
-    }
-
-    public void close() {
-        close = true;
-        notifyDataSetChanged();
     }
 }

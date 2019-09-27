@@ -2,11 +2,12 @@ package com.reiya.pixiv.adapter;
 
 import android.content.Context;
 
-import tech.yojigen.pivisionm.R;
 import com.reiya.pixiv.bean.Comment;
 import com.reiya.pixiv.image.ImageLoader;
 
 import java.util.List;
+
+import tech.yojigen.pivisionm.R;
 
 /**
  * Created by lenovo on 2016/2/17.

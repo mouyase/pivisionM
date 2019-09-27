@@ -1,12 +1,12 @@
 package com.reiya.pixiv.spotlight;
 
 import android.os.Bundle;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 
-import tech.yojigen.pivisionm.R;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.reiya.pixiv.adapter.ArticleAdapter;
 import com.reiya.pixiv.base.BaseActivity;
 import com.reiya.pixiv.bean.Article;
@@ -16,6 +16,8 @@ import com.reiya.pixiv.view.LoaderRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import tech.yojigen.pivisionm.R;
 
 public class SpotlightActivity extends BaseActivity<SpotlightPresenter> implements SpotlightContract.View {
     private ArticleAdapter adapter;

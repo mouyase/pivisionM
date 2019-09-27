@@ -14,6 +14,14 @@ public class BookmarkTag {
     @SerializedName("is_registered")
     private boolean mIsRegistered;
 
+    public BookmarkTag() {
+    }
+
+    public BookmarkTag(String name) {
+        mName = name;
+        mIsRegistered = true;
+    }
+
     public String getName() {
         return mName;
     }
@@ -22,19 +30,11 @@ public class BookmarkTag {
         return mCount;
     }
 
-    public void setRegistered(boolean registered) {
-        mIsRegistered = registered;
-    }
-
     public boolean isRegistered() {
         return mIsRegistered;
     }
 
-    public BookmarkTag() {
-    }
-
-    public BookmarkTag(String name) {
-        mName = name;
-        mIsRegistered = true;
+    public void setRegistered(boolean registered) {
+        mIsRegistered = registered;
     }
 }

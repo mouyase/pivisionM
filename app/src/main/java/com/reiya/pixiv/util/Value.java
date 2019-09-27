@@ -13,7 +13,7 @@ public class Value {
     public static final String FEMALE_R18 = "day_female_r18";
     public static final String PUBLIC = "public";
     public static final String PRIVATE = "private";
-//    public static final String DEFAULT_TOKEN = "8mMXXWT9iuwdJvsVIvQsFYDwuZpRCMePeyagSh30ZdU";
+    //    public static final String DEFAULT_TOKEN = "8mMXXWT9iuwdJvsVIvQsFYDwuZpRCMePeyagSh30ZdU";
     public static final String DEFAULT_TOKEN = "";
 
     public static final String URL_PIXIV = "https://app-api.pixiv.net/";

@@ -13,15 +13,17 @@ import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import tech.yojigen.pivisionm.R;
 import com.reiya.pixiv.adapter.ColorAdapter;
 import com.reiya.pixiv.bean.Theme;
+
+import tech.yojigen.pivisionm.R;
 
 /**
  * Created by lenovo on 2016/1/27.
  */
 public class ColorSelectDialog extends DialogFragment {
     private ColorAdapter.OnColorSelected onColorSelected;
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

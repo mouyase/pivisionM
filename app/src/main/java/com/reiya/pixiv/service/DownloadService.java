@@ -7,7 +7,6 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.util.Log;
 
-import tech.yojigen.pivisionm.R;
 import com.reiya.pixiv.bean.Task;
 import com.reiya.pixiv.bean.Work;
 import com.reiya.pixiv.download.DownloadActivity;
@@ -25,6 +24,7 @@ import java.util.Map;
 
 import rx.Observable;
 import rx.Subscriber;
+import tech.yojigen.pivisionm.R;
 
 /**
  * Created by lenovo on 2016/2/23.
@@ -39,8 +39,8 @@ public class DownloadService extends IntentService {
     private static final int PARALLEL_NUM = 4;
     private static int sId = 0;
     private static boolean sIsExecuting = false;
-    private final List<Task> mTasksToDo = new ArrayList<>();
     private static List<Task> sTasksDoing = new ArrayList<>();
+    private final List<Task> mTasksToDo = new ArrayList<>();
     private int mNumWorks = 0;
     private int mNumPictures = 0;
     private long mSize = 0;
@@ -52,6 +52,10 @@ public class DownloadService extends IntentService {
 
     public DownloadService() {
         super("Download");
+    }
+
+    public static List<Task> getTasksDoing() {
+        return sTasksDoing;
     }
 
     @Override
@@ -110,10 +114,10 @@ public class DownloadService extends IntentService {
 
     private void getList() {
         mObservableWrapper.getList()
-                .subscribe(new Subscriber<HttpService.IllustListResponse>(){
+                .subscribe(new Subscriber<HttpService.IllustListResponse>() {
                     @Override
                     public void onCompleted() {
-                        
+
                     }
 
                     @Override
@@ -172,38 +176,6 @@ public class DownloadService extends IntentService {
 //            }
 //        });
     }
-    
-    private void getNextList() {
-        if (mNextUrl == null) {
-            sendNotification(0, mTasksToDo.size());
-            int n = mTasksToDo.size() < PARALLEL_NUM ? mTasksToDo.size() : PARALLEL_NUM;
-            for (int i = 0; i < n; i++) {
-                download();
-            }
-        } else {
-            mObservableWrapper.getNextList(mNextUrl)
-                    .subscribe(new Subscriber<HttpService.IllustListResponse>() {
-                        @Override
-                        public void onCompleted() {
-
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-                            err();
-                            e.printStackTrace();
-                        }
-
-                        @Override
-                        public void onNext(HttpService.IllustListResponse illustListResponse) {
-                            mNextUrl = illustListResponse.getNextUrl();
-                            List<Work> works = illustListResponse.getWorks();
-                            addWorksToTasks(works);
-                            getNextList();
-                        }
-                    });
-        }
-    }
 
 //    private void subscribe(Observable<HttpService.IllustListResponse> observable) {
 //        observable.subscribeOn(Schedulers.io())
@@ -240,6 +212,38 @@ public class DownloadService extends IntentService {
 //                    }
 //                });
 //    }
+
+    private void getNextList() {
+        if (mNextUrl == null) {
+            sendNotification(0, mTasksToDo.size());
+            int n = mTasksToDo.size() < PARALLEL_NUM ? mTasksToDo.size() : PARALLEL_NUM;
+            for (int i = 0; i < n; i++) {
+                download();
+            }
+        } else {
+            mObservableWrapper.getNextList(mNextUrl)
+                    .subscribe(new Subscriber<HttpService.IllustListResponse>() {
+                        @Override
+                        public void onCompleted() {
+
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            err();
+                            e.printStackTrace();
+                        }
+
+                        @Override
+                        public void onNext(HttpService.IllustListResponse illustListResponse) {
+                            mNextUrl = illustListResponse.getNextUrl();
+                            List<Work> works = illustListResponse.getWorks();
+                            addWorksToTasks(works);
+                            getNextList();
+                        }
+                    });
+        }
+    }
 
     private void addWorksToTasks(List<Work> works) {
         for (Work work : works) {
@@ -413,12 +417,9 @@ public class DownloadService extends IntentService {
         sIsExecuting = false;
     }
 
-    public static List<Task> getTasksDoing() {
-        return sTasksDoing;
-    }
-
     private interface ObservableWrapper {
         Observable getList();
+
         Observable getNextList(String nextUrl);
     }
 }

@@ -1,4 +1,3 @@
-
 package com.reiya.pixiv.bean;
 
 import android.os.Parcel;
@@ -8,17 +7,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Tag implements Parcelable {
-
-    @SerializedName("name")
-    @Expose
-     String name;
-
-    public Tag() {
-    }
-
-    protected Tag(Parcel in) {
-        name = in.readString();
-    }
 
     public static final Creator<Tag> CREATOR = new Creator<Tag>() {
         @Override
@@ -31,20 +19,26 @@ public class Tag implements Parcelable {
             return new Tag[size];
         }
     };
+    @SerializedName("name")
+    @Expose
+    String name;
+
+    public Tag() {
+    }
+
+    protected Tag(Parcel in) {
+        name = in.readString();
+    }
 
     /**
-     * 
-     * @return
-     *     The name
+     * @return The name
      */
     public String getName() {
         return name;
     }
 
     /**
-     * 
-     * @param name
-     *     The name
+     * @param name The name
      */
     public void setName(String name) {
         this.name = name;

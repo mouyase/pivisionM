@@ -9,8 +9,6 @@ import okhttp3.Dns;
 
 public class PixivDNS implements Dns {
 
-    private static PixivDNS sHttpDns = null;
-    private static List<InetAddress> newDns = new ArrayList<>();
     private static final String[] addresses = {
             "210.140.131.203",
             "210.140.131.204",
@@ -49,6 +47,8 @@ public class PixivDNS implements Dns {
             "210.140.131.183",
             "210.140.131.184"
     };
+    private static PixivDNS sHttpDns = null;
+    private static List<InetAddress> newDns = new ArrayList<>();
 
     private PixivDNS() {
         for (String address : addresses) {

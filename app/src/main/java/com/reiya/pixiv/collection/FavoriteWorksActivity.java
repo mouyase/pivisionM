@@ -12,15 +12,17 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
-import tech.yojigen.pivisionm.R;
 import com.reiya.pixiv.base.BaseFragment;
 import com.reiya.pixiv.bean.Theme;
 import com.reiya.pixiv.dialog.BookmarkTagFilterDialog;
 import com.reiya.pixiv.dialog.DownloadAllDialog;
 
+import tech.yojigen.pivisionm.R;
+
 public class FavoriteWorksActivity extends AppCompatActivity {
     private String mType;
     private FavoriteWorksFragment mFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +47,35 @@ public class FavoriteWorksActivity extends AppCompatActivity {
         mFragment = fragment;
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+//        menu.add(0, 0, 0, R.string.concern).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        menu.add(0, 0, 0, R.string.tag).setIcon(R.drawable.ic_label_white_24dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        menu.add(1, 1, 1, R.string.save_all_works).setIcon(R.drawable.ic_file_download_white_24px).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case 0:
+                BookmarkTagFilterDialog bookmarkTagFilterDialog = new BookmarkTagFilterDialog();
+                bookmarkTagFilterDialog.setType(mType);
+                bookmarkTagFilterDialog.setOnBookmarkTagSelectedCallback(mFragment);
+                bookmarkTagFilterDialog.show(getSupportFragmentManager(), BookmarkTagFilterDialog.class.getName());
+                break;
+            case 1:
+                DownloadAllDialog downloadAllDialog = new DownloadAllDialog();
+                downloadAllDialog.setType(DownloadAllDialog.TYPE_BOOKMARK);
+                downloadAllDialog.show(getSupportFragmentManager(), DownloadAllDialog.class.getName());
+                break;
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return true;
+    }
+
     class MyFragmentPagerAdapter extends FragmentPagerAdapter {
         private final String[] titles = new String[]{getString(R.string.pub), getString(R.string.pri)};
 
@@ -67,33 +98,5 @@ public class FavoriteWorksActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return titles[position];
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-//        menu.add(0, 0, 0, R.string.concern).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        menu.add(0, 0, 0, R.string.tag).setIcon(R.drawable.ic_label_white_24dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        menu.add(1, 1, 1, R.string.save_all_works).setIcon(R.drawable.ic_file_download_white_24px).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        return true;
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case 0:
-                BookmarkTagFilterDialog bookmarkTagFilterDialog = new BookmarkTagFilterDialog();
-                bookmarkTagFilterDialog.setType(mType);
-                bookmarkTagFilterDialog.setOnBookmarkTagSelectedCallback(mFragment);
-                bookmarkTagFilterDialog.show(getSupportFragmentManager(), BookmarkTagFilterDialog.class.getName());
-                break;
-            case 1:
-                DownloadAllDialog downloadAllDialog = new DownloadAllDialog();
-                downloadAllDialog.setType(DownloadAllDialog.TYPE_BOOKMARK);
-                downloadAllDialog.show(getSupportFragmentManager(), DownloadAllDialog.class.getName());
-                break;
-            case android.R.id.home:
-                finish();
-                break;
-        }
-        return true;
     }
 }

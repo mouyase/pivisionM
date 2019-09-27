@@ -1,11 +1,13 @@
 package com.reiya.pixiv.zoom;
 
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.widget.ImageView;
 
-import tech.yojigen.pivisionm.R;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.reiya.pixiv.image.ImageLoader;
+
+import tech.yojigen.pivisionm.R;
 
 public class ZoomActivity extends AppCompatActivity {
 

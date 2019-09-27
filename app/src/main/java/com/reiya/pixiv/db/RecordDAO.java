@@ -47,7 +47,7 @@ public class RecordDAO {
         Cursor cursor = db.rawQuery("SELECT * FROM record WHERE id = " + id, null);
         String s = "";
         if (cursor.moveToNext()) {
-            s =  cursor.getString(1);
+            s = cursor.getString(1);
         }
         cursor.close();
         return s;

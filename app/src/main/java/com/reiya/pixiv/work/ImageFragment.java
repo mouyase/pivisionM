@@ -8,10 +8,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.text.Html;
 import android.util.Log;
 import android.view.Display;
@@ -29,7 +25,11 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import tech.yojigen.pivisionm.R;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.reiya.pixiv.adapter.CommentAdapter;
 import com.reiya.pixiv.adapter.ImageAdapter;
 import com.reiya.pixiv.base.BaseFragment;
@@ -41,11 +41,11 @@ import com.reiya.pixiv.dialog.BookmarkAddDialog;
 import com.reiya.pixiv.dialog.MenuDialog;
 import com.reiya.pixiv.gif.GifActivity;
 import com.reiya.pixiv.grid.GridActivity;
+import com.reiya.pixiv.image.ImageLoader;
 import com.reiya.pixiv.network.HttpService;
 import com.reiya.pixiv.network.NetworkRequest;
 import com.reiya.pixiv.profile.ProfileActivity;
 import com.reiya.pixiv.search.SearchActivity;
-import com.reiya.pixiv.image.ImageLoader;
 import com.reiya.pixiv.util.ItemOperation;
 import com.reiya.pixiv.util.UserOperation;
 import com.reiya.pixiv.util.Value;
@@ -57,17 +57,18 @@ import java.util.List;
 
 import me.gujun.android.taggroup.TagGroup;
 import rx.Subscriber;
+import tech.yojigen.pivisionm.R;
 
 /**
  * Created by Administrator on 2015/12/2 0002.
  */
 public class ImageFragment extends BaseFragment<WorkPresenter> implements WorkContract.View, BookmarkAddDialog.OnBookmarkChangedCallback {
     private static final String PAGE = "mPage";
-//    private static final String ID = "id";
+    //    private static final String ID = "id";
     private static final String WORK = "work";
-//    private static int mIndex = 0;
+    //    private static int mIndex = 0;
     private int mPage;
-//    private int id;
+    //    private int id;
     private Work mWork;
     private boolean isCurrent = false;
     private WorkPresenter mPresenter;
@@ -342,7 +343,6 @@ public class ImageFragment extends BaseFragment<WorkPresenter> implements WorkCo
 //        }
 
 
-
         return view;
     }
 
@@ -443,7 +443,7 @@ public class ImageFragment extends BaseFragment<WorkPresenter> implements WorkCo
                                 Toast.makeText(getActivity(), getString(R.string.clip_info_id), Toast.LENGTH_SHORT).show();
                                 break;
                             case 1:
-                                String text = mWork.getTitle() + " / " + mWork.getUser().getName() +  " #pixiv " + Value.URL_ILLUST_PAGE + mWork.getId();
+                                String text = mWork.getTitle() + " / " + mWork.getUser().getName() + " #pixiv " + Value.URL_ILLUST_PAGE + mWork.getId();
                                 Intent sendIntent = new Intent();
                                 sendIntent.setAction(Intent.ACTION_SEND);
                                 sendIntent.putExtra(Intent.EXTRA_TEXT, text);

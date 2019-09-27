@@ -55,7 +55,7 @@ public class IO {
     }
 
     public static double getImageCacheSizeMB() {
-        return (double) (getFolderSize(new File(imageCachePath))  + getFolderSize(new File(gifCachePath))) / (1024 * 1024);
+        return (double) (getFolderSize(new File(imageCachePath)) + getFolderSize(new File(gifCachePath))) / (1024 * 1024);
     }
 
     public static void save(File oldFile, File newFile) {
@@ -65,13 +65,12 @@ public class IO {
                 InputStream is = new FileInputStream(oldFile); //读入原文件
                 FileOutputStream fos = new FileOutputStream(newFile);
                 byte[] buffer = new byte[2048];
-                while ( (read = is.read(buffer)) != -1) {
+                while ((read = is.read(buffer)) != -1) {
                     fos.write(buffer, 0, read);
                 }
                 is.close();
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -83,13 +82,12 @@ public class IO {
                 InputStream is = new FileInputStream(file); //读入原文件
                 FileOutputStream fos = new FileOutputStream(Environment.getExternalStorageDirectory() + "/tem.jpg");
                 byte[] buffer = new byte[2048];
-                while ( (read = is.read(buffer)) != -1) {
+                while ((read = is.read(buffer)) != -1) {
                     fos.write(buffer, 0, read);
                 }
                 is.close();
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return new File(Environment.getExternalStorageDirectory() + "/tem.jpg");

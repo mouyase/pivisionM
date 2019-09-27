@@ -3,13 +3,13 @@ package com.reiya.pixiv.adapter;
 import android.content.Context;
 import android.os.Environment;
 
-import tech.yojigen.pivisionm.R;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+
+import tech.yojigen.pivisionm.R;
 
 /**
  * Created by Administrator on 2015/12/31 0031.
@@ -22,31 +22,6 @@ public class PathAdapter extends BaseAdapter<File> {
     public PathAdapter(Context context, File path, List<File> files) {
         super(context, R.layout.item_file, files);
         mPath = path;
-    }
-
-    @Override
-    public void bindData(ViewHolder holder, File item, int position) {
-        holder.setText(R.id.textView, item.getName())
-                .setOnClickListener(item, position);
-    }
-
-    public interface OnSelectListener {
-        void onSelect(File file);
-    }
-
-    public void setListener(final OnSelectListener listener) {
-        setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onClick(Object item, List list, int position) {
-                File file = (File) item;
-                if (listener != null) {
-                    listener.onSelect(file);
-                }
-                mPath = file;
-                setItems(getFolders(file));
-            }
-        });
-        mOnSelectListener = listener;
     }
 
     public static List<File> getFolders(File path) {
@@ -69,6 +44,27 @@ public class PathAdapter extends BaseAdapter<File> {
         return folders;
     }
 
+    @Override
+    public void bindData(ViewHolder holder, File item, int position) {
+        holder.setText(R.id.textView, item.getName())
+                .setOnClickListener(item, position);
+    }
+
+    public void setListener(final OnSelectListener listener) {
+        setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onClick(Object item, List list, int position) {
+                File file = (File) item;
+                if (listener != null) {
+                    listener.onSelect(file);
+                }
+                mPath = file;
+                setItems(getFolders(file));
+            }
+        });
+        mOnSelectListener = listener;
+    }
+
     public void up() {
         if (mPath.getParent() == null) {
             return;
@@ -78,5 +74,9 @@ public class PathAdapter extends BaseAdapter<File> {
         if (mOnSelectListener != null) {
             mOnSelectListener.onSelect(mPath);
         }
+    }
+
+    public interface OnSelectListener {
+        void onSelect(File file);
     }
 }

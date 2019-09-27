@@ -3,13 +3,14 @@ package com.reiya.pixiv.adapter;
 import android.content.Context;
 import android.content.Intent;
 
-import com.reiya.pixiv.group.GroupViewActivity;
-import tech.yojigen.pivisionm.R;
 import com.reiya.pixiv.bean.Work;
+import com.reiya.pixiv.group.GroupViewActivity;
 import com.reiya.pixiv.image.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import tech.yojigen.pivisionm.R;
 
 /**
  * Created by lenovo on 2016/2/18.
@@ -46,7 +47,7 @@ public class GridAdapter extends BaseAdapter<String> {
         holder.loadImage(R.id.imageView,
                 ImageLoader.loadImage(mContext, item)
                         .centerCrop()
-                )
+        )
                 .setOnClickListener(item, position);
     }
 }

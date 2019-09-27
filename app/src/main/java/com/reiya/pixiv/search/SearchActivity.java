@@ -35,12 +35,12 @@ import rx.Subscriber;
 import tech.yojigen.pivisionm.R;
 
 public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
+    public static final int RESULT_KEYWORD = 111;
     private String mKeyword;
     private TextView mTextView;
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
     private RecyclerView mRecyclerView;
-    public static final int RESULT_KEYWORD = 111;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -264,6 +264,16 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 //        mTextView.requestFocus();
 //    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return true;
+    }
+
     class MyFragmentPagerAdapter extends FragmentPagerAdapter {
         public final int COUNT = 4;
         private final String[] titles = new String[]{"★10000", "★5000", "★1000", "全部"};
@@ -290,15 +300,5 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         public CharSequence getPageTitle(int position) {
             return titles[position];
         }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                break;
-        }
-        return true;
     }
 }

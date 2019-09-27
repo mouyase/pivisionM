@@ -15,7 +15,6 @@ import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import tech.yojigen.pivisionm.R;
 import com.reiya.pixiv.adapter.BookmarkTagAddAdapter;
 import com.reiya.pixiv.bean.BookmarkTag;
 import com.reiya.pixiv.network.HttpService;
@@ -27,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rx.Subscriber;
+import tech.yojigen.pivisionm.R;
 
 /**
  * Created by zhengyirui on 2017/9/7.

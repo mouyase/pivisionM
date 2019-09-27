@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
 import tech.yojigen.pivisionm.R;
 
 /**
@@ -71,99 +72,77 @@ public class Profile {
     }
 
     /**
-     *
-     * @return
-     * The webpage
+     * @return The webpage
      */
     public String getWebpage() {
         return webpage;
     }
 
     /**
-     *
-     * @return
-     * The gender
+     * @return The gender
      */
     public String getGender() {
         return gender;
     }
 
     /**
-     *
-     * @return
-     * The birth
+     * @return The birth
      */
     public String getBirth() {
         return birth;
     }
 
     /**
-     *
-     * @return
-     * The region
+     * @return The region
      */
     public String getRegion() {
         return region;
     }
 
     /**
-     *
-     * @return
-     * The job
+     * @return The job
      */
     public String getJob() {
         return job;
     }
 
     /**
-     *
-     * @return
-     * The totalFollowUsers
+     * @return The totalFollowUsers
      */
     public int getTotalFollowUsers() {
         return totalFollowUsers;
     }
 
     /**
-     *
-     * @return
-     * The totalFollower
+     * @return The totalFollower
      */
     public int getTotalFollower() {
         return totalFollower;
     }
 
     /**
-     *
-     * @return
-     * The totalMypixivUsers
+     * @return The totalMypixivUsers
      */
     public int getTotalMypixivUsers() {
         return totalMypixivUsers;
     }
 
     /**
-     *
-     * @return
-     * The totalIllusts
+     * @return The totalIllusts
      */
     public int getTotalIllusts() {
         return totalIllusts;
     }
 
     /**
-     *
-     * @return
-     * The totalManga
+     * @return The totalManga
      */
     public int getTotalManga() {
         return totalManga;
     }
 
     /**
-     *
-     * @return
-     * The totalNovels
+     * @return The totalNovels
      */
     public int getTotalNovels() {
         return totalNovels;

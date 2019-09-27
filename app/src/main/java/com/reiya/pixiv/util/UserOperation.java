@@ -3,15 +3,16 @@ package com.reiya.pixiv.util;
 import android.app.Activity;
 import android.content.Context;
 import android.preference.PreferenceManager;
-import androidx.fragment.app.FragmentActivity;
 import android.widget.Toast;
 
-import tech.yojigen.pivisionm.R;
+import androidx.fragment.app.FragmentActivity;
+
 import com.reiya.pixiv.dialog.FavoriteUserDialog;
 import com.reiya.pixiv.network.HttpService;
 import com.reiya.pixiv.network.NetworkRequest;
 
 import rx.Subscriber;
+import tech.yojigen.pivisionm.R;
 
 /**
  * Created by lenovo on 2016/10/1.

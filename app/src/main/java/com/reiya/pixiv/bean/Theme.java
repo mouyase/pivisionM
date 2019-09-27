@@ -10,6 +10,7 @@ import tech.yojigen.pivisionm.R;
  */
 public class Theme {
     private static int theme;
+
     private static int getTheme(String color) {
         switch (color) {
             case "red":

@@ -43,119 +43,6 @@ public class BaseApplication extends Application {
         return sInstance;
     }
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        sInstance = this;
-
-        HttpClient.init(this);
-
-        new RecordDAO(this).removeRecords(System.currentTimeMillis() - 1000 * 60 * 60 * 24 * 7);
-
-        if (IO.getImageCacheSizeMB() > Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.key_cache_limit), "100"))) {
-            AsyncTask.execute(() -> Glide.get(getApplicationContext()).clearDiskCache());
-        }
-
-        Theme.init(this);
-    }
-
-    public void tryLogin(Activity activity, boolean force, final OnLoginDone onLoginDone) {
-        if (UserData.isLoggedIn()) {
-            return;
-        }
-        if (!PreferenceManager.getDefaultSharedPreferences(this).getBoolean(getString(R.string.key_auto_login), false) && !force) {
-            return;
-        }
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String account = sharedPreferences.getString(getString(R.string.key_account), "");
-        String password = sharedPreferences.getString(getString(R.string.key_password), "");
-        if (account.equals("") || password.equals("") && force) {
-            LoginDialog loginDialog = new LoginDialog();
-            loginDialog.setListener((account1, password1) -> login(account1, password1, true, onLoginDone));
-            loginDialog.show(((FragmentActivity) activity).getSupportFragmentManager(), "Login");
-        } else {
-            login(account, password, false, onLoginDone);
-        }
-    }
-
-    public void login(final String account, final String password, final boolean save, final OnLoginDone onLoginDone) {
-        login(account, password, save, onLoginDone, null);
-    }
-
-    public void login(final String account, final String password, final boolean save, final OnLoginDone onLoginDone, final OnLoginFailed onLoginFailed) {
-//        if (BaseApplication.getAuthTime() + AUTH_EXPIRE_TIME > System.currentTimeMillis()) {
-//            UserData.setBearer(BaseApplication.getToken());
-////            Log.e("token", UserData.token);
-//            User user = BaseApplication.getUser();
-//            UserData.user = user;
-//            UserData.setLoggedInState();
-//            onLoginDone.onLoginDone(user);
-//        } else {
-//            Toast.makeText(this, R.string.logining, Toast.LENGTH_SHORT).show();
-
-            Toast.makeText(this, R.string.processing_login, Toast.LENGTH_SHORT).show();
-            NetworkRequest.getAuth(account, password)
-                    .subscribe(new Subscriber<HttpService.AuthResponse>() {
-                        @Override
-                        public void onCompleted() {
-
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-                            e.printStackTrace();
-                            if (e instanceof IOException) {
-                                Toast.makeText(getApplicationContext(), "网络错误，可能需要科学上网环境", Toast.LENGTH_LONG).show();
-                            } else {
-                                Toast.makeText(getApplicationContext(), R.string.fail_to_login_network_err, Toast.LENGTH_LONG).show();
-                            }
-                            if (onLoginFailed != null) {
-                                onLoginFailed.onLoginFailed();
-                            }
-                        }
-
-                        @Override
-                        public void onNext(HttpService.AuthResponse authResponse) {
-                            String token = authResponse.getToken();
-                            if (token == null || token.equals("")) {
-                                Toast.makeText(getApplicationContext(), R.string.fail_to_login_account_err, Toast.LENGTH_SHORT).show();
-                                if (onLoginFailed != null) {
-                                    onLoginFailed.onLoginFailed();
-                                }
-                            } else {
-                                User user = authResponse.getUser();
-                                BaseApplication.writeToken(token);
-                                BaseApplication.writeUser(user);
-                                UserData.setBearer(token);
-//                                Log.e("token", token);
-                                UserData.user = user;
-                                UserData.setLoggedInState();
-                                Toast.makeText(getApplicationContext(), R.string.login_successfully, Toast.LENGTH_SHORT).show();
-                                if (onLoginDone != null) {
-                                    onLoginDone.onLoginDone(user);
-                                }
-                                if (save) {
-                                    SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
-                                    editor.putString(getString(R.string.key_account), account);
-                                    editor.putString(getString(R.string.key_password), password);
-                                    editor.putBoolean(getString(R.string.key_auto_login), true);
-                                    editor.apply();
-                                }
-                            }
-
-                        }
-                    });
-//        }
-    }
-
-    public interface OnLoginDone {
-        void onLoginDone(User user);
-    }
-
-    public interface OnLoginFailed {
-        void onLoginFailed();
-    }
-
     public static long getTime(String name) {
         return sInstance.getSharedPreferences(name, MODE_PRIVATE).getLong("time", 0);
     }
@@ -258,5 +145,118 @@ public class BaseApplication extends Application {
 
     public static int getSystemVersionCode() {
         return Build.VERSION.SDK_INT;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        sInstance = this;
+
+        HttpClient.init(this);
+
+        new RecordDAO(this).removeRecords(System.currentTimeMillis() - 1000 * 60 * 60 * 24 * 7);
+
+        if (IO.getImageCacheSizeMB() > Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.key_cache_limit), "100"))) {
+            AsyncTask.execute(() -> Glide.get(getApplicationContext()).clearDiskCache());
+        }
+
+        Theme.init(this);
+    }
+
+    public void tryLogin(Activity activity, boolean force, final OnLoginDone onLoginDone) {
+        if (UserData.isLoggedIn()) {
+            return;
+        }
+        if (!PreferenceManager.getDefaultSharedPreferences(this).getBoolean(getString(R.string.key_auto_login), false) && !force) {
+            return;
+        }
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String account = sharedPreferences.getString(getString(R.string.key_account), "");
+        String password = sharedPreferences.getString(getString(R.string.key_password), "");
+        if (account.equals("") || password.equals("") && force) {
+            LoginDialog loginDialog = new LoginDialog();
+            loginDialog.setListener((account1, password1) -> login(account1, password1, true, onLoginDone));
+            loginDialog.show(((FragmentActivity) activity).getSupportFragmentManager(), "Login");
+        } else {
+            login(account, password, false, onLoginDone);
+        }
+    }
+
+    public void login(final String account, final String password, final boolean save, final OnLoginDone onLoginDone) {
+        login(account, password, save, onLoginDone, null);
+    }
+
+    public void login(final String account, final String password, final boolean save, final OnLoginDone onLoginDone, final OnLoginFailed onLoginFailed) {
+//        if (BaseApplication.getAuthTime() + AUTH_EXPIRE_TIME > System.currentTimeMillis()) {
+//            UserData.setBearer(BaseApplication.getToken());
+////            Log.e("token", UserData.token);
+//            User user = BaseApplication.getUser();
+//            UserData.user = user;
+//            UserData.setLoggedInState();
+//            onLoginDone.onLoginDone(user);
+//        } else {
+//            Toast.makeText(this, R.string.logining, Toast.LENGTH_SHORT).show();
+
+        Toast.makeText(this, R.string.processing_login, Toast.LENGTH_SHORT).show();
+        NetworkRequest.getAuth(account, password)
+                .subscribe(new Subscriber<HttpService.AuthResponse>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                        if (e instanceof IOException) {
+                            Toast.makeText(getApplicationContext(), "网络错误，可能需要科学上网环境", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), R.string.fail_to_login_network_err, Toast.LENGTH_LONG).show();
+                        }
+                        if (onLoginFailed != null) {
+                            onLoginFailed.onLoginFailed();
+                        }
+                    }
+
+                    @Override
+                    public void onNext(HttpService.AuthResponse authResponse) {
+                        String token = authResponse.getToken();
+                        if (token == null || token.equals("")) {
+                            Toast.makeText(getApplicationContext(), R.string.fail_to_login_account_err, Toast.LENGTH_SHORT).show();
+                            if (onLoginFailed != null) {
+                                onLoginFailed.onLoginFailed();
+                            }
+                        } else {
+                            User user = authResponse.getUser();
+                            BaseApplication.writeToken(token);
+                            BaseApplication.writeUser(user);
+                            UserData.setBearer(token);
+//                                Log.e("token", token);
+                            UserData.user = user;
+                            UserData.setLoggedInState();
+                            Toast.makeText(getApplicationContext(), R.string.login_successfully, Toast.LENGTH_SHORT).show();
+                            if (onLoginDone != null) {
+                                onLoginDone.onLoginDone(user);
+                            }
+                            if (save) {
+                                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
+                                editor.putString(getString(R.string.key_account), account);
+                                editor.putString(getString(R.string.key_password), password);
+                                editor.putBoolean(getString(R.string.key_auto_login), true);
+                                editor.apply();
+                            }
+                        }
+
+                    }
+                });
+//        }
+    }
+
+    public interface OnLoginDone {
+        void onLoginDone(User user);
+    }
+
+    public interface OnLoginFailed {
+        void onLoginFailed();
     }
 }

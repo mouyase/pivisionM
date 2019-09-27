@@ -11,7 +11,6 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import tech.yojigen.pivisionm.R;
 import com.reiya.pixiv.adapter.ImageAdapter;
 import com.reiya.pixiv.base.BaseFragment;
 import com.reiya.pixiv.bean.Work;
@@ -22,12 +21,14 @@ import com.reiya.pixiv.view.WorkGridLayoutManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import tech.yojigen.pivisionm.R;
+
 /**
  * Created by lenovo on 2016/2/24.
  */
 public class HistoryRankingFragment extends BaseFragment<HistoryRankingPresenter> implements HistoryRankingContract.View {
-    private int mPage;
     private static final String DATE = "date";
+    private int mPage;
     private String date;
     private ImageAdapter adapter;
     private String[] blacklist;
@@ -49,7 +50,7 @@ public class HistoryRankingFragment extends BaseFragment<HistoryRankingPresenter
         super.onCreate(savedInstanceState);
         date = getArguments().getString(DATE);
         mPage = getArguments().getInt(PAGE);
-        blacklist =  PreferenceManager.getDefaultSharedPreferences(getActivity()).getString(getString(R.string.key_blacklist), "").split("\n");
+        blacklist = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString(getString(R.string.key_blacklist), "").split("\n");
         mPresenter = new HistoryRankingPresenter();
         mPresenter.setView(this);
     }

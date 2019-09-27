@@ -29,7 +29,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
-import tech.yojigen.pivisionm.R;
 import com.reiya.pixiv.base.BaseApplication;
 import com.reiya.pixiv.bean.Theme;
 import com.reiya.pixiv.bean.User;
@@ -46,9 +45,15 @@ import com.reiya.pixiv.spotlight.SpotlightActivity;
 import com.reiya.pixiv.util.TimeUtil;
 import com.reiya.pixiv.util.UserData;
 
+import tech.yojigen.pivisionm.R;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final int NUM_CLICK_TOTAL_TO_DO_SOMETHING = 7;
+
+    static {
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+    }
 
     private ImageView ivProfile;
     private TextView tvName;
@@ -58,10 +63,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
     private Toast mToast;
-
-    static {
-        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -309,8 +310,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        UserData.setSpecialMode(false);
+        unregisterReceiver(mReceiver);
+        super.onDestroy();
+    }
+
     private class PagerAdapter extends FragmentPagerAdapter {
         private final String[] TITLE = {getString(R.string.recommend), getString(R.string.subscription)};
+
         public PagerAdapter(FragmentManager fm) {
             super(fm);
         }
@@ -335,12 +344,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         public CharSequence getPageTitle(int position) {
             return TITLE[position];
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        UserData.setSpecialMode(false);
-        unregisterReceiver(mReceiver);
-        super.onDestroy();
     }
 }

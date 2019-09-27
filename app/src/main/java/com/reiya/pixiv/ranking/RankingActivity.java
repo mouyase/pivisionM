@@ -3,24 +3,26 @@ package com.reiya.pixiv.ranking;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import com.google.android.material.tabs.TabLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.DatePicker;
 
-import tech.yojigen.pivisionm.R;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.tabs.TabLayout;
 import com.reiya.pixiv.base.BaseFragment;
 import com.reiya.pixiv.bean.Theme;
 import com.reiya.pixiv.util.StringHelper;
 import com.reiya.pixiv.util.UserData;
 
 import java.util.Calendar;
+
+import tech.yojigen.pivisionm.R;
 
 public class RankingActivity extends AppCompatActivity {
     private ViewPager viewPager;
@@ -50,9 +52,48 @@ public class RankingActivity extends AppCompatActivity {
         mDate.set(Calendar.DAY_OF_YEAR, mDate.get(Calendar.DAY_OF_YEAR) - 1);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add(0, 0, 0, R.string.history_ranking).setIcon(R.drawable.ic_date_range_white_24px).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+            case 0:
+                new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        mDate.set(year, monthOfYear, dayOfMonth);
+                        String str = StringHelper.getFormattedDate(year, monthOfYear, dayOfMonth, "-");
+                        viewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), UserData.getSpecialMode() ? 1 : 0, str));
+                        tabLayout.setupWithViewPager(viewPager);
+                    }
+                }, mDate.get(Calendar.YEAR), mDate.get(Calendar.MONTH), mDate.get(Calendar.DAY_OF_MONTH)).show();
+                break;
+        }
+        return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data != null) {
+//            int color = data.getIntExtra("color", 0);
+//            appBarLayout.setBackgroundColor(color);
+//            drawerHeader.setBackgroundColor(color);
+            recreate();
+            overridePendingTransition(0, 0);
+        }
+    }
+
     class MyFragmentPagerAdapter extends FragmentPagerAdapter {
         private final int[] COUNT = {3, 7};
-//        private final String[][] titles = {{getString(R.string.daily), getString(R.string.weekly), getString(R.string.monthly)}, {getString(R.string.daily), getString(R.string.weekly), getString(R.string.male), getString(R.string.female)}};
+        //        private final String[][] titles = {{getString(R.string.daily), getString(R.string.weekly), getString(R.string.monthly)}, {getString(R.string.daily), getString(R.string.weekly), getString(R.string.male), getString(R.string.female)}};
         private final String[] titles = {getString(R.string.daily), getString(R.string.weekly), getString(R.string.monthly), getString(R.string.daily) + getString(R.string.r18), getString(R.string.weekly) + getString(R.string.r18), getString(R.string.male) + getString(R.string.r18), getString(R.string.female) + getString(R.string.r18)};
         private int mMode = 0;
         private String mDate;
@@ -95,45 +136,6 @@ public class RankingActivity extends AppCompatActivity {
         void set() {
             mMode = 1;
             notifyDataSetChanged();
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add(0, 0, 0, R.string.history_ranking).setIcon(R.drawable.ic_date_range_white_24px).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                break;
-            case 0:
-                new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        mDate.set(year, monthOfYear, dayOfMonth);
-                        String str = StringHelper.getFormattedDate(year, monthOfYear, dayOfMonth, "-");
-                        viewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), UserData.getSpecialMode() ? 1 : 0, str));
-                        tabLayout.setupWithViewPager(viewPager);
-                    }
-                }, mDate.get(Calendar.YEAR), mDate.get(Calendar.MONTH), mDate.get(Calendar.DAY_OF_MONTH)).show();
-                break;
-        }
-        return true;
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (data != null) {
-//            int color = data.getIntExtra("color", 0);
-//            appBarLayout.setBackgroundColor(color);
-//            drawerHeader.setBackgroundColor(color);
-            recreate();
-            overridePendingTransition(0, 0);
         }
     }
 //

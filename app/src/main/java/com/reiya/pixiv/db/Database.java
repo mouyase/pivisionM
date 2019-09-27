@@ -14,6 +14,13 @@ public class Database extends SQLiteOpenHelper {
         super(context, "pixive-v2.db", null, 1);
     }
 
+    public static Database getInstance(Context context) {
+        if (instance == null) {
+            instance = new Database(context.getApplicationContext());
+        }
+        return instance;
+    }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         String sql = "CREATE TABLE record ( id INTEGER PRIMARY KEY, content TEXT, time INTEGER )";
@@ -23,12 +30,5 @@ public class Database extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-    }
-
-    public static Database getInstance(Context context) {
-        if (instance == null) {
-            instance = new Database(context.getApplicationContext());
-        }
-        return instance;
     }
 }

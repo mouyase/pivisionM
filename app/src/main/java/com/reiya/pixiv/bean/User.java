@@ -12,24 +12,35 @@ import com.google.gson.annotations.SerializedName;
 
 public class User implements Parcelable {
 
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
     @SerializedName("id")
     @Expose
-     int id;
+    int id;
     @SerializedName("name")
     @Expose
-     String name;
+    String name;
     @SerializedName("account")
     @Expose
-     String account;
+    String account;
     @SerializedName("profile_image_urls")
     @Expose
-     ProfileImageUrls profileImageUrls;
+    ProfileImageUrls profileImageUrls;
     @SerializedName("comment")
     @Expose
-     String comment;
+    String comment;
     @SerializedName("is_followed")
     @Expose
-     boolean isFollowed;
+    boolean isFollowed;
 
     public User() {
     }
@@ -56,49 +67,29 @@ public class User implements Parcelable {
         return 0;
     }
 
-    public static final Creator<User> CREATOR = new Creator<User>() {
-        @Override
-        public User createFromParcel(Parcel in) {
-            return new User(in);
-        }
-
-        @Override
-        public User[] newArray(int size) {
-            return new User[size];
-        }
-    };
-
     /**
-     *
-     * @return
-     *     The id
+     * @return The id
      */
     public int getId() {
         return id;
     }
 
     /**
-     *
-     * @return
-     *     The name
+     * @return The name
      */
     public String getName() {
         return name;
     }
 
     /**
-     *
-     * @return
-     *     The account
+     * @return The account
      */
     public String getAccount() {
         return account;
     }
 
     /**
-     *
-     * @return
-     *     The profileImageUrls
+     * @return The profileImageUrls
      */
     public ProfileImageUrls getProfileImageUrls() {
         return profileImageUrls;
@@ -117,9 +108,7 @@ public class User implements Parcelable {
     }
 
     /**
-     *
-     * @return
-     *     The isFollowed
+     * @return The isFollowed
      */
     public boolean isFollowed() {
         return isFollowed;

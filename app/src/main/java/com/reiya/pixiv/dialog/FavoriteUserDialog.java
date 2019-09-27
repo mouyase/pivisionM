@@ -3,12 +3,14 @@ package com.reiya.pixiv.dialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
+
+import com.reiya.pixiv.util.Value;
 
 import tech.yojigen.pivisionm.R;
-import com.reiya.pixiv.util.Value;
 
 /**
  * Created by Administrator on 2015/12/17 0017.
@@ -37,11 +39,11 @@ public class FavoriteUserDialog extends DialogFragment {
         return builder.create();
     }
 
-    public interface ToAdd {
-        void add(String type);
-    }
-
     public void setToAdd(ToAdd toAdd) {
         this.toAdd = toAdd;
+    }
+
+    public interface ToAdd {
+        void add(String type);
     }
 }

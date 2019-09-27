@@ -1,18 +1,18 @@
 package com.reiya.pixiv.concern;
 
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.appcompat.widget.PopupMenu;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import tech.yojigen.pivisionm.R;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.PopupMenu;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.reiya.pixiv.adapter.BaseAdapter;
 import com.reiya.pixiv.adapter.UserAdapter;
 import com.reiya.pixiv.base.BaseFragment;
@@ -22,6 +22,8 @@ import com.reiya.pixiv.view.LoaderRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import tech.yojigen.pivisionm.R;
 
 /**
  * Created by Administrator on 2015/12/16 0016.
@@ -55,28 +57,28 @@ public class FavoriteUsersFragment extends BaseFragment<ConcernPresenter> implem
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         adapter = new UserAdapter(getActivity(), new ArrayList<UserPreview>());
         adapter.setOnItemLongClickListener(new BaseAdapter.OnItemLongClickListener() {
-                                               @Override
-                                               public void onLongClick(final Object item, View view) {
-                                                   PopupMenu popupMenu = new PopupMenu(getActivity(), view);
-                                                   popupMenu.getMenu().add(R.string.remove_concern);
-                                                   popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                                                       @Override
-                                                       public boolean onMenuItemClick(MenuItem menuItem) {
+            @Override
+            public void onLongClick(final Object item, View view) {
+                PopupMenu popupMenu = new PopupMenu(getActivity(), view);
+                popupMenu.getMenu().add(R.string.remove_concern);
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
 
-                                                           mPresenter.remove(mPage, ((UserPreview) item).getUser().getId());
+                        mPresenter.remove(mPage, ((UserPreview) item).getUser().getId());
 
-                                                           return false;
-                                                       }
-                                                   });
-                                                   popupMenu.setOnDismissListener(new PopupMenu.OnDismissListener() {
-                                                       @Override
-                                                       public void onDismiss(PopupMenu menu) {
+                        return false;
+                    }
+                });
+                popupMenu.setOnDismissListener(new PopupMenu.OnDismissListener() {
+                    @Override
+                    public void onDismiss(PopupMenu menu) {
 
-                                                       }
-                                                   });
-                                                   popupMenu.show();
-                                               }
-                                           });
+                    }
+                });
+                popupMenu.show();
+            }
+        });
 
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setOnLoadMoreListener(new LoaderRecyclerView.OnLoadMoreListener() {
