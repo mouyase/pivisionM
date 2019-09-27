@@ -37,22 +37,21 @@ public class AboutDialog extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (isChina) {
-                            String account = "reiya.zyr@gmail.com";
-                            ClipboardManager cb = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-                            ClipData data = ClipData.newPlainText("account", account);
-                            cb.setPrimaryClip(data);
-                            Toast.makeText(getActivity(), account + getString(R.string.clip_info_donate), Toast.LENGTH_SHORT).show();
+//                            String account = "reiya.zyr@gmail.com";
+//                            ClipboardManager cb = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+//                            ClipData data = ClipData.newPlainText("account", account);
+//                            cb.setPrimaryClip(data);
+//                            Toast.makeText(getActivity(), account + getString(R.string.clip_info_donate), Toast.LENGTH_SHORT).show();
+                            //捐赠入口
+
                         } else {
                             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + getActivity().getPackageName())));
                         }
                     }
                 })
-                .setNeutralButton(getString(R.string.open_source), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(getActivity(), OpenSourceActivity.class);
-                        startActivity(intent);
-                    }
+                .setNeutralButton(getString(R.string.open_source), (dialog, which) -> {
+                    Intent intent = new Intent(getActivity(), OpenSourceActivity.class);
+                    startActivity(intent);
                 });
         return builder.create();
     }

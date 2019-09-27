@@ -1,5 +1,7 @@
 package com.reiya.pixiv.network.fuckgfw;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -8,7 +10,6 @@ import java.util.List;
 import okhttp3.Dns;
 
 public class PixivDNS implements Dns {
-
     private static final String[] addresses = {
             "210.140.131.203",
             "210.140.131.204",
@@ -68,6 +69,7 @@ public class PixivDNS implements Dns {
     }
 
 
+    @NotNull
     public List<InetAddress> lookup(String s) throws UnknownHostException {
         if (s.contains("pixiv.net")) {
             try {
