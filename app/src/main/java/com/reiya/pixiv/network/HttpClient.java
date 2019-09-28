@@ -44,20 +44,17 @@ public class HttpClient {
     public static void init(Context context) {
         File cacheFile = new File(context.getCacheDir(), "/HttpCache/");
         Cache cache = new Cache(cacheFile, 1024 * 1024 * 10); //10MB
-        Interceptor interceptor = new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Request request = chain.request().newBuilder()
-                        .header("User-Agent", BaseApplication.getUA())
-                        .header("Accept-Language", "zh_CN")
-                        .header("App-OS", "android")
-                        .header("App-OS-Version", "" + Build.VERSION.RELEASE)
-                        .header("App-Version", "5.0.156")
-                        .header("x-client-time", "3000-01-01T00:00:00+00:00")
-                        .header("x-client-hash", "93771864335ef0c8e52db10be563eab3")
-                        .build();
-                return chain.proceed(request);
-            }
+        Interceptor interceptor = chain -> {
+            Request request = chain.request().newBuilder()
+                    .header("User-Agent", BaseApplication.getUA())
+                    .header("Accept-Language", "zh_CN")
+                    .header("App-OS", "android")
+                    .header("App-OS-Version", "" + Build.VERSION.RELEASE)
+                    .header("App-Version", "5.0.156")
+                    .header("X-Client-Time", "3000-01-01T00:00:00+00:00")
+                    .header("X-Client-Hash", "93771864335ef0c8e52db10be563eab3")
+                    .build();
+            return chain.proceed(request);
         };
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE);
@@ -66,8 +63,8 @@ public class HttpClient {
                 .addInterceptor(logging)
                 .addInterceptor(interceptor)
                 .addNetworkInterceptor(interceptor)
-                .sslSocketFactory(new PixivSSLSocketFactory(), new PixivTrustManager())
-                .dns(PixivDNS.getInstance())
+//                .sslSocketFactory(new PixivSSLSocketFactory(), new PixivTrustManager())
+//                .dns(PixivDNS.getInstance())
                 .build();
         service = getRetrofit(BASE_URL).create(HttpService.class);
     }
