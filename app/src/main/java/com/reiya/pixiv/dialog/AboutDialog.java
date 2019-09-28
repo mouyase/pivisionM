@@ -18,6 +18,7 @@ import com.reiya.pixiv.other.OpenSourceActivity;
 
 import java.util.Locale;
 
+import moe.feng.alipay.zerosdk.AlipayZeroSdk;
 import tech.yojigen.pivisionm.BuildConfig;
 import tech.yojigen.pivisionm.R;
 
@@ -37,13 +38,16 @@ public class AboutDialog extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (isChina) {
-//                            String account = "reiya.zyr@gmail.com";
-//                            ClipboardManager cb = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-//                            ClipData data = ClipData.newPlainText("account", account);
-//                            cb.setPrimaryClip(data);
-//                            Toast.makeText(getActivity(), account + getString(R.string.clip_info_donate), Toast.LENGTH_SHORT).show();
-                            //捐赠入口
-
+//                                  //捐赠入口
+                            if (AlipayZeroSdk.hasInstalledAlipayClient(AboutDialog.this.getActivity())) {
+                                AlipayZeroSdk.startAlipayClient(AboutDialog.this.getActivity(), "FKX02629C6PJOR6THSDV2E");
+                            } else {
+                                String account = "mouyase@qq.com";
+                                ClipboardManager cb = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                                ClipData data = ClipData.newPlainText("account", account);
+                                cb.setPrimaryClip(data);
+                                Toast.makeText(getActivity(), account + getString(R.string.clip_info_donate), Toast.LENGTH_SHORT).show();
+                            }
                         } else {
                             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + getActivity().getPackageName())));
                         }

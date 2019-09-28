@@ -1,18 +1,18 @@
 <resources>
     <string name="app_name">PivisionM</string>
 
-    <string name="app_update_log">1. 增加批量保存收藏作品功能 \n2. 增加收藏附加标签功能</string>
+    <string name="app_update_log">1. 测试</string>
 
     <string name="about">关于</string>
     <string name="account">账号</string>
     <string name="clear_history">清除浏览历史</string>
     <string name="click_to_login">点击登录</string>
     <string name="clip_info_donate" translatable="false">" 已复制到剪贴板（支付宝）"</string>
-    <string name="clip_info_id">id已复制到剪贴板</string>
+    <string name="clip_info_id">ID已复制到剪贴板</string>
     <string name="concern">关注</string>
     <string name="donate" translatable="false">捐助</string>
     <string name="app_ranking">评分</string>
-    <string name="hint_search">标签／作品id／画师id</string>
+    <string name="hint_search">标签／作品ID／画师id</string>
     <string name="onLogin">登录</string>
     <string name="negative">取消</string>
     <string name="open_in_browser">在浏览器中打开</string>
@@ -71,12 +71,12 @@
     <string name="key_current_cache_size" translatable="false">current_cache_size</string>
 
     <string-array name="pref_file_name_mode_out">
-        <item>作品id</item>
+        <item>作品ID</item>
         <item>作品名称</item>
-        <item>作品名称_作品id</item>
-        <item>作者id_作品id</item>
-        <item>作者名称_作品id</item>
-        <item>作者id_作品名称</item>
+        <item>作品名称_作品ID</item>
+        <item>作者ID_作品ID</item>
+        <item>作者名称_作品ID</item>
+        <item>作者ID_作品名称</item>
         <item>作者名称_作品名称</item>
     </string-array>
 
@@ -100,10 +100,10 @@
 
     <string-array name="pref_auto_create_subfolder_out">
         <item>不</item>
-        <item>作者id</item>
+        <item>作者ID</item>
         <item>作者名称</item>
-        <item>作者id_作者名称</item>
-        <item>作者名称_作者id</item>
+        <item>作者ID_作者名称</item>
+        <item>作者名称_作者ID</item>
     </string-array>
 
     <string-array name="pref_cache_size_values" translatable="false">
@@ -140,6 +140,7 @@
         <item>RoundedImageView</item>
         <item>RxAndroid</item>
         <item>RxJava</item>
+        <item>AlipayZeroSdk</item>
     </string-array>
 
     <string name="key_theme_color" translatable="false">theme_color</string>
@@ -185,9 +186,9 @@
     <string name="prompt_password">密码</string>
     <string name="action_sign_in">登录</string>
     <string name="error_field_required">不能为空</string>
-    <string name="action_register">访问pixiv注册账号</string>
+    <string name="action_register">访问Pixiv注册账号</string>
     <string name="key_show_about_dialog_time" translatable="false">show_about_dialog_time</string>
-    <string name="pixiv_login">pixiv账号登录</string>
+    <string name="pixiv_login">Pixiv账号登录</string>
     <string name="processing_login">登录中</string>
     <string name="pic_saving">图片保存</string>
     <string name="saving_path">保存位置</string>
