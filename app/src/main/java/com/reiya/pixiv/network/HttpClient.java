@@ -63,8 +63,8 @@ public class HttpClient {
                 .addInterceptor(logging)
                 .addInterceptor(interceptor)
                 .addNetworkInterceptor(interceptor)
-//                .sslSocketFactory(new PixivSSLSocketFactory(), new PixivTrustManager())
-//                .dns(PixivDNS.getInstance())
+                .sslSocketFactory(new PixivSSLSocketFactory(), new PixivTrustManager())
+                .dns(PixivDNS.getInstance())
                 .build();
         service = getRetrofit(BASE_URL).create(HttpService.class);
     }

@@ -9,11 +9,11 @@ import javax.net.ssl.X509TrustManager;
 
 public class PixivTrustManager implements X509TrustManager {
     @SuppressLint("TrustAllX509TrustManager")
-    public void checkClientTrusted(X509Certificate[] param1ArrayOfX509Certificate, String param1String) {
+    public void checkClientTrusted(X509Certificate[] x509Certificates, String s) {
     }
 
     @SuppressLint("TrustAllX509TrustManager")
-    public void checkServerTrusted(X509Certificate[] param1ArrayOfX509Certificate, String param1String) {
+    public void checkServerTrusted(X509Certificate[] x509Certificates, String s) {
     }
 
     public X509Certificate[] getAcceptedIssuers() {
