@@ -4,9 +4,9 @@ import android.content.Context;
 import android.os.Build;
 
 import com.reiya.pixiv.base.BaseApplication;
-import com.reiya.pixiv.network.fuckgfw.PixivDNS;
-import com.reiya.pixiv.network.fuckgfw.PixivSSLSocketFactory;
-import com.reiya.pixiv.network.fuckgfw.PixivTrustManager;
+import tech.yojigen.pivisiom.network.fuckgfw.PixivDNS;
+import tech.yojigen.pivisiom.network.fuckgfw.PixivSSLSocketFactory;
+import tech.yojigen.pivisiom.network.fuckgfw.PixivTrustManager;
 import com.reiya.pixiv.util.Value;
 
 import java.io.File;
@@ -63,8 +63,8 @@ public class HttpClient {
                 .addInterceptor(logging)
                 .addInterceptor(interceptor)
                 .addNetworkInterceptor(interceptor)
-                .sslSocketFactory(new PixivSSLSocketFactory(), new PixivTrustManager())
-                .dns(PixivDNS.getInstance())
+//                .sslSocketFactory(new PixivSSLSocketFactory(), new PixivTrustManager())
+//                .dns(PixivDNS.getInstance())
                 .build();
         service = getRetrofit(BASE_URL).create(HttpService.class);
     }

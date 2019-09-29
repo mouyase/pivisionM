@@ -34,35 +34,22 @@ public class PathSelectDialog extends DialogFragment {
         View view = View.inflate(getActivity(), R.layout.dialog_path, null);
         String oldPath = Environment.getExternalStorageDirectory() + PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("path", "/Pictures/PivisionM/");
         File path = new File(PreferenceManager.getDefaultSharedPreferences(getActivity()).getString(getString(R.string.key_path), oldPath));
-        final EditText editText = (EditText) view.findViewById(R.id.editText);
+        final EditText editText = view.findViewById(R.id.editText);
         editText.setText(path.getPath());
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         final PathAdapter adapter = new PathAdapter(getActivity(), path, PathAdapter.getFolders(path));
-        adapter.setListener(new PathAdapter.OnSelectListener() {
-            @Override
-            public void onSelect(File file) {
-                editText.setText(file.getPath());
-            }
-        });
+        adapter.setListener(file -> editText.setText(file.getPath()));
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        Button button = (Button) view.findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                adapter.up();
-            }
-        });
+        Button button = view.findViewById(R.id.button);
+        button.setOnClickListener(v -> adapter.up());
         builder.setTitle(getString(R.string.path_to_save_pic))
                 .setView(view)
-                .setPositiveButton(getString(R.string.positive), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
-                        editor.putString(getString(R.string.key_path), editText.getText().toString());
-                        editor.apply();
-                    }
+                .setPositiveButton(getString(R.string.positive), (dialog, which) -> {
+                    SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
+                    editor.putString(getString(R.string.key_path), editText.getText().toString());
+                    editor.apply();
                 })
                 .setNegativeButton(R.string.negative, null);
         return builder.create();

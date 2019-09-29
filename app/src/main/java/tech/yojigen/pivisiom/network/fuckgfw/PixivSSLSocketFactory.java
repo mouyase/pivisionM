@@ -1,4 +1,4 @@
-package com.reiya.pixiv.network.fuckgfw;
+package tech.yojigen.pivisiom.network.fuckgfw;
 
 
 import android.net.SSLCertificateSocketFactory;
