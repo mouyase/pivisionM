@@ -20,8 +20,10 @@ public class Value {
     public static final String URL_UGOIRA = "http://ugoira.dataprocessingclub.org/";
 
     /*反向代理*/
-    public static final String URL_PIXIV = "https://app-api.yojigen.tech/";
-    public static final String URL_AUTH = "https://oauth-secure.yojigen.tech/";
+    public static final String URL_AUTH = "https://oauth.pixiv.4cy.me/";
+    public static final String URL_PIXIV = "https://api.pixiv.4cy.me/";
     public static final String PROXY_URL_AUTH_YOJIGEN = "https://oauth-secure.yojigen.tech/";
     public static final String PROXY_URL_PIXIV_YOJIGEN = "https://app-api.yojigen.tech/";
+    public static final String PROXY_URL_AUTH_4CY = "https://oauth.pixiv.4cy.me/";
+    public static final String PROXY_URL_PIXIV_4CY = "https://api.pixiv.4cy.me/";
 }
