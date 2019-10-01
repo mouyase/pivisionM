@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">PivisionM</string>
 
-    <string name="app_update_log">1. 测试</string>
+    <string name="app_update_log">1. 增加了模式切换功能\n2. 优化了保存地址选择窗口</string>
 
     <string name="about">关于</string>
     <string name="account">账号</string>
@@ -69,6 +69,7 @@
     <string name="key_file_name_mode" translatable="false">file_name_mode</string>
     <string name="key_cache_limit" translatable="false">cache_limit</string>
     <string name="key_current_cache_size" translatable="false">current_cache_size</string>
+    <string name="key_connect_mode" translatable="false">connect_mode</string>
 
     <string-array name="pref_file_name_mode_out">
         <item>作品ID</item>
@@ -201,7 +202,7 @@
     <string name="cache_size_limit">图片缓存上限（MB）</string>
     <string name="clear_pic_cache">清理图片缓存</string>
     <string name="filter">过滤</string>
-    <string name="connect_mode" tools:ignore="MissingTranslation">连接模式</string>
+    <string name="string_connect_mode" tools:ignore="MissingTranslation">连接模式</string>
     <string name="blacklist_title">屏蔽标签</string>
     <string name="blacklist_summary">以换行分隔，适用于排行榜和搜索</string>
     <string name="download_all_author_hint">是否保存该画师的所有作品（可能耗时较长）？ 请确认保存路径和存储空间剩余大小。</string>
@@ -209,4 +210,8 @@
     <string name="bookmark_tag">收藏标签</string>
     <string name="add_collection">收藏</string>
     <string name="too_many_tags">标签数量超过上限</string>
+    <string name="network">网络</string>
+    <string name="mode_direct">直连模式</string>
+    <string name="mode_global">国际模式</string>
+    <string name="mode_proxy">代理模式</string>
 </resources>

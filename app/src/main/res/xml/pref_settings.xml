@@ -121,7 +121,9 @@
             android:title="@string/blacklist_title"
             android:summary="@string/blacklist_summary"/>
     </PreferenceCategory>
-    <PreferenceCategory
-        android:title="@string/connect_mode">
+    <PreferenceCategory android:title="@string/network">
+        <Preference
+            android:key="@string/key_connect_mode"
+            android:title="@string/string_connect_mode" />
     </PreferenceCategory>
 </PreferenceScreen>

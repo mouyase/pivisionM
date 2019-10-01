@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.reiya.pixiv.base.BaseApplication;
 import com.reiya.pixiv.bean.User;
+import com.reiya.pixiv.dialog.ConnectModeSelectDialog;
 import com.reiya.pixiv.view.RippleView;
 
 import tech.yojigen.pivisionm.R;
@@ -108,7 +109,10 @@ public class LoginActivity extends AppCompatActivity {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://accounts.pixiv.net/signup"));
             startActivity(browserIntent);
         });
-
+        findViewById(R.id.mode_button).setOnClickListener(v -> {
+            ConnectModeSelectDialog connectModeSelectDialog = new ConnectModeSelectDialog();
+            connectModeSelectDialog.show(this.getSupportFragmentManager(), "Mode");
+        });
         mLoginFormView = findViewById(R.id.login_form);
         mProcessingLoginView = findViewById(R.id.login_progress_view);
 

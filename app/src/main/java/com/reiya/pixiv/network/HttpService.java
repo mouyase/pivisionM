@@ -36,11 +36,6 @@ public interface HttpService {
                                      @Field("client_secret") String cs,
                                      @Field("device_token") String dt);
 
-//    @GET("v1/illust/ranking")
-//    Observable<IllustListResponse> getRanking(@Query("mode") String mode);
-//
-//    @GET
-//    Observable<IllustListResponse> getRankingNext(@Url String url);
 
     @GET("v1/illust/ranking")
     Observable<IllustListResponse> getRanking(@Header("Authorization") String authorization, @Query("mode") String mode);

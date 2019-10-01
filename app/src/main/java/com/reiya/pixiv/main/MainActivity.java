@@ -314,6 +314,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onDestroy() {
         UserData.setSpecialMode(false);
         unregisterReceiver(mReceiver);
+        System.exit(0);
         super.onDestroy();
     }
 

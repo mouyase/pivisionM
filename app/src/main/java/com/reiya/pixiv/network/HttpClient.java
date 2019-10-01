@@ -4,9 +4,9 @@ import android.content.Context;
 import android.os.Build;
 
 import com.reiya.pixiv.base.BaseApplication;
-import tech.yojigen.pivisiom.network.fuckgfw.PixivDNS;
-import tech.yojigen.pivisiom.network.fuckgfw.PixivSSLSocketFactory;
-import tech.yojigen.pivisiom.network.fuckgfw.PixivTrustManager;
+import com.reiya.pixiv.network.fuckgfw.PixivDNS;
+import com.reiya.pixiv.network.fuckgfw.PixivSSLSocketFactory;
+import com.reiya.pixiv.network.fuckgfw.PixivTrustManager;
 import com.reiya.pixiv.util.Value;
 
 import java.io.File;
@@ -32,12 +32,12 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import tech.yojigen.pivisionm.BuildConfig;
+import tech.yonjigen.common.util.SettingUtil;
 
 /**
  * Created by Administrator on 2015/11/23 0023.
  */
 public class HttpClient {
-    private static final String BASE_URL = Value.URL_PIXIV;
     private static OkHttpClient client;
     private static HttpService service;
 
@@ -58,15 +58,30 @@ public class HttpClient {
         };
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE);
-        client = new OkHttpClient.Builder()
-                .cache(cache)
-                .addInterceptor(logging)
-                .addInterceptor(interceptor)
-                .addNetworkInterceptor(interceptor)
-//                .sslSocketFactory(new PixivSSLSocketFactory(), new PixivTrustManager())
-//                .dns(PixivDNS.getInstance())
-                .build();
-        service = getRetrofit(BASE_URL).create(HttpService.class);
+        String mode = SettingUtil.getSetting(context, "connect_mode", "direct");
+        System.out.println(mode);
+        if (mode.equals("direct")) {
+            client = new OkHttpClient.Builder()
+                    .cache(cache)
+                    .addInterceptor(logging)
+                    .addInterceptor(interceptor)
+                    .addNetworkInterceptor(interceptor)
+                    .sslSocketFactory(new PixivSSLSocketFactory(), new PixivTrustManager())
+                    .dns(PixivDNS.getInstance())
+                    .build();
+        } else {
+            if (mode.equals("proxy")) {
+                Value.URL_AUTH = Value.PROXY_URL_AUTH_YOJIGEN;
+                Value.URL_PIXIV = Value.PROXY_URL_PIXIV_YOJIGEN;
+            }
+            client = new OkHttpClient.Builder()
+                    .cache(cache)
+                    .addInterceptor(logging)
+                    .addInterceptor(interceptor)
+                    .addNetworkInterceptor(interceptor)
+                    .build();
+        }
+        service = getRetrofit(Value.URL_PIXIV).create(HttpService.class);
     }
 
     private static Retrofit getRetrofit(String baseUrl) {
@@ -129,14 +144,11 @@ public class HttpClient {
     }
 
     public static void setListen(final ProgressListener listener) {
-        client.networkInterceptors().add(new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Response originalResponse = chain.proceed(chain.request());
-                return originalResponse.newBuilder()
-                        .body(new ProgressResponseBody(originalResponse.body(), listener))
-                        .build();
-            }
+        client.networkInterceptors().add(chain -> {
+            Response originalResponse = chain.proceed(chain.request());
+            return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), listener))
+                    .build();
         });
     }
 

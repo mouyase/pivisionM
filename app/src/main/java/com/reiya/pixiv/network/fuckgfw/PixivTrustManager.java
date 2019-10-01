@@ -1,4 +1,4 @@
-package tech.yojigen.pivisiom.network.fuckgfw;
+package com.reiya.pixiv.network.fuckgfw;
 
 import android.annotation.SuppressLint;
 
