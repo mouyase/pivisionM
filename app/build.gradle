@@ -8,7 +8,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 29
         versionCode 442
-        versionName '4.4.2 Beta 1'
+        versionName '4.4.2 Beta 2'
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled = true
     }
@@ -21,6 +21,13 @@ android {
     }
 
     buildTypes {
+        debug {
+            minifyEnabled true
+            zipAlignEnabled true
+            shrinkResources true
+            proguardFiles 'proguard-rules.pro'
+            debuggable = true
+        }
         release {
             minifyEnabled true
             zipAlignEnabled true

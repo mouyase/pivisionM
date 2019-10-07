@@ -70,8 +70,8 @@ public class ViewActivity extends AppCompatActivity implements View.OnClickListe
 //        setPresenter(new WorkPresenter());
 //        mPresenter.setView(this);
 
-        btnBack = (ImageView) findViewById(R.id.btnBack);
-        btnSave = (ImageView) findViewById(R.id.btnSave);
+        btnBack = findViewById(R.id.btnBack);
+        btnSave = findViewById(R.id.btnSave);
 
         btnBack.setOnClickListener(this);
         btnSave.setOnClickListener(this);

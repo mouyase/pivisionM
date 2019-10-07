@@ -29,10 +29,11 @@
 
                 <data android:scheme="http" />
                 <data android:scheme="https" />
-                <data android:host="touch.pixiv.net" />
                 <data android:host="www.pixiv.net" />
-                <data android:path="/member.php" />
-                <data android:path="/member_illust.php" />
+                <data android:pathPrefix="/member.php" />
+                <data android:pathPrefix="/member_illust.php" />
+                <data android:pathPrefix="/artworks" />
+                <data android:pathPrefix="/en/artworks" />
             </intent-filter>
         </activity>
         <activity

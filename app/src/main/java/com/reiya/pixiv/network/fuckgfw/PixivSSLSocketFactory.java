@@ -66,7 +66,7 @@ public final class PixivSSLSocketFactory extends SSLSocketFactory {
                 stringBuilder.append(" using ");
                 stringBuilder.append(sSLSession.getCipherSuite());
                 Log.d("X", stringBuilder.toString());
-                return (Socket) socket;
+                return socket;
             }
             throw new TypeCastException("null cannot be cast to non-null type javax.net.ssl.SSLSocket");
         }

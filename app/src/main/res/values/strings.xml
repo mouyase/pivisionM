@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">PivisionM</string>
 
-    <string name="app_update_log">1. 增加了模式切换功能\n2. 优化了保存地址选择窗口</string>
+    <string name="app_update_log">1. 增加了模式切换功能\n2. 优化了保存地址选择窗口\n3. 修复了pixivision模块\n4. 增加了新链接支持\n5. 增加底部保存按钮</string>
 
     <string name="about">关于</string>
     <string name="account">账号</string>
@@ -211,7 +211,7 @@
     <string name="add_collection">收藏</string>
     <string name="too_many_tags">标签数量超过上限</string>
     <string name="network">网络</string>
-    <string name="mode_direct">直连模式</string>
-    <string name="mode_global">国际模式</string>
-    <string name="mode_proxy">代理模式</string>
+    <string name="mode_direct">大陆直连模式</string>
+    <string name="mode_global">海外模式</string>
+    <string name="mode_proxy">内置代理模式</string>
 </resources>

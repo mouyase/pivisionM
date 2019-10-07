@@ -1,10 +1,12 @@
 package com.reiya.pixiv.work;
 
+import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -75,6 +77,7 @@ public class ImageFragment extends BaseFragment<WorkPresenter> implements WorkCo
 
     private boolean mHasRequestedExtra = false;
     private CheckBox mCbFav;
+    private ImageView mCbSave;
     //    private Runnable onLongClick;
 //    private OnItemLoadedListener onItemLoadedListener;
 //    private String content = "";
@@ -97,33 +100,32 @@ public class ImageFragment extends BaseFragment<WorkPresenter> implements WorkCo
         mPresenter.setView(this);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_work, container, false);
-        ScrollView scrollView = (ScrollView) view.findViewById(R.id.scrollView);
-        scrollView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (!mHasRequestedExtra && v.getScrollY() > 0) {
-                    mHasRequestedExtra = true;
-                    NetworkRequest.getComment(mWork.getId())
-                            .subscribe(new Subscriber<HttpService.CommentResponse>() {
-                                @Override
-                                public void onCompleted() {
+        ScrollView scrollView = view.findViewById(R.id.scrollView);
+        scrollView.setOnTouchListener((v, event) -> {
+            if (!mHasRequestedExtra && v.getScrollY() > 0) {
+                mHasRequestedExtra = true;
+                NetworkRequest.getComment(mWork.getId())
+                        .subscribe(new Subscriber<HttpService.CommentResponse>() {
+                            @Override
+                            public void onCompleted() {
 
-                                }
+                            }
 
-                                @Override
-                                public void onError(Throwable e) {
+                            @Override
+                            public void onError(Throwable e) {
 
-                                }
+                            }
 
-                                @Override
-                                public void onNext(HttpService.CommentResponse commentResponse) {
-                                    List<Comment> comments = commentResponse.getComments();
-                                    LinearLayout layout = (LinearLayout) view.findViewById(R.id.commentLayout);
-                                    layout.removeAllViews();
+                            @Override
+                            public void onNext(HttpService.CommentResponse commentResponse) {
+                                List<Comment> comments = commentResponse.getComments();
+                                LinearLayout layout = (LinearLayout) view.findViewById(R.id.commentLayout);
+                                layout.removeAllViews();
 //                                    int n = Math.min(comments.size(), 5);
 //                                    for (int i = 0; i < n; i++) {
 //                                        View item = inflater.inflate(R.layout.item_comment, layout, false);
@@ -137,53 +139,52 @@ public class ImageFragment extends BaseFragment<WorkPresenter> implements WorkCo
 //                                        ((TextView) item.findViewById(R.id.tvTime)).setText(comment.getDate());
 //                                        layout.addView(item);
 //                                    }
-                                    RecyclerView recyclerView = new RecyclerView(getActivity());
-                                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                                    recyclerView.setNestedScrollingEnabled(false);
-                                    recyclerView.setAdapter(new CommentAdapter(getActivity(), comments.subList(0, Math.min(5, comments.size()))));
-                                    layout.addView(recyclerView);
-                                    if (comments.size() > 5) {
-                                        View btnMore = inflater.inflate(R.layout.item_more, layout, false);
-                                        btnMore.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                Intent intent = new Intent(getActivity(), CommentActivity.class);
-                                                intent.putExtra("id", mWork.getId());
-                                                getActivity().startActivity(intent);
-                                            }
-                                        });
-                                        layout.addView(btnMore);
-                                    }
+                                RecyclerView recyclerView = new RecyclerView(getActivity());
+                                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                                recyclerView.setNestedScrollingEnabled(false);
+                                recyclerView.setAdapter(new CommentAdapter(getActivity(), comments.subList(0, Math.min(5, comments.size()))));
+                                layout.addView(recyclerView);
+                                if (comments.size() > 5) {
+                                    View btnMore = inflater.inflate(R.layout.item_more, layout, false);
+                                    btnMore.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            Intent intent = new Intent(getActivity(), CommentActivity.class);
+                                            intent.putExtra("id", mWork.getId());
+                                            getActivity().startActivity(intent);
+                                        }
+                                    });
+                                    layout.addView(btnMore);
                                 }
-                            });
-                    NetworkRequest.getRelatedWorks(mWork.getId())
-                            .subscribe(new Subscriber<HttpService.IllustListResponse>() {
-                                @Override
-                                public void onCompleted() {
+                            }
+                        });
+                NetworkRequest.getRelatedWorks(mWork.getId())
+                        .subscribe(new Subscriber<HttpService.IllustListResponse>() {
+                            @Override
+                            public void onCompleted() {
 
-                                }
+                            }
 
-                                @Override
-                                public void onError(Throwable e) {
-                                    Log.e("getRelatedWorks", "err:" + e.getLocalizedMessage());
-                                }
+                            @Override
+                            public void onError(Throwable e) {
+                                Log.e("getRelatedWorks", "err:" + e.getLocalizedMessage());
+                            }
 
-                                @Override
-                                public void onNext(HttpService.IllustListResponse illustListResponse) {
-                                    List<Work> works = illustListResponse.getWorks();
-                                    LinearLayout layout = (LinearLayout) view.findViewById(R.id.RelatedWorksLayout);
-                                    layout.removeViewAt(1);
-                                    RecyclerView recyclerView = new RecyclerView(getActivity());
-                                    recyclerView.setLayoutManager(new WorkGridLayoutManager(getActivity()));
-                                    recyclerView.setAdapter(new ImageAdapter(getActivity(), works));
-                                    layout.addView(recyclerView);
-                                }
-                            });
-                }
-                return false;
+                            @Override
+                            public void onNext(HttpService.IllustListResponse illustListResponse) {
+                                List<Work> works = illustListResponse.getWorks();
+                                LinearLayout layout = (LinearLayout) view.findViewById(R.id.RelatedWorksLayout);
+                                layout.removeViewAt(1);
+                                RecyclerView recyclerView = new RecyclerView(getActivity());
+                                recyclerView.setLayoutManager(new WorkGridLayoutManager(getActivity()));
+                                recyclerView.setAdapter(new ImageAdapter(getActivity(), works));
+                                layout.addView(recyclerView);
+                            }
+                        });
             }
+            return false;
         });
-        final ImageView iv = (ImageView) view.findViewById(R.id.iv);
+        final ImageView iv = view.findViewById(R.id.iv);
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) iv.getLayoutParams();
         WindowManager wm = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
@@ -198,33 +199,32 @@ public class ImageFragment extends BaseFragment<WorkPresenter> implements WorkCo
 
         ImageLoader.loadImage(getActivity(), mWork.getUser().getMediumImageUrl())
                 .fitCenter()
-                .load((ImageView) view.findViewById(R.id.ivProfile));
+                .load(view.findViewById(R.id.ivProfile));
         ImageLoader.loadImage(getActivity(), mWork.getUser().getMediumImageUrl())
                 .fitCenter()
-                .load((ImageView) view.findViewById(R.id.ivProfile2));
+                .load(view.findViewById(R.id.ivProfile2));
         ((TextView) view.findViewById(R.id.tvTitle)).setText(mWork.getTitle());
         ((TextView) view.findViewById(R.id.tvName)).setText(mWork.getUser().getName());
         ((TextView) view.findViewById(R.id.tvName2)).setText(mWork.getUser().getName());
-        mCbFav = (CheckBox) view.findViewById(R.id.btnFav);
+        mCbFav = view.findViewById(R.id.btnFav);
+        mCbSave = view.findViewById(R.id.btnSave);
+        mCbSave.setOnClickListener(v -> ItemOperation.save(getActivity(), mWork));
         mCbFav.setChecked(mWork.isIsBookmarked());
-        mCbFav.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (mWork.isIsBookmarked() != isChecked) {
-                    mWork.setIsBookmarked(isChecked);
-                    if (isChecked) {
-                        ItemOperation.addBookmark(getActivity(), mWork.getId(), "public");
+        mCbFav.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (mWork.isIsBookmarked() != isChecked) {
+                mWork.setIsBookmarked(isChecked);
+                if (isChecked) {
+                    ItemOperation.addBookmark(getActivity(), mWork.getId(), "public");
 //                    ItemOperation.addBookmark(getActivity(), mWork);
-                        if (PreferenceManager.getDefaultSharedPreferences(getActivity())
-                                .getBoolean(getString(R.string.key_show_toast_long_click_favorite), true)) {
-                            Toast.makeText(getActivity(), R.string.toast_long_click_private, Toast.LENGTH_LONG).show();
-                            PreferenceManager.getDefaultSharedPreferences(getActivity()).edit()
-                                    .putBoolean(getString(R.string.key_show_toast_long_click_favorite), false)
-                                    .apply();
-                        }
-                    } else {
-                        ItemOperation.removeBookmark(getActivity(), mWork.getId());
+                    if (PreferenceManager.getDefaultSharedPreferences(getActivity())
+                            .getBoolean(getString(R.string.key_show_toast_long_click_favorite), true)) {
+                        Toast.makeText(getActivity(), R.string.toast_long_click_private, Toast.LENGTH_LONG).show();
+                        PreferenceManager.getDefaultSharedPreferences(getActivity()).edit()
+                                .putBoolean(getString(R.string.key_show_toast_long_click_favorite), false)
+                                .apply();
                     }
+                } else {
+                    ItemOperation.removeBookmark(getActivity(), mWork.getId());
                 }
             }
         });

@@ -25,19 +25,31 @@ public class ConnectModeSelectDialog extends DialogFragment {
         Button button_direct = view.findViewById(R.id.button_direct);
         button_direct.setOnClickListener(v -> {
             SettingUtil.setSetting(getContext(), "connect_mode", "direct");
-            Toast.makeText(getContext(), "已切换为 直连模式 ，重启后生效", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "已切换为 " + getString(R.string.mode_direct) + " ，重启后生效", Toast.LENGTH_SHORT).show();
+            this.dismiss();
         });
         Button button_global = view.findViewById(R.id.button_global);
         button_global.setOnClickListener(v -> {
             SettingUtil.setSetting(getContext(), "connect_mode", "global");
-            Toast.makeText(getContext(), "已切换为 全球模式 ，重启后生效", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "已切换为 " + getString(R.string.mode_global) + " ，重启后生效", Toast.LENGTH_SHORT).show();
+            this.dismiss();
         });
         Button button_proxy = view.findViewById(R.id.button_proxy);
         button_proxy.setOnClickListener(v -> {
             SettingUtil.setSetting(getContext(), "connect_mode", "proxy");
-            Toast.makeText(getContext(), "已切换为 代理模式 ，重启后生效", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "已切换为 " + getString(R.string.mode_proxy) + " ，重启后生效", Toast.LENGTH_SHORT).show();
+            this.dismiss();
         });
-        builder.setTitle(getString(R.string.string_connect_mode))
+        String mode = SettingUtil.getSetting(getContext(), "connect_mode", "direct");
+        String modeString;
+        if (mode.equals("direct")) {
+            modeString = getString(R.string.mode_direct);
+        } else if (mode.equals("global")) {
+            modeString = getString(R.string.mode_global);
+        } else {
+            modeString = getString(R.string.mode_proxy);
+        }
+        builder.setTitle(getString(R.string.string_connect_mode) + " 当前模式：" + modeString)
                 .setView(view);
         return builder.create();
     }

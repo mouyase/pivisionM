@@ -53,6 +53,7 @@ public class HttpClient {
                     .header("App-Version", "5.0.156")
                     .header("X-Client-Time", "3000-01-01T00:00:00+00:00")
                     .header("X-Client-Hash", "93771864335ef0c8e52db10be563eab3")
+                    .header("Referer", "https://www.pixiv.net")
                     .build();
             return chain.proceed(request);
         };
@@ -113,7 +114,6 @@ public class HttpClient {
     }
 
     public static void request(String url, Callback callback) {
-
         Request request = new Request.Builder()
                 .url(url)
                 .addHeader("Referer", "http://www.pixiv.net")
