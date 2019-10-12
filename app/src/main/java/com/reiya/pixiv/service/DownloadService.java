@@ -278,19 +278,38 @@ public class DownloadService extends IntentService {
         final Work work = task.work;
         final int index = task.index;
         ItemOperation.save(this, work, work.getPageCount() == 1, index, mPublicType,
-                new ItemOperation.OnSavingDone() {
-                    @Override
-                    public void onDo(File file) {
+                file -> {
+                    mSize += file.length();
+                    mNumPictures++;
+                    sTasksDoing.remove(task);
+
+                    Intent intent = new Intent("android.intent.action.UPDATE_PROGRESS");
+                    intent.putExtra("info", getString(R.string.save_to) + file.getPath());
+                    sendBroadcast(intent);
+
+                    Intent intent2 = new Intent("android.intent.action.UPDATE_TASK");
+                    sendBroadcast(intent2);
+
+                    if (work.getPageCount() == 1) {
+                        mNumWorks++;
+                        sendNotification(mNumWorks, mTotal);
+                    } else {
+                        mMultiPageWorks.put(work.getId(), mMultiPageWorks.get(work.getId()) + 1);
+                        if (mMultiPageWorks.get(work.getId()) == work.getPageCount()) {
+                            mNumWorks++;
+                            sendNotification(mNumWorks, mTotal);
+                        }
+                    }
+
+                    Log.e("download", file.getPath());
+
+                    download();
+                },
+                (file, exist) -> {
+                    Log.e("exist", "" + exist);
+                    if (exist) {
                         mSize += file.length();
                         mNumPictures++;
-                        sTasksDoing.remove(task);
-
-                        Intent intent = new Intent("android.intent.action.UPDATE_PROGRESS");
-                        intent.putExtra("info", getString(R.string.save_to) + file.getPath());
-                        sendBroadcast(intent);
-
-                        Intent intent2 = new Intent("android.intent.action.UPDATE_TASK");
-                        sendBroadcast(intent2);
 
                         if (work.getPageCount() == 1) {
                             mNumWorks++;
@@ -303,36 +322,11 @@ public class DownloadService extends IntentService {
                             }
                         }
 
-                        Log.e("download", file.getPath());
-
                         download();
-                    }
-                },
-                new ItemOperation.OnCheckExist() {
-                    @Override
-                    public void onDo(File file, boolean exist) {
-                        Log.e("exist", "" + exist);
-                        if (exist) {
-                            mSize += file.length();
-                            mNumPictures++;
-
-                            if (work.getPageCount() == 1) {
-                                mNumWorks++;
-                                sendNotification(mNumWorks, mTotal);
-                            } else {
-                                mMultiPageWorks.put(work.getId(), mMultiPageWorks.get(work.getId()) + 1);
-                                if (mMultiPageWorks.get(work.getId()) == work.getPageCount()) {
-                                    mNumWorks++;
-                                    sendNotification(mNumWorks, mTotal);
-                                }
-                            }
-
-                            download();
-                        } else {
-                            sTasksDoing.add(task);
-                            Intent intent2 = new Intent("android.intent.action.UPDATE_TASK");
-                            sendBroadcast(intent2);
-                        }
+                    } else {
+                        sTasksDoing.add(task);
+                        Intent intent2 = new Intent("android.intent.action.UPDATE_TASK");
+                        sendBroadcast(intent2);
                     }
                 });
 //        final IllustItem item = task.item;

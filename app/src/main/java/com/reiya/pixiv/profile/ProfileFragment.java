@@ -1,5 +1,6 @@
 package com.reiya.pixiv.profile;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -110,6 +111,7 @@ public class ProfileFragment extends BaseFragment<ProfilePresenter> implements P
         mRecyclerView.finishLoading();
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void showUserInfo(User user, Profile profile) {
         if (user == null) {
@@ -122,6 +124,7 @@ public class ProfileFragment extends BaseFragment<ProfilePresenter> implements P
 
 
             ((TextView) mView.findViewById(R.id.tvName)).setText(user.getName() + "\n(" + user.getId() + ")");
+            System.out.println(profile.getInfo(getActivity()));
             ((TextView) mView.findViewById(R.id.tvInfo)).setText(profile.getInfo(getActivity()));
             ((TextView) mView.findViewById(R.id.tvHomepage)).setText(profile.getWebpage());
             ((TextView) mView.findViewById(R.id.tvComment)).setText(Html.fromHtml(user.getComment()));

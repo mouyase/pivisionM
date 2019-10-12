@@ -21,17 +21,17 @@
             android:orientation="horizontal">
 
             <EditText
+                android:id="@+id/editText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:id="@+id/editText"
                 android:background="@null"
-                android:textSize="16sp"
-                android:imeOptions="actionSearch"
                 android:hint="@string/hint_search"
-                android:maxLines="1"
+                android:imeOptions="actionSearch"
                 android:paddingTop="12dp"
-                android:paddingBottom="12dp"/>
+                android:paddingBottom="12dp"
+                android:singleLine="true"
+                android:textSize="16sp" />
 
             <ImageButton
                 android:layout_width="wrap_content"

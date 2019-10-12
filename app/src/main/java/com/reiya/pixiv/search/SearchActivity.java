@@ -48,20 +48,21 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         setTheme(Theme.getTheme());
         setContentView(R.layout.activity_search);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24px);
 
-        mViewPager = (ViewPager) findViewById(R.id.viewPager);
-        mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
-        mTextView = (TextView) findViewById(R.id.textView);
-        final ImageButton btnSearch = (ImageButton) findViewById(R.id.btnSearch);
+        mViewPager = findViewById(R.id.viewPager);
+        mTabLayout = findViewById(R.id.tabLayout);
+        mTextView = findViewById(R.id.textView);
+         ImageButton btnSearch = findViewById(R.id.btnSearch);
 //        ListView listView = (ListView) findViewById(R.id.searchListView);
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        mRecyclerView = findViewById(R.id.recyclerView);
 
         mKeyword = getIntent().getStringExtra("tag");
         mTextView.setOnClickListener(this);
+        btnSearch.setOnClickListener(this);
 //        String[] s = BaseApplication.getHistory();
 //        mSearchAdapter = new SearchAdapter(this, Arrays.asList(s));
 //        mSearchAdapter.setOnTextSelected(new SearchAdapter.OnTextSelected() {
@@ -130,24 +131,19 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 .subscribe(new Subscriber<HttpService.TrendTagsResponse>() {
                     @Override
                     public void onCompleted() {
-
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
                     }
 
                     @Override
                     public void onNext(HttpService.TrendTagsResponse trendTagsResponse) {
                         TrendTagAdapter adapter = new TrendTagAdapter(getApplicationContext(), trendTagsResponse.getTrendTags());
-                        adapter.setOnSearchTag(new TrendTagAdapter.OnSearchTag() {
-                            @Override
-                            public void onSearchTag(String tag) {
-                                mKeyword = tag;
-                                mTextView.setText(mKeyword);
-                                search();
-                            }
+                        adapter.setOnSearchTag(tag -> {
+                            mKeyword = tag;
+                            mTextView.setText(mKeyword);
+                            search();
                         });
                         mRecyclerView.setAdapter(adapter);
                     }
@@ -190,8 +186,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnSearch:
-                trySearch();
-                break;
             case R.id.textView:
                 Intent intent = new Intent(this, KeywordActivity.class);
                 intent.putExtra("text", mTextView.getText().toString());
@@ -266,10 +260,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                break;
+        if (item.getItemId() == android.R.id.home) {
+            finish();
         }
         return true;
     }

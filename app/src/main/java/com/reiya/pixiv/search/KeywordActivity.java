@@ -33,27 +33,23 @@ public class KeywordActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_keyword);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_grey_24px);
 
         findViewById(R.id.btnSearch).setOnClickListener(this);
-        ListView listView = (ListView) findViewById(R.id.listView);
+        ListView listView = findViewById(R.id.listView);
 
         String[] history = BaseApplication.getHistory();
         mSearchAdapter = new SearchAdapter(this, Arrays.asList(history));
         mSearchAdapter.getFilter().filter("");
         listView.setAdapter(mSearchAdapter);
-        mSearchAdapter.setOnTextSelected(new SearchAdapter.OnTextSelected() {
-            @Override
-            public void onTextSelected(String s) {
-                search(s);
-            }
-        });
+        mSearchAdapter.setOnTextSelected(s -> search(s));
 
-        mEditText = (EditText) findViewById(R.id.editText);
+        mEditText = findViewById(R.id.editText);
 
+//        mEditText.setSingleLine(true);
         mEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -73,23 +69,17 @@ public class KeywordActivity extends AppCompatActivity implements View.OnClickLi
         });
         String text = getIntent().getStringExtra("text");
         mEditText.setText(text);
-        mEditText.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                    trySearch();
-                    return true;
-                }
-                return false;
+        mEditText.setOnKeyListener((v, keyCode, event) -> {
+            if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                trySearch();
+                return true;
             }
+            return false;
         });
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                inputManager.showSoftInput(mEditText, 0);
-            }
+        new Handler().postDelayed(() -> {
+            InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.showSoftInput(mEditText, 0);
         }, 500);
     }
 
@@ -111,10 +101,8 @@ public class KeywordActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                break;
+        if (item.getItemId() == android.R.id.home) {
+            finish();
         }
         return true;
     }
@@ -127,10 +115,8 @@ public class KeywordActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btnSearch:
-                trySearch();
-                break;
+        if (v.getId() == R.id.btnSearch) {
+            trySearch();
         }
     }
 }

@@ -11,11 +11,13 @@
         android:largeHeap="true"
         android:networkSecurityConfig="@xml/network_security_config"
         android:resizeableActivity="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="n">
         <activity
             android:name="com.reiya.pixiv.other.SplashActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,18 +40,23 @@
         </activity>
         <activity
             android:name="com.reiya.pixiv.work.ViewActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.zoom.ZoomActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.group.GroupViewActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.gif.GifActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.search.SearchActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Translucent"
             android:windowSoftInputMode="adjustPan">
             <meta-data
@@ -58,63 +65,102 @@
         </activity>
         <activity
             android:name="com.reiya.pixiv.profile.ProfileActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.collection.FavoriteWorksActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.concern.FavoriteUsersActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.history.HistoryActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.spotlight.SpotlightActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.article.ArticleActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.other.SettingsActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.comment.CommentActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.grid.GridActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.historyranking.HistoryRankingActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.download.DownloadActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.other.OpenSourceActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
 
         <activity
             android:name="com.reiya.pixiv.ranking.RankingActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
 
         <activity
             android:name="com.reiya.pixiv.main.MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/TranslucentNoActionBar" />
         <activity
             android:name="com.reiya.pixiv.search.KeywordActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Translucent"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name="com.reiya.pixiv.other.LoginActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
 
         <service android:name="com.reiya.pixiv.service.DownloadService" />
+        <!--集成腾讯Bugly-->
+        <activity
+            android:name="com.tencent.bugly.beta.ui.BetaActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent" />
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="tech.yojigen.pivisionm.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
     </application>
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission
+        android:name="android.permission.ACCESS_NETWORK_STATE"
+        tools:ignore="ManifestOrder" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.NETWORK_PROVIDER" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <!--    <uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!--    <uses-permission android:name="android.permission.READ_LOGS" />-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
 </manifest>

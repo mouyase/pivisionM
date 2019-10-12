@@ -10,8 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
+import tech.yojigen.common.util.SettingUtil;
 import tech.yojigen.pivisionm.R;
-import tech.yonjigen.common.util.SettingUtil;
 
 /**
  * Created by Administrator on 2015/12/31 0031.

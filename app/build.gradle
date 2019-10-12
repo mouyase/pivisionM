@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 29
-
     defaultConfig {
         applicationId "tech.yojigen.pivisionm"
         minSdkVersion 19
@@ -14,25 +13,39 @@ android {
     }
 
 
-    applicationVariants.all { variant ->
-        if (variant.buildType.name == "release") {
-            variant.mergedFlavor.resourceConfigurations.add("hdpi")
+    signingConfigs {
+        releaseConfig {
+            def keystoreProperties = new Properties()
+            def keystorePropertiesFile = project.rootProject.file("keystore.properties")
+            keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
         }
     }
+//    applicationVariants.all { variant ->
+//        if (variant.buildType.name == "release") {
+//            variant.mergedFlavor.resourceConfigurations.add("hdpi")
+//        }
+//    }
 
     buildTypes {
         debug {
-            minifyEnabled true
+//            minifyEnabled true
             zipAlignEnabled true
-            shrinkResources true
-            proguardFiles 'proguard-rules.pro'
+//            shrinkResources true
+//            proguardFiles 'proguard-rules.pro'
             debuggable = true
+            signingConfig signingConfigs.releaseConfig
         }
         release {
             minifyEnabled true
             zipAlignEnabled true
             shrinkResources true
             proguardFiles 'proguard-rules.pro'
+            signingConfig signingConfigs.releaseConfig
         }
 
     }
@@ -70,4 +83,6 @@ dependencies {
 
     implementation 'me.gujun.android.taggroup:library:1.4@aar'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
+
+    implementation 'com.tencent.bugly:crashreport_upgrade:1.4.2'
 }

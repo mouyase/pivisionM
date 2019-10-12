@@ -1,4 +1,4 @@
-package tech.yonjigen.common.util;
+package tech.yojigen.common.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;

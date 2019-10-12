@@ -29,7 +29,7 @@ public class ColorSelectDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         View view = View.inflate(getContext(), R.layout.layout_color, null);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         ColorAdapter adapter = new ColorAdapter(getContext());
         recyclerView.setAdapter(adapter);

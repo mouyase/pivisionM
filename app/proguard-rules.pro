@@ -1,21 +1,46 @@
--dontobfuscate
--dontoptimize
--keepclasseswithmembernames class * {     # 保持 native 方法不被混淆
-    native <methods>;
+-android
+-dontskipnonpubliclibraryclassmembers
+-keepattributes Exceptions,InnerClasses,Deprecated,*Annotation*,EnclosingMethodR,Signature,SourceFile,LineNumberTable
+
+-keep public class * extends com.bumptech.glide.module.AppGlideModule
+-keep class com.bumptech.glide.GeneratedAppGlideModuleImpl
+
+-keep class okhttp3.** { *; }
+-keep interface okhttp3.** { *; }
+-dontwarn okhttp3.**
+
+-dontwarn okio.**
+
+-dontwarn com.makeramen.roundedimageview.**
+-keep class com.makeramen.roundedimageview.** { *; }
+
+-dontwarn retrofit2.**
+-keep class retrofit2.** { *; }
+
+-dontwarn sun.misc.**
+-keep class rx.schedulers.Schedulers {
+    public static <methods>;
 }
--keepclasseswithmembers class * {
-    public <init>(android.content.Context, android.util.AttributeSet);
+-keep class rx.schedulers.ImmediateScheduler {
+    public <methods>;
 }
--keepclasseswithmembers class * {
-    public <init>(android.content.Context, android.util.AttributeSet, int);
+-keep class rx.schedulers.TestScheduler {
+    public <methods>;
 }
--keepclassmembers class * extends android.app.Activity {
-   public void *(android.view.View);
+-keep class rx.schedulers.Schedulers {
+    public static ** test();
 }
--keepclassmembers enum * {
-    public static **[] values();
-    public static ** valueOf(java.lang.String);
+-keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
+    long producerIndex;
+    long consumerIndex;
 }
--keep class * implements android.os.Parcelable {
-  public static final android.os.Parcelable$Creator *;
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
+    long producerNode;
+    long consumerNode;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode producerNode;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode consumerNode;
 }

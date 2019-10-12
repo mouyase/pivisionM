@@ -31,8 +31,8 @@ import okio.Source;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import tech.yojigen.common.util.SettingUtil;
 import tech.yojigen.pivisionm.BuildConfig;
-import tech.yonjigen.common.util.SettingUtil;
 
 /**
  * Created by Administrator on 2015/11/23 0023.
