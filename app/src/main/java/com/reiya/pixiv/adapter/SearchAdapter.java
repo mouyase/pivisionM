@@ -59,8 +59,8 @@ public class SearchAdapter extends BaseAdapter implements Filterable {
         if (convertView == null) {
             view = View.inflate(context, R.layout.item_search, null);
             holder = new ViewHolder();
-            holder.tv1 = (TextView) view.findViewById(R.id.textView1);
-            holder.tv2 = (TextView) view.findViewById(R.id.textView2);
+            holder.tv1 = view.findViewById(R.id.textView1);
+            holder.tv2 = view.findViewById(R.id.textView2);
             view.setTag(holder);
         } else {
             view = convertView;
@@ -84,35 +84,32 @@ public class SearchAdapter extends BaseAdapter implements Filterable {
         }
         holder.tv2.setText(type);
 
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent;
-                switch (item.type) {
-                    case -1:
-                        strings = new ArrayList<>();
-                        items = new ArrayList<>();
-                        notifyDataSetChanged();
-                        BaseApplication.writeHistory(new String[]{""});
-                        break;
-                    case 0:
-                        if (onTextSelected != null) {
-                            onTextSelected.onTextSelected(item.text);
-                        }
-                        break;
-                    case 1:
-                        intent = new Intent(context, ViewActivity.class);
-                        intent.putExtra("id", Integer.parseInt(item.text));
-                        context.startActivity(intent);
-                        activity.finish();
-                        break;
-                    case 2:
-                        intent = new Intent(context, ProfileActivity.class);
-                        intent.putExtra("id", Integer.parseInt(item.text));
-                        context.startActivity(intent);
-                        activity.finish();
-                        break;
-                }
+        view.setOnClickListener(v -> {
+            Intent intent;
+            switch (item.type) {
+                case -1:
+                    strings = new ArrayList<>();
+                    items = new ArrayList<>();
+                    notifyDataSetChanged();
+                    BaseApplication.writeHistory(new String[]{""});
+                    break;
+                case 0:
+                    if (onTextSelected != null) {
+                        onTextSelected.onTextSelected(item.text);
+                    }
+                    break;
+                case 1:
+                    intent = new Intent(context, ViewActivity.class);
+                    intent.putExtra("id", Integer.parseInt(item.text));
+                    context.startActivity(intent);
+                    activity.finish();
+                    break;
+                case 2:
+                    intent = new Intent(context, ProfileActivity.class);
+                    intent.putExtra("id", Integer.parseInt(item.text));
+                    context.startActivity(intent);
+                    activity.finish();
+                    break;
             }
         });
 

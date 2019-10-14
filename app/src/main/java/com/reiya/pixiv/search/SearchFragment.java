@@ -63,15 +63,12 @@ public class SearchFragment extends BaseFragment<SearchPresenter> implements Sea
         mRecyclerView = (LoaderRecyclerView) inflater.inflate(R.layout.recycler_view, container, false);
         mRecyclerView.setLayoutManager(new WorkGridLayoutManager(getActivity()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        adapter = new ImageAdapter(getActivity(), new ArrayList<Work>());
+        adapter = new ImageAdapter(getActivity(), new ArrayList<>());
         adapter.setBlackList(blacklist);
         mRecyclerView.setAdapter(adapter);
-        mRecyclerView.setOnLoadMoreListener(new LoaderRecyclerView.OnLoadMoreListener() {
-            @Override
-            public void load() {
-                if (adapter.getNextUrl() != null) {
-                    mPresenter.next(adapter.getNextUrl());
-                }
+        mRecyclerView.setOnLoadMoreListener(() -> {
+            if (adapter.getNextUrl() != null) {
+                mPresenter.next(adapter.getNextUrl());
             }
         });
         mLayout.addView(mRecyclerView);

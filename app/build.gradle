@@ -7,11 +7,10 @@ android {
         minSdkVersion 19
         targetSdkVersion 29
         versionCode 442
-        versionName '4.4.2 Beta 2'
+        versionName '4.4.2 Beta 3'
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled = true
     }
-
 
     signingConfigs {
         releaseConfig {
