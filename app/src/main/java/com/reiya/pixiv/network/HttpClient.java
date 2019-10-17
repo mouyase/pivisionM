@@ -155,14 +155,11 @@ public class HttpClient {
     private static OkHttpClient getProgressClient(final ProgressListener listener) {
         OkHttpClient clone = new OkHttpClient();
         if (listener != null) {
-            clone.networkInterceptors().add(new Interceptor() {
-                @Override
-                public Response intercept(Chain chain) throws IOException {
-                    Response originalResponse = chain.proceed(chain.request());
-                    return originalResponse.newBuilder()
-                            .body(new ProgressResponseBody(originalResponse.body(), listener))
-                            .build();
-                }
+            clone.networkInterceptors().add(chain -> {
+                Response originalResponse = chain.proceed(chain.request());
+                return originalResponse.newBuilder()
+                        .body(new ProgressResponseBody(originalResponse.body(), listener))
+                        .build();
             });
         }
         return clone;

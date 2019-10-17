@@ -40,10 +40,10 @@ android {
             signingConfig signingConfigs.releaseConfig
         }
         release {
-            minifyEnabled true
+//            minifyEnabled true
             zipAlignEnabled true
-            shrinkResources true
-            proguardFiles 'proguard-rules.pro'
+//            shrinkResources true
+//            proguardFiles 'proguard-rules.pro'
             signingConfig signingConfigs.releaseConfig
         }
 
@@ -84,4 +84,5 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
 
     implementation 'com.tencent.bugly:crashreport_upgrade:1.4.2'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 }

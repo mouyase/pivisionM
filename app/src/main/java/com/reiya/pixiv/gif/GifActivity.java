@@ -35,16 +35,13 @@ public class GifActivity extends AppCompatActivity {
 
         mVideoView = (VideoView) findViewById(R.id.video_view);
 
-        findViewById(R.id.btnSave).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mFile == null) {
-                    Toast.makeText(getApplicationContext(), R.string.please_wait, Toast.LENGTH_SHORT).show();
-                } else {
-                    File newFile = ItemOperation.getNewFile(GifActivity.this, mWork, 0);
-                    IO.save(mFile, newFile);
-                    Toast.makeText(GifActivity.this, getString(R.string.save_to) + newFile.getPath(), Toast.LENGTH_LONG).show();
-                }
+        findViewById(R.id.btnSave).setOnClickListener(v -> {
+            if (mFile == null) {
+                Toast.makeText(getApplicationContext(), R.string.please_wait, Toast.LENGTH_SHORT).show();
+            } else {
+                File newFile = ItemOperation.getNewFile(GifActivity.this, mWork, 0);
+                IO.save(mFile, newFile);
+                Toast.makeText(GifActivity.this, getString(R.string.save_to) + newFile.getPath(), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -82,12 +79,10 @@ public class GifActivity extends AppCompatActivity {
                                     .subscribe(new Subscriber<ResponseBody>() {
                                         @Override
                                         public void onCompleted() {
-
                                         }
 
                                         @Override
                                         public void onError(Throwable e) {
-
                                         }
 
                                         @Override
@@ -96,12 +91,7 @@ public class GifActivity extends AppCompatActivity {
                                             Log.i("path", mFile.getPath());
                                             findViewById(R.id.progressBar).setVisibility(View.GONE);
                                             mVideoView.setVideoPath(mFile.getPath());
-                                            mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                                                @Override
-                                                public void onPrepared(MediaPlayer mp) {
-                                                    mp.setLooping(true);
-                                                }
-                                            });
+                                            mVideoView.setOnPreparedListener(mp -> mp.setLooping(true));
                                             mVideoView.start();
                                         }
                                     });

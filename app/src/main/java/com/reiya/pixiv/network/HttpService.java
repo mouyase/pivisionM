@@ -107,6 +107,16 @@ public interface HttpService {
                                                 @Query("sort") String sort,
                                                 @Query("search_target") String searchTarget);
 
+    //高级搜索测试
+    @GET("v1/search/illust")
+    Observable<IllustListResponse> getFromPixiv(@Header("Authorization") String authorization,
+                                                @Query("word") String word,
+                                                @Query("content_type") String contentType,
+                                                @Query("sort") String sort,
+                                                @Query("bookmark_num_min") String bookmark_min,
+                                                @Query("bookmark_num_max") String bookmark_max,
+                                                @Query("search_target") String searchTarget);
+
     @GET
     Observable<IllustListResponse> getFromPixiv(@Header("Authorization") String authorization,
                                                 @Url String url);
