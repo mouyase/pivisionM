@@ -2,7 +2,6 @@ package com.reiya.pixiv.network.fuckgfw;
 
 
 import android.net.SSLCertificateSocketFactory;
-import android.util.Log;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -19,7 +18,15 @@ import javax.net.ssl.SSLSocketFactory;
 import kotlin.TypeCastException;
 import kotlin.jvm.internal.Intrinsics;
 
-public final class PixivSSLSocketFactory extends SSLSocketFactory {
+public class PixivSSLSocketFactory extends SSLSocketFactory {
+    private static PixivSSLSocketFactory mPixivSSLSocketFactory = null;
+
+    public static PixivSSLSocketFactory getInstance() {
+        if (mPixivSSLSocketFactory == null) {
+            mPixivSSLSocketFactory = new PixivSSLSocketFactory();
+        }
+        return mPixivSSLSocketFactory;
+    }
 
     @Nullable
     public Socket createSocket(@Nullable String paramString, int paramInt) {
@@ -47,7 +54,6 @@ public final class PixivSSLSocketFactory extends SSLSocketFactory {
             Intrinsics.throwNpe();
         InetAddress inetAddress = paramSocket.getInetAddress();
         Intrinsics.checkExpressionValueIsNotNull(inetAddress, "address");
-        Log.d("address", inetAddress.getHostAddress());
         if (paramBoolean)
             paramSocket.close();
         SocketFactory socketFactory = SSLCertificateSocketFactory.getDefault(0);
@@ -55,7 +61,6 @@ public final class PixivSSLSocketFactory extends SSLSocketFactory {
             Socket socket = socketFactory.createSocket(inetAddress, paramInt);
             if (socket != null) {
                 ((SSLSocket) socket).setEnabledProtocols(((SSLSocket) socket).getSupportedProtocols());
-                Log.i("X", "Setting SNI hostname");
                 SSLSession sSLSession = ((SSLSocket) socket).getSession();
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append("Established ");
@@ -65,7 +70,6 @@ public final class PixivSSLSocketFactory extends SSLSocketFactory {
                 stringBuilder.append(sSLSession.getPeerHost());
                 stringBuilder.append(" using ");
                 stringBuilder.append(sSLSession.getCipherSuite());
-                Log.d("X", stringBuilder.toString());
                 return socket;
             }
             throw new TypeCastException("null cannot be cast to non-null type javax.net.ssl.SSLSocket");

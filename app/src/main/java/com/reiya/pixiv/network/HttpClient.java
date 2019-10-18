@@ -67,7 +67,7 @@ public class HttpClient {
                     .addInterceptor(logging)
                     .addInterceptor(interceptor)
                     .addNetworkInterceptor(interceptor)
-                    .sslSocketFactory(new PixivSSLSocketFactory(), new PixivTrustManager())
+                    .sslSocketFactory(PixivSSLSocketFactory.getInstance(), PixivTrustManager.getInstance())
                     .dns(PixivDNS.getInstance())
                     .build();
         } else {
