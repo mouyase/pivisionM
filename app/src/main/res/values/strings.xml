@@ -12,7 +12,7 @@
     <string name="concern">关注</string>
     <string name="donate" translatable="false">捐助</string>
     <string name="app_ranking">评分</string>
-    <string name="hint_search">标签／作品ID／画师id</string>
+    <string name="hint_search">标签／作品ID／画师ID</string>
     <string name="onLogin">登录</string>
     <string name="negative">取消</string>
     <string name="open_in_browser">在浏览器中打开</string>

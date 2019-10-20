@@ -16,7 +16,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.reiya.pixiv.base.BaseApplication;
-import com.reiya.pixiv.bean.User;
 import com.reiya.pixiv.dialog.ConnectModeSelectDialog;
 import com.reiya.pixiv.view.RippleView;
 
@@ -167,18 +166,8 @@ public class LoginActivity extends AppCompatActivity {
             showProgress(true);
             // Try to login
             BaseApplication.getInstance().login(account, password, true,
-                    new BaseApplication.OnLoginDone() {
-                        @Override
-                        public void onLoginDone(User user) {
-                            finish();
-                        }
-                    },
-                    new BaseApplication.OnLoginFailed() {
-                        @Override
-                        public void onLoginFailed() {
-                            showProgress(false);
-                        }
-                    });
+                    user -> finish(),
+                    () -> showProgress(false));
         }
     }
 
@@ -189,11 +178,11 @@ public class LoginActivity extends AppCompatActivity {
             view.getLocationOnScreen(n);
             int x = n[0] + view.getWidth() / 2;
             int y = n[1] + view.getHeight() / 2;
-            RippleView rippleView = (RippleView) findViewById(R.id.ripple_view);
+            RippleView rippleView = findViewById(R.id.ripple_view);
             rippleView.start(x, y);
             mHandler.postDelayed(mLoginRunnable, 300);
         } else {
-            RippleView rippleView = (RippleView) findViewById(R.id.ripple_view);
+            RippleView rippleView = findViewById(R.id.ripple_view);
             rippleView.reset();
             mLoginFormView.setVisibility(View.VISIBLE);
             mProcessingLoginView.setVisibility(View.GONE);

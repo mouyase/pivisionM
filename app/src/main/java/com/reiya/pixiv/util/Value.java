@@ -16,7 +16,7 @@ public class Value {
 
     public static String URL_PIXIV = "https://app-api.pixiv.net/";
     public static String URL_AUTH = "https://oauth.secure.pixiv.net/";
-    public static final String URL_ILLUST_PAGE = "http://www.pixiv.net/member_illust.php?mode=medium&illust_id=";
+    public static final String URL_ILLUST_PAGE = "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=";
     public static final String URL_UGOIRA = "http://ugoira.dataprocessingclub.org/";
 
     /*反向代理*/

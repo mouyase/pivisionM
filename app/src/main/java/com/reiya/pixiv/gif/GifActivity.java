@@ -1,6 +1,5 @@
 package com.reiya.pixiv.gif;
 
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -33,7 +32,7 @@ public class GifActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gif);
 
-        mVideoView = (VideoView) findViewById(R.id.video_view);
+        mVideoView = findViewById(R.id.video_view);
 
         findViewById(R.id.btnSave).setOnClickListener(v -> {
             if (mFile == null) {
@@ -51,7 +50,6 @@ public class GifActivity extends AppCompatActivity {
                 .subscribe(new Subscriber<HttpService.UgoiraResponse>() {
                     @Override
                     public void onCompleted() {
-
                     }
 
                     @Override
@@ -65,15 +63,6 @@ public class GifActivity extends AppCompatActivity {
                         if (mUrl == null || mUrl.equals("")) {
                             err();
                         } else {
-//                            ImageLoader
-//                                    .download(GifActivity.this, mUrl, new SimpleTarget<File>() {
-//                                        @Override
-//                                        public void onResourceReady(File resource, Transition<? super File> transition) {
-//                                            mFile = resource;
-//                                            ImageLoader.loadImage(GifActivity.this, mFile)
-//                                                    .load(iv);
-//                                        }
-//                                    });
                             mFile = new File(getCacheDir(), mWork.getId() + ".webm");
                             NetworkRequest.download(mUrl)
                                     .subscribe(new Subscriber<ResponseBody>() {
@@ -103,55 +92,6 @@ public class GifActivity extends AppCompatActivity {
     private void err() {
         Toast.makeText(this, R.string.fail_to_load, Toast.LENGTH_SHORT).show();
     }
-
-//    private void showMenu() {
-//        MenuDialog menuDialog = new MenuDialog();
-//        final Work work = getIntent().getParcelableExtra("work");
-//        menuDialog.setListener(new String[]{getString(R.string.detail), getString(R.string.tag), getString(R.string.save_gif), getString(R.string.open_in_browser), getString(R.string.collection)}, new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                switch (which) {
-//                    case 0:
-//                        ItemOperation.showDetailDialog(GifActivity.this, work);
-//                        break;
-//                    case 1:
-//                        ItemOperation.showTagsDialog(GifActivity.this, work);
-//                        break;
-//                    case 2:
-//                        if (mUrl == null) {
-//                            Toast.makeText(getApplicationContext(), R.string.please_wait, Toast.LENGTH_LONG).show();
-//                            return;
-//                        }
-//                        ItemOperation.saveGif(GifActivity.this, mWork, mUrl,
-//                                new ItemOperation.OnSavingDone() {
-//                                    @Override
-//                                    public void onDo(final File file) {
-//                                        runOnUiThread(new Runnable() {
-//                                            @Override
-//                                            public void run() {
-//                                                Toast.makeText(GifActivity.this, getString(R.string.save_to) + file.getPath(), Toast.LENGTH_LONG).show();
-//
-//                                            }
-//                                        });
-//                                    }
-//                                },
-//                                new ItemOperation.OnCheckExist() {
-//                                    @Override
-//                                    public void onDo(File file, boolean exist) {
-//
-//                                    }
-//                                });
-//                        break;
-//                    case 3:
-//                        ItemOperation.browser(GifActivity.this, work);
-//                        break;
-//                    case 4:
-//                        ItemOperation.addBookmark(GifActivity.this, work);
-//                }
-//            }
-//        });
-//        menuDialog.show(getSupportFragmentManager(), "Menu");
-//    }
 
     @Override
     protected void onDestroy() {

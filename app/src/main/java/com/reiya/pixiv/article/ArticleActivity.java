@@ -1,5 +1,6 @@
 package com.reiya.pixiv.article;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -10,29 +11,23 @@ import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.reiya.pixiv.bean.Theme;
-import com.reiya.pixiv.network.HttpClient;
 import com.reiya.pixiv.profile.ProfileActivity;
 import com.reiya.pixiv.work.ViewActivity;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import okhttp3.Call;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import tech.yojigen.pivisionm.R;
 
 public class ArticleActivity extends AppCompatActivity {
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,18 +47,6 @@ public class ArticleActivity extends AppCompatActivity {
                 @Nullable
                 @Override
                 public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
-//                    if (request.getUrl().toString().contains("pximg.net")) {
-//                        try {
-//                            OkHttpClient okHttpClient = HttpClient.getClient();
-//                            Call call = okHttpClient.newCall(new Request.Builder().url(request.getUrl().toString()).build());
-//                            Response response = call.execute();
-//                            System.out.println(request.getUrl());
-//                            return new WebResourceResponse(response.body().contentType().type(), "gzip", response.body().byteStream());
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                            return super.shouldInterceptRequest(view, request);
-//                        }
-//                    }
                     return super.shouldInterceptRequest(view, request);
                 }
 

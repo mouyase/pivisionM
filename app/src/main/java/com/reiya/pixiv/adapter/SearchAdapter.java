@@ -73,10 +73,10 @@ public class SearchAdapter extends BaseAdapter implements Filterable {
         String type = "";
         switch (item.type) {
             case 1:
-                type = "作品id";
+                type = "作品ID";
                 break;
             case 2:
-                type = "画师id";
+                type = "画师IDm";
                 break;
             case -1:
                 type = "清除搜索历史";
