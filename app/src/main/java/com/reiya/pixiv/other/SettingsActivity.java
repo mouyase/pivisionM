@@ -4,13 +4,16 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
+import android.view.Gravity;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,7 +23,6 @@ import androidx.fragment.app.FragmentActivity;
 import com.bumptech.glide.Glide;
 import com.reiya.pixiv.bean.Theme;
 import com.reiya.pixiv.dialog.ColorSelectDialog;
-import com.reiya.pixiv.dialog.ConnectModeSelectDialog;
 import com.reiya.pixiv.dialog.PathSelectDialog;
 import com.reiya.pixiv.util.IO;
 
@@ -66,6 +68,17 @@ public class SettingsActivity extends AppCompatActivity {
                 getActivity().setResult(3, getActivity().getIntent());
                 return true;
             });
+            findPreference(getString(R.string.key_connect_mode)).setOnPreferenceChangeListener((preference, newValue) -> {
+                int connectMode = Integer.parseInt(String.valueOf(newValue));
+                Toast toast = Toast.makeText(getActivity(), "当前已设置为 " + getActivity().getResources().getStringArray(R.array.pref_connect_mode_strings)[connectMode] + " 模式\n重启后生效", Toast.LENGTH_LONG);
+                int tvToastId = Resources.getSystem().getIdentifier("message", "id", "android");
+                TextView tvToast = toast.getView().findViewById(tvToastId);
+                if (tvToast != null) {
+                    tvToast.setGravity(Gravity.CENTER);
+                }
+                toast.show();
+                return true;
+            });
         }
 
         @Override
@@ -103,10 +116,11 @@ public class SettingsActivity extends AppCompatActivity {
                     activity.overridePendingTransition(0, 0);
                 });
                 colorSelectDialog.show(((FragmentActivity) getActivity()).getSupportFragmentManager(), "Color");
-            } else if (preference.getKey().equals(getString(R.string.key_connect_mode))) {
-                ConnectModeSelectDialog connectModeSelectDialog = new ConnectModeSelectDialog();
-                connectModeSelectDialog.show(((FragmentActivity) getActivity()).getSupportFragmentManager(), "Mode");
             }
+//            else if (preference.getKey().equals(getString(R.string.key_connect_mode))) {
+//                ConnectModeSelectDialog connectModeSelectDialog = new ConnectModeSelectDialog();
+//                connectModeSelectDialog.show(((FragmentActivity) getActivity()).getSupportFragmentManager(), "Mode");
+//            }
             return false;
         }
     }

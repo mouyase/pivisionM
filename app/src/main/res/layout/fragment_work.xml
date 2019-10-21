@@ -70,18 +70,21 @@
 
                 <CheckBox
                     android:id="@+id/btnFav"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_alignParentRight="true"
+                    android:layout_marginTop="8dp"
                     android:layout_marginRight="56dp"
-                    android:button="@drawable/ic_favourite"
-                    android:padding="6dp" />
+                    android:button="@drawable/ic_favourite" />
 
                 <ImageView
                     android:id="@+id/btnSave"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_alignParentRight="true"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="8dp"
+                    android:padding="4dp"
                     app:srcCompat="@drawable/ic_save_grey_24px" />
             </RelativeLayout>
 

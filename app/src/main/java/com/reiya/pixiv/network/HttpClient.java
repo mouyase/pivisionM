@@ -2,6 +2,7 @@ package com.reiya.pixiv.network;
 
 import android.content.Context;
 import android.os.Build;
+import android.preference.PreferenceManager;
 
 import com.reiya.pixiv.base.BaseApplication;
 import com.reiya.pixiv.network.fuckgfw.PixivDNS;
@@ -31,8 +32,8 @@ import okio.Source;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import tech.yojigen.common.util.SettingUtil;
 import tech.yojigen.pivisionm.BuildConfig;
+import tech.yojigen.pivisionm.R;
 
 /**
  * Created by Administrator on 2015/11/23 0023.
@@ -59,28 +60,37 @@ public class HttpClient {
         };
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE);
-        String mode = SettingUtil.getSetting(context, "connect_mode", "direct");
-        System.out.println(mode);
-        if (mode.equals("direct")) {
-            client = new OkHttpClient.Builder()
-                    .cache(cache)
-                    .addInterceptor(logging)
-                    .addInterceptor(interceptor)
-                    .addNetworkInterceptor(interceptor)
-                    .sslSocketFactory(PixivSSLSocketFactory.getInstance(), PixivTrustManager.getInstance())
-                    .dns(PixivDNS.getInstance())
-                    .build();
-        } else {
-            if (mode.equals("proxy")) {
+
+        int connectMode = Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.key_connect_mode), "0"));
+        switch (connectMode) {
+            case 0:
+                client = new OkHttpClient.Builder()
+                        .cache(cache)
+                        .addInterceptor(logging)
+                        .addInterceptor(interceptor)
+                        .addNetworkInterceptor(interceptor)
+                        .sslSocketFactory(PixivSSLSocketFactory.getInstance(), PixivTrustManager.getInstance())
+                        .dns(PixivDNS.getInstance())
+                        .build();
+                break;
+            case 1:
+                client = new OkHttpClient.Builder()
+                        .cache(cache)
+                        .addInterceptor(logging)
+                        .addInterceptor(interceptor)
+                        .addNetworkInterceptor(interceptor)
+                        .build();
+                break;
+            case 2:
                 Value.URL_AUTH = Value.PROXY_URL_AUTH_YOJIGEN;
                 Value.URL_PIXIV = Value.PROXY_URL_PIXIV_YOJIGEN;
-            }
-            client = new OkHttpClient.Builder()
-                    .cache(cache)
-                    .addInterceptor(logging)
-                    .addInterceptor(interceptor)
-                    .addNetworkInterceptor(interceptor)
-                    .build();
+                client = new OkHttpClient.Builder()
+                        .cache(cache)
+                        .addInterceptor(logging)
+                        .addInterceptor(interceptor)
+                        .addNetworkInterceptor(interceptor)
+                        .build();
+                break;
         }
         service = getRetrofit(Value.URL_PIXIV).create(HttpService.class);
     }

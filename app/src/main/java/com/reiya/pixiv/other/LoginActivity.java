@@ -16,7 +16,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.reiya.pixiv.base.BaseApplication;
-import com.reiya.pixiv.dialog.ConnectModeSelectDialog;
 import com.reiya.pixiv.view.RippleView;
 
 import tech.yojigen.pivisionm.R;
@@ -109,8 +108,13 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(browserIntent);
         });
         findViewById(R.id.mode_button).setOnClickListener(v -> {
-            ConnectModeSelectDialog connectModeSelectDialog = new ConnectModeSelectDialog();
-            connectModeSelectDialog.show(this.getSupportFragmentManager(), "Mode");
+//            ConnectModeSelectDialog connectModeSelectDialog = new ConnectModeSelectDialog();
+//            connectModeSelectDialog.show(this.getSupportFragmentManager(), "Mode");
+//            PreferenceManager.
+//            ConnectModeSelectDialog connectModeSelectDialog = (ConnectModeSelectDialog) findPreference(getString(R.string.key_connect_mode));
+
+            Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+            startActivityForResult(intent, 1);
         });
         mLoginFormView = findViewById(R.id.login_form);
         mProcessingLoginView = findViewById(R.id.login_progress_view);
