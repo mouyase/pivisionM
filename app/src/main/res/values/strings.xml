@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">PivisionM</string>
 
-    <string name="app_update_log">1. 增加了连接模式切换功能\n2. 优化了保存地址选择窗口\n3. 修复了pixivision模块\n4. 增加了新链接打开支持\n5. 增加底部保存按钮\n6. 修复搜索失灵\n7、增加内部更新提示\n8、部分UI优化</string>
+    <string name="app_update_log">1. 增加了连接模式切换功能\n2. 优化了保存地址选择窗口\n3. 修复了pixivision模块\n4. 增加了新链接打开支持\n5. 增加底部保存按钮\n6. 修复搜索失灵\n7.增加内部更新提示\n8.部分UI优化</string>
 
     <string name="about">关于</string>
     <string name="account">账号</string>
