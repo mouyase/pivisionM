@@ -43,9 +43,7 @@ public class SplashActivity extends AppCompatActivity {
             if (account == null || password == null) {
                 enterLoginPage();
             } else {
-                BaseApplication.getInstance().login(account, password, false,
-                        user -> enter(),
-                        () -> enterLoginPage());
+                BaseApplication.getInstance().login(account, password, false, user -> enter(), this::enterLoginPage);
             }
         }
 

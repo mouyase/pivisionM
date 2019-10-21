@@ -20,4 +20,6 @@
     <color name="yellow">#FDD835</color>
     <color name="orange">#FF5722</color>
     <color name="grey">#808080</color>
+
+    <color name="splashBlue">#2195f3</color>
 </resources>

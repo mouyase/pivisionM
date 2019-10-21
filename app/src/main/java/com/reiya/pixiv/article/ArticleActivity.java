@@ -41,45 +41,42 @@ public class ArticleActivity extends AppCompatActivity {
         WebView webView = findViewById(R.id.webView);
         WebView.setWebContentsDebuggingEnabled(true);
         webView.getSettings().setJavaScriptEnabled(true);
-        if (webView != null) {
-            webView.setWebViewClient(new WebViewClient() {
-                @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-                @Nullable
-                @Override
-                public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
-                    return super.shouldInterceptRequest(view, request);
+        webView.setWebViewClient(new WebViewClient() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Nullable
+            @Override
+            public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+                return super.shouldInterceptRequest(view, request);
+            }
+
+            @Nullable
+            @Override
+            public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
+                return super.shouldInterceptRequest(view, url);
+            }
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                if (url.contains("member_illust.php") || url.contains("artworks")) {
+                    Intent intent = new Intent(getApplicationContext(), ViewActivity.class);
+                    intent.setData(Uri.parse(url));
+                    startActivity(intent);
+                    return true;
                 }
-
-                @Nullable
-                @Override
-                public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
-                    return super.shouldInterceptRequest(view, url);
+                if (url.contains("member.php")) {
+                    Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                    intent.setData(Uri.parse(url));
+                    startActivity(intent);
+                    return true;
                 }
+                return false;
+            }
+        });
 
-                @Override
-                public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                    if (url.contains("member_illust.php")||url.contains("artworks")) {
-                        Intent intent = new Intent(getApplicationContext(), ViewActivity.class);
-                        intent.setData(Uri.parse(url));
-                        startActivity(intent);
-                        return true;
-                    }
-                    if (url.contains("member.php")) {
-                        Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-                        intent.setData(Uri.parse(url));
-                        startActivity(intent);
-                        return true;
-                    }
-                    return false;
-                }
-            });
-
-            Map<String, String> header = new HashMap<>();
-            header.put("Accept-Language", "zh_CN");
-            header.put("Referer", "https://www.pixiv.net");
-            webView.loadUrl(getIntent().getStringExtra("url"), header);
-        }
-
+        Map<String, String> header = new HashMap<>();
+        header.put("Accept-Language", "zh_CN");
+        header.put("Referer", "https://www.pixiv.net");
+        webView.loadUrl(getIntent().getStringExtra("url"), header);
     }
 
     @Override

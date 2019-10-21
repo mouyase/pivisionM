@@ -111,7 +111,7 @@
     </style>
 
     <style name="Splash" parent="AppTheme">
-<!--        <item name="android:windowBackground">@drawable/splash</item>-->
+        <item name="android:windowBackground">@drawable/bg_splash</item>
     </style>
 
     <style name="WindowTheme" parent="AppTheme">
