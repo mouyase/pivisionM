@@ -8,9 +8,7 @@ import android.os.Handler;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -18,7 +16,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.reiya.pixiv.base.BaseApplication;
-import com.reiya.pixiv.bean.User;
 import com.reiya.pixiv.view.RippleView;
 
 import tech.yojigen.pivisionm.R;
@@ -50,8 +47,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
-        mAccountView = (TextView) findViewById(R.id.account);
-        mPasswordView = (EditText) findViewById(R.id.password);
+        mAccountView = findViewById(R.id.account);
+        mPasswordView = findViewById(R.id.password);
         mClearAccountView = findViewById(R.id.iv_clear_account);
         mClearPasswordView = findViewById(R.id.iv_clear_password);
 
@@ -95,43 +92,30 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-        mClearAccountView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAccountView.setText("");
-            }
-        });
-        mClearPasswordView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPasswordView.setText("");
-            }
+        mClearAccountView.setOnClickListener(v -> mAccountView.setText(""));
+        mClearPasswordView.setOnClickListener(v -> mPasswordView.setText(""));
+
+        mPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(mPasswordView.getWindowToken(), 0);
+            attemptLogin();
+            return true;
         });
 
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(mPasswordView.getWindowToken(), 0);
-                attemptLogin();
-                return true;
-            }
+        findViewById(R.id.sign_in_button).setOnClickListener(view -> attemptLogin());
+        findViewById(R.id.register_button).setOnClickListener(v -> {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://accounts.pixiv.net/signup"));
+            startActivity(browserIntent);
         });
+        findViewById(R.id.mode_button).setOnClickListener(v -> {
+//            ConnectModeSelectDialog connectModeSelectDialog = new ConnectModeSelectDialog();
+//            connectModeSelectDialog.show(this.getSupportFragmentManager(), "Mode");
+//            PreferenceManager.
+//            ConnectModeSelectDialog connectModeSelectDialog = (ConnectModeSelectDialog) findPreference(getString(R.string.key_connect_mode));
 
-        findViewById(R.id.sign_in_button).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptLogin();
-            }
+            Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+            startActivityForResult(intent, 1);
         });
-        findViewById(R.id.register_button).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://accounts.pixiv.net/signup"));
-                startActivity(browserIntent);
-            }
-        });
-
         mLoginFormView = findViewById(R.id.login_form);
         mProcessingLoginView = findViewById(R.id.login_progress_view);
 
@@ -186,18 +170,8 @@ public class LoginActivity extends AppCompatActivity {
             showProgress(true);
             // Try to login
             BaseApplication.getInstance().login(account, password, true,
-                    new BaseApplication.OnLoginDone() {
-                        @Override
-                        public void onLoginDone(User user) {
-                            finish();
-                        }
-                    },
-                    new BaseApplication.OnLoginFailed() {
-                        @Override
-                        public void onLoginFailed() {
-                            showProgress(false);
-                        }
-                    });
+                    user -> finish(),
+                    () -> showProgress(false));
         }
     }
 
@@ -208,11 +182,11 @@ public class LoginActivity extends AppCompatActivity {
             view.getLocationOnScreen(n);
             int x = n[0] + view.getWidth() / 2;
             int y = n[1] + view.getHeight() / 2;
-            RippleView rippleView = (RippleView) findViewById(R.id.ripple_view);
+            RippleView rippleView = findViewById(R.id.ripple_view);
             rippleView.start(x, y);
             mHandler.postDelayed(mLoginRunnable, 300);
         } else {
-            RippleView rippleView = (RippleView) findViewById(R.id.ripple_view);
+            RippleView rippleView = findViewById(R.id.ripple_view);
             rippleView.reset();
             mLoginFormView.setVisibility(View.VISIBLE);
             mProcessingLoginView.setVisibility(View.GONE);

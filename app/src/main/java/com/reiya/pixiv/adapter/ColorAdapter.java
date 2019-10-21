@@ -27,12 +27,7 @@ public class ColorAdapter extends BaseAdapter<String> {
     }
 
     public void setOnSelected(final OnColorSelected onSelected) {
-        setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onClick(Object item, List list, int position) {
-                onSelected.onSelected(NAMES[position], ContextCompat.getColor(mContext, COLORS[position]));
-            }
-        });
+        setOnItemClickListener((item, list, position) -> onSelected.onSelected(NAMES[position], ContextCompat.getColor(mContext, COLORS[position])));
     }
 
     public interface OnColorSelected {

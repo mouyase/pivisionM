@@ -1,7 +1,6 @@
 package com.reiya.pixiv.dialog;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.widget.ListView;
 
@@ -33,25 +32,17 @@ public class MultiSelectDialog extends DialogFragment {
         if (selectedIndex >= 0) {
             selected[selectedIndex + 1] = true;
         }
-        builder.setMultiChoiceItems(items, selected, new DialogInterface.OnMultiChoiceClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                if (which == 0) {
-                    for (int i = 1; i < page + 1; i++) {
-                        selected[i] = isChecked;
-                        lv.setItemChecked(i, isChecked);
-                    }
-                } else {
-                    selected[which] = isChecked;
+        builder.setMultiChoiceItems(items, selected, (dialog, which, isChecked) -> {
+            if (which == 0) {
+                for (int i = 1; i < page + 1; i++) {
+                    selected[i] = isChecked;
+                    lv.setItemChecked(i, isChecked);
                 }
+            } else {
+                selected[which] = isChecked;
             }
         })
-                .setPositiveButton(R.string.positive, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        onSelected.onSelected(selected);
-                    }
-                });
+                .setPositiveButton(R.string.positive, (dialog, which) -> onSelected.onSelected(selected));
         AlertDialog dialog = builder.create();
         lv = dialog.getListView();
         return dialog;

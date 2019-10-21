@@ -13,12 +13,19 @@ public class Value {
     public static final String FEMALE_R18 = "day_female_r18";
     public static final String PUBLIC = "public";
     public static final String PRIVATE = "private";
-    //    public static final String DEFAULT_TOKEN = "8mMXXWT9iuwdJvsVIvQsFYDwuZpRCMePeyagSh30ZdU";
-    public static final String DEFAULT_TOKEN = "";
 
-    public static final String URL_PIXIV = "https://app-api.pixiv.net/";
-    public static final String URL_AUTH = "https://oauth.secure.pixiv.net/";
-    public static final String URL_BMOB = "http://cloud.bmob.cn/2e3f3ecc77ac3f16/";
-    public static final String URL_ILLUST_PAGE = "http://www.pixiv.net/member_illust.php?mode=medium&illust_id=";
+    public static String URL_PIXIV = "https://app-api.pixiv.net/";
+    public static String URL_AUTH = "https://oauth.secure.pixiv.net/";
+    public static final String URL_ILLUST_PAGE = "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=";
     public static final String URL_UGOIRA = "http://ugoira.dataprocessingclub.org/";
+
+    /*反向代理*/
+//    public static final String URL_AUTH = "https://oauth.pixiv.4cy.me/";
+//    public static final String URL_PIXIV = "https://api.pixiv.4cy.me/";
+    public static String BASE_URL_PIXIV = "https://app-api.pixiv.net/";
+    public static String BASE_URL_AUTH = "https://oauth.secure.pixiv.net/";
+    public static final String PROXY_URL_AUTH_YOJIGEN = "https://oauth-secure.yojigen.tech/";
+    public static final String PROXY_URL_PIXIV_YOJIGEN = "https://app-api.yojigen.tech/";
+    public static final String PROXY_URL_AUTH_4CY = "https://oauth.pixiv.4cy.me/";
+    public static final String PROXY_URL_PIXIV_4CY = "https://api.pixiv.4cy.me/";
 }

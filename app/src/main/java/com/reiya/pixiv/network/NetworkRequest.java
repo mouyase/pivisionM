@@ -35,19 +35,19 @@ public class NetworkRequest {
     public static Observable<HttpService.IllustListResponse> getRankingWithBearer(String mode) {
         return getService()
                 .getRanking(UserData.getBearer(), mode)
-                .compose(RxHelper.<HttpService.IllustListResponse>getSchedulerHelper());
+                .compose(RxHelper.getSchedulerHelper());
     }
 
     public static Observable<HttpService.IllustListResponse> getRanking(String mode, String date) {
         return getService()
                 .getRanking(UserData.getBearer(), mode, date)
-                .compose(RxHelper.<HttpService.IllustListResponse>getSchedulerHelper());
+                .compose(RxHelper.getSchedulerHelper());
     }
 
     public static Observable<HttpService.IllustListResponse> getRankingNextWithBearer(String url) {
         return getService()
                 .getRankingNext(UserData.getBearer(), url)
-                .compose(RxHelper.<HttpService.IllustListResponse>getSchedulerHelper());
+                .compose(RxHelper.getSchedulerHelper());
     }
 
     public static Observable<HttpService.AuthResponse> getAuth(String account, String password) {
@@ -58,37 +58,37 @@ public class NetworkRequest {
                         "BVO2E8vAAikgUBW8FYpi6amXOjQj",
                         "LI1WsFUDrrquaINOdarrJclCrkTtc3eojCOswlog",
                         "")
-                .compose(RxHelper.<HttpService.AuthResponse>getSchedulerHelper());
+                .compose(RxHelper.getSchedulerHelper());
     }
 
     public static Observable<HttpService.FollowResponse> removeFollow(int id) {
         return getService()
                 .removeFollow(UserData.getBearer(), String.valueOf(id))
-                .compose(RxHelper.<HttpService.FollowResponse>getSchedulerHelper());
+                .compose(RxHelper.getSchedulerHelper());
     }
 
     public static Observable<HttpService.FollowResponse> addFollow(int id, String type) {
         return getService()
                 .addFollow(UserData.getBearer(), String.valueOf(id), type)
-                .compose(RxHelper.<HttpService.FollowResponse>getSchedulerHelper());
+                .compose(RxHelper.getSchedulerHelper());
     }
 
     public static Observable<HttpService.FollowResponse> getFollow(String type) {
         return getService()
                 .getFollow(UserData.getBearer(), UserData.user.getId(), type)
-                .compose(RxHelper.<HttpService.FollowResponse>getSchedulerHelper());
+                .compose(RxHelper.getSchedulerHelper());
     }
 
     public static Observable<HttpService.FollowResponse> getFollowNext(String url) {
         return getService()
                 .getFollow(UserData.getBearer(), url)
-                .compose(RxHelper.<HttpService.FollowResponse>getSchedulerHelper());
+                .compose(RxHelper.getSchedulerHelper());
     }
 
     public static Observable<HttpService.IllustListResponse> removeBookmark(int id) {
         return getService()
                 .removeBookmark(UserData.getBearer(), String.valueOf(id))
-                .compose(RxHelper.<HttpService.IllustListResponse>getSchedulerHelper());
+                .compose(RxHelper.getSchedulerHelper());
     }
 
     //    https://app-api.pixiv.net/v2/illust/bookmark/detail?illust_id=59486769
@@ -108,162 +108,168 @@ public class NetworkRequest {
     public static Observable<HttpService.IllustListResponse> addBookmark(int id, String type, String... tags) {
         return getService()
                 .addBookmark(UserData.getBearer(), String.valueOf(id), type, tags)
-                .compose(RxHelper.<HttpService.IllustListResponse>getSchedulerHelper());
+                .compose(RxHelper.getSchedulerHelper());
     }
 
     public static Observable<HttpService.IllustListResponse> getBookmark(String type, String tag) {
         return getService()
                 .getBookmark(UserData.getBearer(), UserData.user.getId(), type, tag)
-                .compose(RxHelper.<HttpService.IllustListResponse>getSchedulerHelper());
+                .compose(RxHelper.getSchedulerHelper());
     }
 
     public static Observable<HttpService.IllustListResponse> getBookmarkNext(String url) {
         return getService()
                 .getBookmarkNext(UserData.getBearer(), url)
-                .compose(RxHelper.<HttpService.IllustListResponse>getSchedulerHelper());
+                .compose(RxHelper.getSchedulerHelper());
     }
 
     public static Observable<HttpService.BookmarkTagsResponse> getBookmarkTags(String type) {
         return getService()
                 .getBookmarkTags(UserData.getBearer(), UserData.user.getId(), type)
-                .compose(RxHelper.<HttpService.BookmarkTagsResponse>getSchedulerHelper());
+                .compose(RxHelper.getSchedulerHelper());
     }
 
     public static Observable<HttpService.BookmarkTagsResponse> getBookmarkTagsNext(String url) {
         return getService()
                 .getBookmarkTagsNext(UserData.getBearer(), url)
-                .compose(RxHelper.<HttpService.BookmarkTagsResponse>getSchedulerHelper());
+                .compose(RxHelper.getSchedulerHelper());
     }
 
     public static Observable<HttpService.BookmarkDetailResponse> getBookmarkDetail(int id) {
         return getService()
                 .getBookmarkDetail(UserData.getBearer(), String.valueOf(id))
-                .compose(RxHelper.<HttpService.BookmarkDetailResponse>getSchedulerHelper());
+                .compose(RxHelper.getSchedulerHelper());
     }
 
     public static Observable<HttpService.IllustListResponse> getHistoryRanking(String type, String date) {
         return getService()
                 .getHistoryRanking(type, date)
-                .compose(RxHelper.<HttpService.IllustListResponse>getSchedulerHelper());
+                .compose(RxHelper.getSchedulerHelper());
     }
 
     public static Observable<HttpService.IllustListResponse> getHistoryRankingNext(String url) {
         return getService()
                 .getHistoryRanking(url)
-                .compose(RxHelper.<HttpService.IllustListResponse>getSchedulerHelper());
+                .compose(RxHelper.getSchedulerHelper());
     }
 
     public static Observable<HttpService.UserResponse> getUserWithBearer(int id) {
         return getService()
                 .getUser(UserData.getBearer(), id)
-                .compose(RxHelper.<HttpService.UserResponse>getSchedulerHelper());
+                .compose(RxHelper.getSchedulerHelper());
     }
 
     public static Observable<HttpService.IllustListResponse> getWorksOfAUser(int id) {
         return getService()
                 .getWorksOfAUser(UserData.getBearer(), id)
-                .compose(RxHelper.<HttpService.IllustListResponse>getSchedulerHelper());
+                .compose(RxHelper.getSchedulerHelper());
     }
 
     public static Observable<HttpService.IllustListResponse> getWorksOfAUserNext(String url) {
         return getService()
                 .getWorksOfAUser(UserData.getBearer(), url)
-                .compose(RxHelper.<HttpService.IllustListResponse>getSchedulerHelper());
+                .compose(RxHelper.getSchedulerHelper());
     }
 
     public static Observable<HttpService.IllustListResponse> getSearchFromPixiv(String keyword) {
         return getService()
                 .getFromPixiv(getBearer(), keyword, "illust_and_ugoira", "date_desc", "partial_match_for_tags")
-                .compose(RxHelper.<HttpService.IllustListResponse>getSchedulerHelper());
+                .compose(RxHelper.getSchedulerHelper());
+    }
+
+    public static Observable<HttpService.IllustListResponse> getSearchFromPixivPlus(String keyword, String bookmark_min, String bookmark_max) {
+        return getService()
+                .getFromPixiv(getBearer(), keyword, "illust_and_ugoira", "popular_desc", bookmark_min, bookmark_max, "partial_match_for_tags")
+                .compose(RxHelper.getSchedulerHelper());
     }
 
     public static Observable<HttpService.IllustListResponse> getSearchFromPixivNext(String url) {
         return getService()
                 .getFromPixiv(getBearer(), url)
-                .compose(RxHelper.<HttpService.IllustListResponse>getSchedulerHelper());
+                .compose(RxHelper.getSchedulerHelper());
     }
 
     public static Observable<HttpService.CommentResponse> getComment(int id) {
         return getService()
                 .getComment(getBearer(), id)
-                .compose(RxHelper.<HttpService.CommentResponse>getSchedulerHelper());
+                .compose(RxHelper.getSchedulerHelper());
     }
 
     public static Observable<HttpService.CommentResponse> getComment(String url) {
         return getService()
                 .getComment(getBearer(), url)
-                .compose(RxHelper.<HttpService.CommentResponse>getSchedulerHelper());
+                .compose(RxHelper.getSchedulerHelper());
     }
 
     public static Observable<HttpService.TrendTagsResponse> getTrendTags() {
         return getService()
                 .getTrendTags(UserData.getBearer())
-                .compose(RxHelper.<HttpService.TrendTagsResponse>getSchedulerHelper());
+                .compose(RxHelper.getSchedulerHelper());
     }
 
     public static Observable<HttpService.IllustListResponse> getNewWorks() {
         return getService()
                 .getNewWorks(UserData.getBearer(), "all", "illust")
-                .compose(RxHelper.<HttpService.IllustListResponse>getSchedulerHelper());
+                .compose(RxHelper.getSchedulerHelper());
     }
 
     public static Observable<HttpService.IllustListResponse> getNewWorks(String url) {
         return getService()
                 .getNewWorks(UserData.getBearer(), url)
-                .compose(RxHelper.<HttpService.IllustListResponse>getSchedulerHelper());
+                .compose(RxHelper.getSchedulerHelper());
     }
 
     public static Observable<HttpService.WorkResponse> getWorkDetail(int id) {
         return getService()
                 .getWorkDetail(id)
-                .compose(RxHelper.<HttpService.WorkResponse>getSchedulerHelper());
+                .compose(RxHelper.getSchedulerHelper());
     }
 
     public static Observable<HttpService.WorkResponse> getWorkDetailWithBearer(int id) {
         return getService()
                 .getWorkDetail(UserData.getBearer(), id)
-                .compose(RxHelper.<HttpService.WorkResponse>getSchedulerHelper());
+                .compose(RxHelper.getSchedulerHelper());
     }
 
     public static Observable<HttpService.SpotlightResponse> getSpotlight() {
         return getService()
                 .getSpotlight(getBearer(), "zh_CN")
-                .compose(RxHelper.<HttpService.SpotlightResponse>getSchedulerHelper());
+                .compose(RxHelper.getSchedulerHelper());
     }
 
     public static Observable<HttpService.SpotlightResponse> getSpotlightNext(String url) {
         return getService()
                 .getSpotlight(getBearer(), "zh_CN", url)
-                .compose(RxHelper.<HttpService.SpotlightResponse>getSchedulerHelper());
+                .compose(RxHelper.getSchedulerHelper());
     }
 
     public static Observable<ResponseBody> download(String url) {
         return getService()
                 .download(url, url)
-                .compose(RxHelper.<ResponseBody>getSchedulerHelper());
+                .compose(RxHelper.getSchedulerHelper());
     }
 
     public static Observable<HttpService.UgoiraResponse> getUgoira(int id) {
         return getService(Value.URL_UGOIRA)
                 .getUgoira(Value.URL_ILLUST_PAGE + id, "webm")
-                .compose(RxHelper.<HttpService.UgoiraResponse>getSchedulerHelper());
+                .compose(RxHelper.getSchedulerHelper());
     }
 
     public static Observable<HttpService.IllustListResponse> getRelatedWorks(int id) {
         return getService()
                 .getRelatedWorks(getBearer(), id)
-                .compose(RxHelper.<HttpService.IllustListResponse>getSchedulerHelper());
+                .compose(RxHelper.getSchedulerHelper());
     }
 
     public static Observable<HttpService.RecommendResponse> getRecommendWorks() {
         if (!UserData.isLoggedIn()) {
             return getService()
                     .getRecommendedWorks("for_android", true)
-                    .compose(RxHelper.<HttpService.RecommendResponse>getSchedulerHelper());
+                    .compose(RxHelper.getSchedulerHelper());
         }
         return getService()
                 .getRecommendedWorks(UserData.getBearer(), "for_android", true)
-                .compose(RxHelper.<HttpService.RecommendResponse>getSchedulerHelper());
+                .compose(RxHelper.getSchedulerHelper());
     }
 
 
@@ -271,10 +277,10 @@ public class NetworkRequest {
         if (!UserData.isLoggedIn()) {
             return getService()
                     .getRecommendedWorks(url)
-                    .compose(RxHelper.<HttpService.RecommendResponse>getSchedulerHelper());
+                    .compose(RxHelper.getSchedulerHelper());
         }
         return getService()
                 .getRecommendedWorks(UserData.getBearer(), url)
-                .compose(RxHelper.<HttpService.RecommendResponse>getSchedulerHelper());
+                .compose(RxHelper.getSchedulerHelper());
     }
 }

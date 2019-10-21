@@ -1,18 +1,18 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">PivisionM</string>
 
-    <string name="app_update_log">1. 增加批量保存收藏作品功能 \n2. 增加收藏附加标签功能</string>
+    <string name="app_update_log">1. 增加了连接模式切换功能\n2. 优化了保存地址选择窗口\n3. 修复了pixivision模块\n4. 增加了新链接打开支持\n5. 增加底部保存按钮\n6. 修复搜索失灵\n7、增加内部更新提示\n8、部分UI优化</string>
 
     <string name="about">关于</string>
     <string name="account">账号</string>
     <string name="clear_history">清除浏览历史</string>
     <string name="click_to_login">点击登录</string>
     <string name="clip_info_donate" translatable="false">" 已复制到剪贴板（支付宝）"</string>
-    <string name="clip_info_id">id已复制到剪贴板</string>
+    <string name="clip_info_id">ID已复制到剪贴板</string>
     <string name="concern">关注</string>
     <string name="donate" translatable="false">捐助</string>
     <string name="app_ranking">评分</string>
-    <string name="hint_search">标签／作品id／画师id</string>
+    <string name="hint_search">标签／作品ID／画师ID</string>
     <string name="onLogin">登录</string>
     <string name="negative">取消</string>
     <string name="open_in_browser">在浏览器中打开</string>
@@ -69,14 +69,15 @@
     <string name="key_file_name_mode" translatable="false">file_name_mode</string>
     <string name="key_cache_limit" translatable="false">cache_limit</string>
     <string name="key_current_cache_size" translatable="false">current_cache_size</string>
+    <string name="key_connect_mode" translatable="false">connect_mode</string>
 
     <string-array name="pref_file_name_mode_out">
-        <item>作品id</item>
+        <item>作品ID</item>
         <item>作品名称</item>
-        <item>作品名称_作品id</item>
-        <item>作者id_作品id</item>
-        <item>作者名称_作品id</item>
-        <item>作者id_作品名称</item>
+        <item>作品名称_作品ID</item>
+        <item>作者ID_作品ID</item>
+        <item>作者名称_作品ID</item>
+        <item>作者ID_作品名称</item>
         <item>作者名称_作品名称</item>
     </string-array>
 
@@ -100,10 +101,10 @@
 
     <string-array name="pref_auto_create_subfolder_out">
         <item>不</item>
-        <item>作者id</item>
+        <item>作者ID</item>
         <item>作者名称</item>
-        <item>作者id_作者名称</item>
-        <item>作者名称_作者id</item>
+        <item>作者ID_作者名称</item>
+        <item>作者名称_作者ID</item>
     </string-array>
 
     <string-array name="pref_cache_size_values" translatable="false">
@@ -111,6 +112,18 @@
         <item>20</item>
         <item>50</item>
         <item>100</item>
+    </string-array>
+
+    <string-array name="pref_connect_mode_strings" translatable="false">
+        <item>大陆免代理直连</item>
+        <item>海外直连</item>
+        <item>内置代理</item>
+    </string-array>
+
+    <string-array name="pref_connect_mode_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
     </string-array>
 
     <string-array name="pref_columns_count" translatable="false">
@@ -140,6 +153,7 @@
         <item>RoundedImageView</item>
         <item>RxAndroid</item>
         <item>RxJava</item>
+        <item>AlipayZeroSdk</item>
     </string-array>
 
     <string name="key_theme_color" translatable="false">theme_color</string>
@@ -185,9 +199,10 @@
     <string name="prompt_password">密码</string>
     <string name="action_sign_in">登录</string>
     <string name="error_field_required">不能为空</string>
-    <string name="action_register">访问pixiv注册账号</string>
+    <string name="action_register">注册账号</string>
+    <string name="action_mode" tools:ignore="MissingTranslation">设置</string>
     <string name="key_show_about_dialog_time" translatable="false">show_about_dialog_time</string>
-    <string name="pixiv_login">pixiv账号登录</string>
+    <string name="pixiv_login">Pixiv账号登录</string>
     <string name="processing_login">登录中</string>
     <string name="pic_saving">图片保存</string>
     <string name="saving_path">保存位置</string>
@@ -199,6 +214,7 @@
     <string name="cache_size_limit">图片缓存上限（MB）</string>
     <string name="clear_pic_cache">清理图片缓存</string>
     <string name="filter">过滤</string>
+    <string name="string_connect_mode" tools:ignore="MissingTranslation">连接模式</string>
     <string name="blacklist_title">屏蔽标签</string>
     <string name="blacklist_summary">以换行分隔，适用于排行榜和搜索</string>
     <string name="download_all_author_hint">是否保存该画师的所有作品（可能耗时较长）？ 请确认保存路径和存储空间剩余大小。</string>
@@ -206,4 +222,8 @@
     <string name="bookmark_tag">收藏标签</string>
     <string name="add_collection">收藏</string>
     <string name="too_many_tags">标签数量超过上限</string>
+    <string name="network">网络</string>
+    <string name="mode_direct">大陆直连模式</string>
+    <string name="mode_global">海外模式</string>
+    <string name="mode_proxy">内置代理模式</string>
 </resources>

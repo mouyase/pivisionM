@@ -2,28 +2,49 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 29
-
     defaultConfig {
         applicationId "tech.yojigen.pivisionm"
         minSdkVersion 19
         targetSdkVersion 29
-        versionCode 442
-        versionName "4.4.2"
+        versionCode 443000
+        versionName '4.4.3'
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled = true
     }
 
+    signingConfigs {
+        releaseConfig {
+            def keystoreProperties = new Properties()
+            def keystorePropertiesFile = project.rootProject.file("keystore.properties")
+            keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
-    applicationVariants.all { variant ->
-        if (variant.buildType.name == "release") {
-            variant.mergedFlavor.resourceConfigurations.add("hdpi")
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
         }
     }
+//    applicationVariants.all { variant ->
+//        if (variant.buildType.name == "release") {
+//            variant.mergedFlavor.resourceConfigurations.add("hdpi")
+//        }
+//    }
 
     buildTypes {
+        debug {
+//            minifyEnabled true
+            zipAlignEnabled true
+//            shrinkResources true
+//            proguardFiles 'proguard-rules.pro'
+            debuggable = true
+            signingConfig signingConfigs.releaseConfig
+        }
         release {
-            minifyEnabled true
-            shrinkResources true
+//            minifyEnabled true
+            zipAlignEnabled true
+//            shrinkResources true
+//            proguardFiles 'proguard-rules.pro'
+            signingConfig signingConfigs.releaseConfig
         }
 
     }
@@ -61,4 +82,7 @@ dependencies {
 
     implementation 'me.gujun.android.taggroup:library:1.4@aar'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
+
+    implementation 'com.tencent.bugly:crashreport_upgrade:1.4.2'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 }

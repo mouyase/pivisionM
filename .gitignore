@@ -86,3 +86,5 @@ lint/reports/
 
 /debug
 /release
+
+keystore.properties

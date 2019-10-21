@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.reiya.pixiv.base.BaseApplication;
-import com.reiya.pixiv.bean.User;
 import com.reiya.pixiv.image.ImageLoader;
 import com.reiya.pixiv.main.MainActivity;
 import com.reiya.pixiv.profile.ProfileActivity;
@@ -44,26 +43,14 @@ public class SplashActivity extends AppCompatActivity {
             if (account == null || password == null) {
                 enterLoginPage();
             } else {
-                BaseApplication.getInstance().login(account, password, false,
-                        new BaseApplication.OnLoginDone() {
-                            @Override
-                            public void onLoginDone(User user) {
-                                enter();
-                            }
-                        },
-                        new BaseApplication.OnLoginFailed() {
-                            @Override
-                            public void onLoginFailed() {
-                                enterLoginPage();
-                            }
-                        });
+                BaseApplication.getInstance().login(account, password, false, user -> enter(), this::enterLoginPage);
             }
         }
 
         String url = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.key_splash_screen_url), "");
         int times = PreferenceManager.getDefaultSharedPreferences(this).getInt(getString(R.string.key_splash_screen_showed_times), 0);
         if (!url.equals("") && times < 3) {
-            ImageView iv = (ImageView) findViewById(R.id.imageView);
+            ImageView iv = findViewById(R.id.imageView);
             ImageLoader.loadImageFromCache(this, url)
                     .centerCrop()
                     .load(iv);
@@ -88,12 +75,16 @@ public class SplashActivity extends AppCompatActivity {
     private void enter() {
         Intent intent;
         String url = getIntent().getDataString();
+//        https://www.pixiv.net/member_illust.php?mode=medium&illust_id=76259440
         if (url == null) {
             intent = new Intent(this, MainActivity.class);
         } else {
+            //新链接处理
+            if (url.contains("artworks")) {
+                url = url.replace("https://www.pixiv.net/artworks/", "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=");
+            }
             if (url.contains("mode=medium")) {
                 intent = new Intent(this, ViewActivity.class);
-
             } else {
                 intent = new Intent(this, ProfileActivity.class);
             }

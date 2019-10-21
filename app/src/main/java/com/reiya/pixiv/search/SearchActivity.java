@@ -15,17 +15,19 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.reiya.pixiv.adapter.TrendTagAdapter;
 import com.reiya.pixiv.base.BaseApplication;
-import com.reiya.pixiv.base.BaseFragment;
 import com.reiya.pixiv.bean.Theme;
 import com.reiya.pixiv.network.HttpService;
 import com.reiya.pixiv.network.NetworkRequest;
 import com.reiya.pixiv.view.WorkGridLayoutManager;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -48,110 +50,51 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         setTheme(Theme.getTheme());
         setContentView(R.layout.activity_search);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24px);
 
-        mViewPager = (ViewPager) findViewById(R.id.viewPager);
-        mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
-        mTextView = (TextView) findViewById(R.id.textView);
-        final ImageButton btnSearch = (ImageButton) findViewById(R.id.btnSearch);
+        mViewPager = findViewById(R.id.viewPager);
+        mTabLayout = findViewById(R.id.tabLayout);
+        mTextView = findViewById(R.id.textView);
+        ImageButton btnSearch = findViewById(R.id.btnSearch);
 //        ListView listView = (ListView) findViewById(R.id.searchListView);
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        mRecyclerView = findViewById(R.id.recyclerView);
 
         mKeyword = getIntent().getStringExtra("tag");
         mTextView.setOnClickListener(this);
-//        String[] s = BaseApplication.getHistory();
-//        mSearchAdapter = new SearchAdapter(this, Arrays.asList(s));
-//        mSearchAdapter.setOnTextSelected(new SearchAdapter.OnTextSelected() {
-//            @Override
-//            public void onTextSelected(String s) {
-//                mKeyword = s;
-//                mTextView.setText(mKeyword);
-//                mTextView.setClearIconVisible(true);
-//                btnSearch.performClick();
-//            }
-//        });
-//        mTextView.setAdapter(mSearchAdapter);
-////        listView.setAdapter(mSearchAdapter);
-//        mTextView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//                Log.e("focus", "" + hasFocus);
-////                if (hasFocus) {
-////                    mSearchAdapter.open();
-////                } else {
-////                    mSearchAdapter.close();
-////                }
-//            }
-//        });
-//        mTextView.setOnKeyListener(new View.OnKeyListener() {
-//            @Override
-//            public boolean onKey(View v, int keyCode, KeyEvent event) {
-//                if (keyCode == KeyEvent.KEYCODE_ENTER) {
-//                    trySearch();
-//                    return true;
-//                }
-//                return false;
-//            }
-//        });
-//        mTextView.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-////                mSearchAdapter.getFilter().filter(s);
-//                showPopupMenu(s.toString());
-//            }
-//        });
+        btnSearch.setOnClickListener(this);
 
         if (mKeyword != null) {
             mTextView.setText(mKeyword);
             search();
         } else {
-//            mSearchAdapter.getFilter().filter("");
-//            mSearchAdapter.close();
-//            mRecyclerView.requestFocus();
             mTextView.setText("");
         }
 
         mRecyclerView.setLayoutManager(new WorkGridLayoutManager(this));
 
-        NetworkRequest.getTrendTags()
-                .subscribe(new Subscriber<HttpService.TrendTagsResponse>() {
-                    @Override
-                    public void onCompleted() {
+        NetworkRequest.getTrendTags().subscribe(new Subscriber<HttpService.TrendTagsResponse>() {
+            @Override
+            public void onCompleted() {
+            }
 
-                    }
+            @Override
+            public void onError(Throwable e) {
+            }
 
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(HttpService.TrendTagsResponse trendTagsResponse) {
-                        TrendTagAdapter adapter = new TrendTagAdapter(getApplicationContext(), trendTagsResponse.getTrendTags());
-                        adapter.setOnSearchTag(new TrendTagAdapter.OnSearchTag() {
-                            @Override
-                            public void onSearchTag(String tag) {
-                                mKeyword = tag;
-                                mTextView.setText(mKeyword);
-                                search();
-                            }
-                        });
-                        mRecyclerView.setAdapter(adapter);
-                    }
+            @Override
+            public void onNext(HttpService.TrendTagsResponse trendTagsResponse) {
+                TrendTagAdapter adapter = new TrendTagAdapter(getApplicationContext(), trendTagsResponse.getTrendTags());
+                adapter.setOnSearchTag(tag -> {
+                    mKeyword = tag;
+                    mTextView.setText(mKeyword);
+                    search();
                 });
+                mRecyclerView.setAdapter(adapter);
+            }
+        });
     }
 
     private void search() {
@@ -190,8 +133,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnSearch:
-                trySearch();
-                break;
             case R.id.textView:
                 Intent intent = new Intent(this, KeywordActivity.class);
                 intent.putExtra("text", mTextView.getText().toString());
@@ -210,85 +151,33 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             search();
         }
     }
-//
-//    private void showPopupMenu(String s) {
-//        //参数View 是设置当前菜单显示的相对于View组件位置，具体位置系统会处理
-//        PopupMenu popupMenu = new PopupMenu(this, mTextView);
-//        //加载menu布局
-//        List<SearchTextFilter.Item> items = SearchTextFilter.getItems(BaseApplication.getHistory(), s);
-//        for (int i = 0, l = items.size(); i < l; i++) {
-//            SearchTextFilter.Item item = items.get(i);
-//            popupMenu.getMenu().add(item.type, item.id, i, item.text);
-//        }
-//
-//        //设置menu中的item点击事件
-//        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem item) {
-//                Intent intent;
-//                switch (item.getGroupId()) {
-//                    case -1:
-//                        BaseApplication.writeHistory(new String[]{""});
-//                        break;
-//                    case 0:
-//                        mKeyword = (String) item.getTitle();
-//                        mTextView.setText(mKeyword);
-//                        mTextView.setClearIconVisible(true);
-//                        trySearch();
-//                        break;
-//                    case 1:
-//                        intent = new Intent(getApplicationContext(), ViewActivity.class);
-//                        intent.putExtra("id", item.getItemId());
-//                        startActivity(intent);
-//                        finish();
-//                        break;
-//                    case 2:
-//                        intent = new Intent(getApplicationContext(), ProfileActivity.class);
-//                        intent.putExtra("id", item.getItemId());
-//                        startActivity(intent);
-//                        finish();
-//                        break;
-//                }
-//                return false;
-//            }
-//        });
-//        //设置popupWindow消失的点击事件
-//        popupMenu.setOnDismissListener(new PopupMenu.OnDismissListener() {
-//            @Override
-//            public void onDismiss(PopupMenu menu) {
-//
-//            }
-//        });
-//
-//        popupMenu.show();
-//        mTextView.requestFocus();
-//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                break;
+        if (item.getItemId() == android.R.id.home) {
+            finish();
         }
         return true;
     }
 
     class MyFragmentPagerAdapter extends FragmentPagerAdapter {
-        public final int COUNT = 4;
+        final int COUNT = 4;
         private final String[] titles = new String[]{"★10000", "★5000", "★1000", "全部"};
 
-        public MyFragmentPagerAdapter(FragmentManager fm) {
-            super(fm);
-            if (fm.getFragments() != null) {
-                fm.getFragments().clear();
+        MyFragmentPagerAdapter(FragmentManager fragmentManager) {
+            super(fragmentManager);
+            //修复搜索不可用
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            for (Fragment fragment : fragmentManager.getFragments()) {
+                fragmentTransaction.remove(fragment);
             }
+            fragmentTransaction.commitNow();
         }
 
+        @NotNull
         @Override
         public Fragment getItem(int position) {
-            BaseFragment fragment = SearchFragment.newInstance(position, mKeyword);
-            return fragment;
+            return SearchFragment.newInstance(position, mKeyword);
         }
 
         @Override

@@ -1,7 +1,6 @@
 package com.reiya.pixiv.dialog;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -23,13 +22,10 @@ public class ClearHistoryDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(getString(R.string.clear_history))
-                .setPositiveButton(getString(R.string.positive), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        new RecordDAO(getActivity()).removeRecords(System.currentTimeMillis());
-                        if (runnable != null) {
-                            runnable.run();
-                        }
+                .setPositiveButton(getString(R.string.positive), (dialog, which) -> {
+                    new RecordDAO(getActivity()).removeRecords(System.currentTimeMillis());
+                    if (runnable != null) {
+                        runnable.run();
                     }
                 })
                 .setNegativeButton(getString(R.string.negative), null);

@@ -29,12 +29,9 @@ public class TrendTagAdapter extends BaseAdapter<TrendTag> {
     }
 
     public void setOnSearchTag(final OnSearchTag onSearchTag) {
-        setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onClick(Object item, List list, int position) {
-                if (onSearchTag != null) {
-                    onSearchTag.onSearchTag(((TrendTag) item).getTag());
-                }
+        setOnItemClickListener((item, list, position) -> {
+            if (onSearchTag != null) {
+                onSearchTag.onSearchTag(((TrendTag) item).getTag());
             }
         });
     }

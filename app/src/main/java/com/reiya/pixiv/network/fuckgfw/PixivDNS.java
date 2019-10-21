@@ -10,7 +10,11 @@ import java.util.List;
 import okhttp3.Dns;
 
 public class PixivDNS implements Dns {
+
+    private static PixivDNS mPixivDNS = null;
+    private static List<InetAddress> newDns = new ArrayList<>();
     private static final String[] addresses = {
+            /*主站IP*/
             "210.140.131.203",
             "210.140.131.204",
             "210.140.131.205",
@@ -46,10 +50,7 @@ public class PixivDNS implements Dns {
             "122.208.114.218",
             "210.140.131.182",
             "210.140.131.183",
-            "210.140.131.184"
-    };
-    private static PixivDNS sHttpDns = null;
-    private static List<InetAddress> newDns = new ArrayList<>();
+            "210.140.131.184"};
 
     private PixivDNS() {
         for (String address : addresses) {
@@ -62,15 +63,15 @@ public class PixivDNS implements Dns {
     }
 
     public static PixivDNS getInstance() {
-        if (sHttpDns == null) {
-            sHttpDns = new PixivDNS();
+        if (mPixivDNS == null) {
+            mPixivDNS = new PixivDNS();
         }
-        return sHttpDns;
+        return mPixivDNS;
     }
 
 
     @NotNull
-    public List<InetAddress> lookup(String s) throws UnknownHostException {
+    public List<InetAddress> lookup(@NotNull String s) throws UnknownHostException {
         if (s.contains("pixiv.net")) {
             try {
                 return newDns;

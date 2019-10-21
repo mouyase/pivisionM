@@ -26,6 +26,7 @@ import com.reiya.pixiv.util.IO;
 import com.reiya.pixiv.util.Serializer;
 import com.reiya.pixiv.util.StringHelper;
 import com.reiya.pixiv.util.UserData;
+import com.tencent.bugly.Bugly;
 
 import java.io.IOException;
 
@@ -67,13 +68,13 @@ public class BaseApplication extends Application {
     }
 
     public static void writeHistory(String[] s) {
-        String h = s[0];
+        StringBuilder h = new StringBuilder(s[0]);
         for (int i = 1; i < s.length; i++) {
-            h += "##";
-            h += s[i];
+            h.append("##");
+            h.append(s[i]);
         }
         SharedPreferences.Editor editor = sInstance.getSharedPreferences("search", MODE_PRIVATE).edit();
-        editor.putString("history", h);
+        editor.putString("history", h.toString());
         editor.apply();
     }
 
@@ -151,6 +152,8 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         sInstance = this;
+
+        Bugly.init(getApplicationContext(), "0fc124925c", true);
 
         HttpClient.init(this);
 

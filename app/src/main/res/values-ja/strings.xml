@@ -4,7 +4,7 @@
     <string name="app_update_log">1.バッチ保存収集機能を追加する \n2.追加のラベル機能のコレクションを増やす</string>
     <string name="about">について</string>
     <string name="account">アカウント</string>
-    <string name="action_register">にアクセス登録アカウント</string>
+    <string name="action_register">新規登録</string>
     <string name="action_sign_in">ログイン</string>
     <string name="cannot_be_null">空ではありません</string>
     <string name="clear_history">閲覧履歴をクリアする</string>

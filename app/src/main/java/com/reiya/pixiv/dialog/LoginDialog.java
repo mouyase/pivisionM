@@ -26,30 +26,27 @@ public class LoginDialog extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_login, null);
-        final EditText etAccount = (EditText) view.findViewById(R.id.etAccount);
-        final EditText etPassword = (EditText) view.findViewById(R.id.etPassword);
-        final TextInputLayout tilAccount = (TextInputLayout) view.findViewById(R.id.tilAccount);
-        final TextInputLayout tilPassword = (TextInputLayout) view.findViewById(R.id.tilPassword);
-        view.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tilAccount.setErrorEnabled(false);
-                tilPassword.setErrorEnabled(false);
-                String account = etAccount.getText().toString();
-                String password = etPassword.getText().toString();
-                if (account.equals("")) {
-                    tilAccount.setError(getString(R.string.cannot_be_null));
-                    tilAccount.setErrorEnabled(true);
-                    return;
-                }
-                if (password.equals("")) {
-                    tilPassword.setError(getString(R.string.cannot_be_null));
-                    tilPassword.setErrorEnabled(true);
-                    return;
-                }
-                listener.onLogin(account, password);
-                dismiss();
+        final EditText etAccount = view.findViewById(R.id.etAccount);
+        final EditText etPassword = view.findViewById(R.id.etPassword);
+        final TextInputLayout tilAccount = view.findViewById(R.id.tilAccount);
+        final TextInputLayout tilPassword = view.findViewById(R.id.tilPassword);
+        view.findViewById(R.id.button).setOnClickListener(v -> {
+            tilAccount.setErrorEnabled(false);
+            tilPassword.setErrorEnabled(false);
+            String account = etAccount.getText().toString();
+            String password = etPassword.getText().toString();
+            if (account.equals("")) {
+                tilAccount.setError(getString(R.string.cannot_be_null));
+                tilAccount.setErrorEnabled(true);
+                return;
             }
+            if (password.equals("")) {
+                tilPassword.setError(getString(R.string.cannot_be_null));
+                tilPassword.setErrorEnabled(true);
+                return;
+            }
+            listener.onLogin(account, password);
+            dismiss();
         });
         return view;
     }

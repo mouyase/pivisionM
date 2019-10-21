@@ -36,11 +36,6 @@ public interface HttpService {
                                      @Field("client_secret") String cs,
                                      @Field("device_token") String dt);
 
-//    @GET("v1/illust/ranking")
-//    Observable<IllustListResponse> getRanking(@Query("mode") String mode);
-//
-//    @GET
-//    Observable<IllustListResponse> getRankingNext(@Url String url);
 
     @GET("v1/illust/ranking")
     Observable<IllustListResponse> getRanking(@Header("Authorization") String authorization, @Query("mode") String mode);
@@ -110,6 +105,16 @@ public interface HttpService {
                                                 @Query("word") String word,
                                                 @Query("content_type") String contentType,
                                                 @Query("sort") String sort,
+                                                @Query("search_target") String searchTarget);
+
+    //高级搜索测试
+    @GET("v1/search/illust")
+    Observable<IllustListResponse> getFromPixiv(@Header("Authorization") String authorization,
+                                                @Query("word") String word,
+                                                @Query("content_type") String contentType,
+                                                @Query("sort") String sort,
+                                                @Query("bookmark_num_min") String bookmark_min,
+                                                @Query("bookmark_num_max") String bookmark_max,
                                                 @Query("search_target") String searchTarget);
 
     @GET

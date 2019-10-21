@@ -187,42 +187,26 @@ public class ItemOperation {
         if (work.getPageCount() == 1) {
             Toast.makeText(activity, R.string.saving_please_wait, Toast.LENGTH_SHORT).show();
             save(activity, work, true, 0,
-                    new OnSavingDone() {
-                        @Override
-                        public void onDo(final File file) {
-                            activity.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(activity, activity.getString(R.string.save_to) + file.getPath(), Toast.LENGTH_LONG).show();
-                                }
-                            });
-                        }
-                    },
-                    new OnCheckExist() {
-                        @Override
-                        public void onDo(File file, boolean exist) {
-                            if (exist) {
-                                Toast.makeText(activity, R.string.file_already_exists, Toast.LENGTH_SHORT).show();
-                            }
+                    file -> activity.runOnUiThread(() -> Toast.makeText(activity, activity.getString(R.string.save_to) + file.getPath(), Toast.LENGTH_LONG).show()),
+                    (file, exist) -> {
+                        if (exist) {
+                            Toast.makeText(activity, R.string.file_already_exists, Toast.LENGTH_SHORT).show();
                         }
                     });
         } else {
             MultiSelectDialog multiSelectDialog = new MultiSelectDialog();
             multiSelectDialog.setPage(work.getPageCount());
             multiSelectDialog.setSelectedIndex(index);
-            multiSelectDialog.setOnSelected(new MultiSelectDialog.OnMultiSelected() {
-                @Override
-                public void onSelected(boolean[] selected) {
-                    Toast.makeText(activity, R.string.saving_please_wait, Toast.LENGTH_SHORT).show();
-                    List<Task> tasks = new ArrayList<>();
-                    for (int i = 1, l = selected.length; i < l; i++) {
-                        if (selected[i]) {
-                            tasks.add(new Task(work, i - 1));
-                        }
+            multiSelectDialog.setOnSelected(selected -> {
+                Toast.makeText(activity, R.string.saving_please_wait, Toast.LENGTH_SHORT).show();
+                List<Task> tasks = new ArrayList<>();
+                for (int i = 1, l = selected.length; i < l; i++) {
+                    if (selected[i]) {
+                        tasks.add(new Task(work, i - 1));
                     }
-                    if (tasks.size() > 0) {
-                        new DownloadRunnable(activity, tasks).run();
-                    }
+                }
+                if (tasks.size() > 0) {
+                    new DownloadRunnable(activity, tasks).run();
                 }
             });
             multiSelectDialog.show(activity.getSupportFragmentManager(), "Multi");

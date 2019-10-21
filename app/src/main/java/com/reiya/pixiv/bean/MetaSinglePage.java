@@ -24,9 +24,6 @@ public class MetaSinglePage implements Parcelable {
     @Expose
     String originalImageUrl;
 
-    public MetaSinglePage() {
-    }
-
     protected MetaSinglePage(Parcel in) {
         originalImageUrl = in.readString();
     }

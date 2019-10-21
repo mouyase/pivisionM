@@ -10,14 +10,12 @@ import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.reiya.pixiv.adapter.BaseAdapter;
 import com.reiya.pixiv.adapter.BookmarkTagFilterAdapter;
 import com.reiya.pixiv.bean.BookmarkTag;
 import com.reiya.pixiv.network.HttpService;
 import com.reiya.pixiv.network.NetworkRequest;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import rx.Subscriber;
 import tech.yojigen.pivisionm.R;
@@ -40,17 +38,14 @@ public class BookmarkTagFilterDialog extends DialogFragment {
 
         final Dialog dialog = builder.create();
 
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list);
+        RecyclerView recyclerView = view.findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mAdapter = new BookmarkTagFilterAdapter(getActivity(), new ArrayList<BookmarkTag>());
-        mAdapter.setOnItemClickListener(new BaseAdapter.OnItemClickListener() {
-            @Override
-            public void onClick(Object item, List list, int position) {
-                if (mOnBookmarkTagSelectedCallback != null) {
-                    mOnBookmarkTagSelectedCallback.onTagSelected(((BookmarkTag) item).getName());
-                }
-                dialog.dismiss();
+        mAdapter = new BookmarkTagFilterAdapter(getActivity(), new ArrayList<>());
+        mAdapter.setOnItemClickListener((item, list, position) -> {
+            if (mOnBookmarkTagSelectedCallback != null) {
+                mOnBookmarkTagSelectedCallback.onTagSelected(((BookmarkTag) item).getName());
             }
+            dialog.dismiss();
         });
         recyclerView.setAdapter(mAdapter);
 

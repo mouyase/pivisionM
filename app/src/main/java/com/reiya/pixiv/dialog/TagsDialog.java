@@ -1,7 +1,6 @@
 package com.reiya.pixiv.dialog;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -25,13 +24,10 @@ public class TagsDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(getContext(), SearchActivity.class);
-                intent.putExtra("tag", items[which]);
-                getActivity().startActivity(intent);
-            }
+        builder.setItems(items, (dialog, which) -> {
+            Intent intent = new Intent(getContext(), SearchActivity.class);
+            intent.putExtra("tag", items[which]);
+            getActivity().startActivity(intent);
         });
         return builder.create();
     }

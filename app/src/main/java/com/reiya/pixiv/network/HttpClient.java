@@ -2,6 +2,7 @@ package com.reiya.pixiv.network;
 
 import android.content.Context;
 import android.os.Build;
+import android.preference.PreferenceManager;
 
 import com.reiya.pixiv.base.BaseApplication;
 import com.reiya.pixiv.network.fuckgfw.PixivDNS;
@@ -32,44 +33,66 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import tech.yojigen.pivisionm.BuildConfig;
+import tech.yojigen.pivisionm.R;
 
 /**
  * Created by Administrator on 2015/11/23 0023.
  */
 public class HttpClient {
-    private static final String BASE_URL = Value.URL_PIXIV;
     private static OkHttpClient client;
     private static HttpService service;
 
     public static void init(Context context) {
         File cacheFile = new File(context.getCacheDir(), "/HttpCache/");
         Cache cache = new Cache(cacheFile, 1024 * 1024 * 10); //10MB
-        Interceptor interceptor = new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Request request = chain.request().newBuilder()
-                        .header("User-Agent", BaseApplication.getUA())
-                        .header("Accept-Language", "zh_CN")
-                        .header("App-OS", "android")
-                        .header("App-OS-Version", "" + Build.VERSION.RELEASE)
-                        .header("App-Version", "5.0.156")
-                        .header("x-client-time", "3000-01-01T00:00:00+00:00")
-                        .header("x-client-hash", "93771864335ef0c8e52db10be563eab3")
-                        .build();
-                return chain.proceed(request);
-            }
+        Interceptor interceptor = chain -> {
+            Request request = chain.request().newBuilder()
+                    .header("User-Agent", BaseApplication.getUA())
+                    .header("Accept-Language", "zh_CN")
+                    .header("App-OS", "android")
+                    .header("App-OS-Version", "" + Build.VERSION.RELEASE)
+                    .header("App-Version", "5.0.156")
+                    .header("X-Client-Time", "3000-01-01T00:00:00+00:00")
+                    .header("X-Client-Hash", "93771864335ef0c8e52db10be563eab3")
+                    .header("Referer", "https://www.pixiv.net")
+                    .build();
+            return chain.proceed(request);
         };
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE);
-        client = new OkHttpClient.Builder()
-                .cache(cache)
-                .addInterceptor(logging)
-                .addInterceptor(interceptor)
-                .addNetworkInterceptor(interceptor)
-                .sslSocketFactory(new PixivSSLSocketFactory(), new PixivTrustManager())
-                .dns(PixivDNS.getInstance())
-                .build();
-        service = getRetrofit(BASE_URL).create(HttpService.class);
+
+        int connectMode = Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.key_connect_mode), "0"));
+        switch (connectMode) {
+            case 0:
+                client = new OkHttpClient.Builder()
+                        .cache(cache)
+                        .addInterceptor(logging)
+                        .addInterceptor(interceptor)
+                        .addNetworkInterceptor(interceptor)
+                        .sslSocketFactory(PixivSSLSocketFactory.getInstance(), PixivTrustManager.getInstance())
+                        .dns(PixivDNS.getInstance())
+                        .build();
+                break;
+            case 1:
+                client = new OkHttpClient.Builder()
+                        .cache(cache)
+                        .addInterceptor(logging)
+                        .addInterceptor(interceptor)
+                        .addNetworkInterceptor(interceptor)
+                        .build();
+                break;
+            case 2:
+                Value.URL_AUTH = Value.PROXY_URL_AUTH_YOJIGEN;
+                Value.URL_PIXIV = Value.PROXY_URL_PIXIV_YOJIGEN;
+                client = new OkHttpClient.Builder()
+                        .cache(cache)
+                        .addInterceptor(logging)
+                        .addInterceptor(interceptor)
+                        .addNetworkInterceptor(interceptor)
+                        .build();
+                break;
+        }
+        service = getRetrofit(Value.URL_PIXIV).create(HttpService.class);
     }
 
     private static Retrofit getRetrofit(String baseUrl) {
@@ -101,7 +124,6 @@ public class HttpClient {
     }
 
     public static void request(String url, Callback callback) {
-
         Request request = new Request.Builder()
                 .url(url)
                 .addHeader("Referer", "http://www.pixiv.net")
@@ -132,28 +154,22 @@ public class HttpClient {
     }
 
     public static void setListen(final ProgressListener listener) {
-        client.networkInterceptors().add(new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Response originalResponse = chain.proceed(chain.request());
-                return originalResponse.newBuilder()
-                        .body(new ProgressResponseBody(originalResponse.body(), listener))
-                        .build();
-            }
+        client.networkInterceptors().add(chain -> {
+            Response originalResponse = chain.proceed(chain.request());
+            return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), listener))
+                    .build();
         });
     }
 
     private static OkHttpClient getProgressClient(final ProgressListener listener) {
         OkHttpClient clone = new OkHttpClient();
         if (listener != null) {
-            clone.networkInterceptors().add(new Interceptor() {
-                @Override
-                public Response intercept(Chain chain) throws IOException {
-                    Response originalResponse = chain.proceed(chain.request());
-                    return originalResponse.newBuilder()
-                            .body(new ProgressResponseBody(originalResponse.body(), listener))
-                            .build();
-                }
+            clone.networkInterceptors().add(chain -> {
+                Response originalResponse = chain.proceed(chain.request());
+                return originalResponse.newBuilder()
+                        .body(new ProgressResponseBody(originalResponse.body(), listener))
+                        .build();
             });
         }
         return clone;

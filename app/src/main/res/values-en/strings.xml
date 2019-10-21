@@ -4,7 +4,7 @@
     <string name="app_update_log">1. Add the batch save collection function \n2. Add the collection of additional label function</string>
     <string name="about">About</string>
     <string name="account">Account</string>
-    <string name="action_register">Visit pixiv to register</string>
+    <string name="action_register">Register</string>
     <string name="action_sign_in">Login</string>
     <string name="clear_history">Clear history</string>
     <string name="cannot_be_null">Cannot be null</string>

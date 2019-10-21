@@ -46,7 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@+id/ivProfile"
-                    android:layout_marginRight="60dp"
+                    android:layout_marginRight="112dp"
                     android:layout_toEndOf="@+id/ivProfile"
                     android:layout_toRightOf="@+id/ivProfile"
                     android:ellipsize="end"
@@ -70,11 +70,22 @@
 
                 <CheckBox
                     android:id="@+id/btnFav"
-                    android:layout_width="36dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_alignParentRight="true"
-                    android:layout_margin="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="56dp"
                     android:button="@drawable/ic_favourite" />
+
+                <ImageView
+                    android:id="@+id/btnSave"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="8dp"
+                    android:padding="4dp"
+                    app:srcCompat="@drawable/ic_save_grey_24px" />
             </RelativeLayout>
 
             <TextView
@@ -118,7 +129,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="TextView" />
+            android:autoLink="all"
+            android:text="TextView"
+            android:textIsSelectable="true" />
 
         <me.gujun.android.taggroup.TagGroup
             android:id="@+id/tagLayout"
@@ -129,7 +142,7 @@
             app:atg_borderStrokeWidth="1dp"
             app:atg_textColor="@color/grey_128"
             app:atg_textSize="14sp"
-            app:atg_verticalPadding="8dp"></me.gujun.android.taggroup.TagGroup>
+            app:atg_verticalPadding="8dp" />
 
         <RelativeLayout
             android:id="@+id/userInfoLayout"
@@ -156,12 +169,12 @@
                 android:layout_toLeftOf="@+id/btnFollow"
                 android:layout_toEndOf="@+id/ivProfile2"
                 android:layout_toRightOf="@+id/ivProfile2"
+                android:autoLink="all"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:lines="1"
                 android:padding="2dp"
                 android:textIsSelectable="true"
-                android:autoLink="all"
                 android:textSize="18sp" />
 
             <CheckBox

@@ -29,25 +29,22 @@ public class ColorSelectDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         View view = View.inflate(getContext(), R.layout.layout_color, null);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         ColorAdapter adapter = new ColorAdapter(getContext());
         recyclerView.setAdapter(adapter);
         builder.setTitle(getString(R.string.theme_color))
                 .setView(view);
         final Dialog dialog = builder.create();
-        adapter.setOnSelected(new ColorAdapter.OnColorSelected() {
-            @Override
-            public void onSelected(String color, int code) {
-                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
-                editor.putString(getString(R.string.key_theme_color), color);
-                editor.apply();
-                Theme.set(color);
-                Intent intent = getActivity().getIntent();
-                getActivity().setResult(1, intent);
-                onColorSelected.onSelected(color, code);
-                dialog.dismiss();
-            }
+        adapter.setOnSelected((color, code) -> {
+            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
+            editor.putString(getString(R.string.key_theme_color), color);
+            editor.apply();
+            Theme.set(color);
+            Intent intent = getActivity().getIntent();
+            getActivity().setResult(1, intent);
+            onColorSelected.onSelected(color, code);
+            dialog.dismiss();
         });
         return dialog;
     }
