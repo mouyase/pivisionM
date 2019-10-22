@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_search_white_24px"
+        android:shortcutId="search"
+        android:shortcutLongLabel="@string/search"
+        android:shortcutShortLabel="@string/search">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass=".search.SearchActivity"
+            android:targetPackage=".Search"/>
+    </shortcut>
+</shortcuts>
