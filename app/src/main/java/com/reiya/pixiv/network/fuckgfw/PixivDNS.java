@@ -14,8 +14,6 @@ public class PixivDNS implements Dns {
     private static PixivDNS mPixivDNS = null;
     private static List<InetAddress> newDns = new ArrayList<>();
     private static final String[] addresses = {
-            "210.129.120.60",
-            "210.129.120.62",
             "210.140.131.222",
             "74.120.148.208",
             "113.33.39.198",
