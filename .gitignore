@@ -88,3 +88,4 @@ lint/reports/
 /release
 
 keystore.properties
+bugly.properties

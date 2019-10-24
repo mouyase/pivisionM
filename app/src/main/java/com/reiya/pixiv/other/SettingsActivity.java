@@ -1,7 +1,9 @@
 package com.reiya.pixiv.other;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -12,7 +14,9 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,6 +57,7 @@ public class SettingsActivity extends AppCompatActivity {
     public static class MyPreferenceFragment extends PreferenceFragment {
         Preference preferenceCache;
 
+        @SuppressLint("SetTextI18n")
         @Override
         public void onCreate(final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -70,13 +75,22 @@ public class SettingsActivity extends AppCompatActivity {
             });
             findPreference(getString(R.string.key_connect_mode)).setOnPreferenceChangeListener((preference, newValue) -> {
                 int connectMode = Integer.parseInt(String.valueOf(newValue));
-                Toast toast = Toast.makeText(getActivity(), "当前已设置为 " + getActivity().getResources().getStringArray(R.array.pref_connect_mode_strings)[connectMode] + " 模式\n重启后生效", Toast.LENGTH_LONG);
-                int tvToastId = Resources.getSystem().getIdentifier("message", "id", "android");
-                TextView tvToast = toast.getView().findViewById(tvToastId);
-                if (tvToast != null) {
-                    tvToast.setGravity(Gravity.CENTER);
+                //解决 Toast Exception : java.lang.IllegalStateException: View has already been added to the window manager.
+                //原因 布局复用
+                Toast toast = new Toast(getActivity());
+                LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                int layoutId = Resources.getSystem().getIdentifier("transient_notification", "layout", "android");
+                View view = inflater.inflate(layoutId, null);
+                int textViewId = Resources.getSystem().getIdentifier("message", "id", "android");
+                TextView textView = view.findViewById(textViewId);
+                if (textView != null) {
+                    textView.setText("当前已设置为 " + getActivity().getResources().getStringArray(R.array.pref_connect_mode_strings)[connectMode] + " 模式\n重启后生效");
+                    textView.setGravity(Gravity.CENTER);
                 }
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(view);
                 toast.show();
+                //结束
                 return true;
             });
         }

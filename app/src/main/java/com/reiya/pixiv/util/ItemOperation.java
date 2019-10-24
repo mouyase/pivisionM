@@ -62,12 +62,7 @@ public class ItemOperation {
         String defaultType = PreferenceManager.getDefaultSharedPreferences(activity).getString(activity.getString(R.string.key_favorite_work_option), "query");
         if (defaultType.equals("query")) {
             FavoriteWorkDialog favoriteWorkDialog = new FavoriteWorkDialog();
-            favoriteWorkDialog.setToAdd(new FavoriteWorkDialog.ToAdd() {
-                @Override
-                public void add(String type) {
-                    addBookmark(activity, work.getId(), type);
-                }
-            });
+            favoriteWorkDialog.setToAdd(type -> addBookmark(activity, work.getId(), type));
             favoriteWorkDialog.show(activity.getSupportFragmentManager(), "FavoriteWork");
         } else {
             addBookmark(activity, work.getId(), defaultType);
@@ -369,7 +364,6 @@ public class ItemOperation {
             @Override
             public void onNext(ResponseBody responseBody) {
                 HttpClient.writeFileFromRequestBody(responseBody, file);
-
                 timer.cancel();
                 Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
                 Uri uri = Uri.fromFile(file);

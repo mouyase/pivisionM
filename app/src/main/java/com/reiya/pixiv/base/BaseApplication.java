@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
@@ -125,7 +126,7 @@ public class BaseApplication extends Application {
     }
 
     public static String getUA() {
-        return "PixivAndroidApp/5.0.156 " + getDeviceInfo();
+        return "PixivAndroidApp/5.0.164 " + getDeviceInfo();
     }
 
     public static String getAppVersionName(Context context) {
@@ -153,7 +154,13 @@ public class BaseApplication extends Application {
         super.onCreate();
         sInstance = this;
 
-        Bugly.init(getApplicationContext(), "0fc124925c", true);
+        //判断是否为Debug版本
+        ApplicationInfo applicationInfo = getApplicationInfo();
+        if ((applicationInfo.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0) {
+            Bugly.init(getApplicationContext(), "0fc124925c", true);
+        } else {
+            Bugly.init(getApplicationContext(), "0fc124925c", false);
+        }
 
         HttpClient.init(this);
 
