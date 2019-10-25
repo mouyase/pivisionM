@@ -42,35 +42,27 @@ public class HistoryRankingActivity extends AppCompatActivity {
         date = Calendar.getInstance();
         date.set(Calendar.DAY_OF_YEAR, date.get(Calendar.DAY_OF_YEAR) - 1);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24px);
         getSupportActionBar().setTitle("");
-        tv = (TextView) toolbar.findViewById(R.id.title);
-        tv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialog();
-            }
-        });
+        tv = toolbar.findViewById(R.id.title);
+        tv.setOnClickListener(v -> showDialog());
 
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
-        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        viewPager = findViewById(R.id.viewPager);
+        tabLayout = findViewById(R.id.tabLayout);
 
         showDialog();
     }
 
     private void showDialog() {
-        new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                date.set(year, monthOfYear, dayOfMonth);
-                String str = StringHelper.getFormattedDate(year, monthOfYear, dayOfMonth, "-");
-                tv.setText(str);
-                viewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), getApplicationContext(), str));
-                tabLayout.setupWithViewPager(viewPager);
-            }
+        new DatePickerDialog(this, (view, year, monthOfYear, dayOfMonth) -> {
+            date.set(year, monthOfYear, dayOfMonth);
+            String str = StringHelper.getFormattedDate(year, monthOfYear, dayOfMonth, "-");
+            tv.setText(str);
+            viewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), getApplicationContext(), str));
+            tabLayout.setupWithViewPager(viewPager);
         }, date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.get(Calendar.DAY_OF_MONTH)).show();
     }
 

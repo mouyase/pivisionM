@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="ThemeRed" parent="Translucent">
         <item name="colorPrimary">@color/red</item>
@@ -110,7 +110,9 @@
         <item name="android:textSize">16sp</item>
     </style>
 
-    <style name="Splash" parent="AppTheme">
+    <style name="Splash" parent="AppTheme" android:windowIsTranslucent="false">
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowDisablePreview">true</item>
         <item name="android:windowBackground">@drawable/bg_splash</item>
     </style>
 

@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
@@ -36,13 +37,13 @@ public class RankingActivity extends AppCompatActivity {
         setTheme(Theme.getTheme());
         setContentView(R.layout.activity_ranking);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24px);
 
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
-        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        viewPager = findViewById(R.id.viewPager);
+        tabLayout = findViewById(R.id.tabLayout);
 
         mFragmentPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), UserData.getSpecialMode() ? 1 : 0);
         viewPager.setAdapter(mFragmentPagerAdapter);
@@ -65,14 +66,13 @@ public class RankingActivity extends AppCompatActivity {
                 finish();
                 break;
             case 0:
-                new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        mDate.set(year, monthOfYear, dayOfMonth);
-                        String str = StringHelper.getFormattedDate(year, monthOfYear, dayOfMonth, "-");
-                        viewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), UserData.getSpecialMode() ? 1 : 0, str));
-                        tabLayout.setupWithViewPager(viewPager);
-                    }
+                new DatePickerDialog(this, (view, year, monthOfYear, dayOfMonth) -> {
+                    mDate.set(year, monthOfYear, dayOfMonth);
+                    String str = StringHelper.getFormattedDate(year, monthOfYear, dayOfMonth, "-");
+                    System.out.println(str);
+                    viewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), UserData.getSpecialMode() ? 1 : 0, str));
+                    viewPager.requestFocus();
+                    tabLayout.setupWithViewPager(viewPager);
                 }, mDate.get(Calendar.YEAR), mDate.get(Calendar.MONTH), mDate.get(Calendar.DAY_OF_MONTH)).show();
                 break;
         }
@@ -106,6 +106,12 @@ public class RankingActivity extends AppCompatActivity {
             }
             mMode = mode;
             mDate = date;
+            //修复日期选择不可用
+            FragmentTransaction fragmentTransaction = fm.beginTransaction();
+            for (Fragment fragment : fm.getFragments()) {
+                fragmentTransaction.remove(fragment);
+            }
+            fragmentTransaction.commitNow();
         }
 
         MyFragmentPagerAdapter(FragmentManager fm, int mode) {
