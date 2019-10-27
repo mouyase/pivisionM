@@ -91,11 +91,11 @@ dependencies {
 
 apply plugin: 'bugly'
 
-bugly {
-    def buglyProperties = new Properties()
-    def buglyPropertiesFile = project.rootProject.file("bugly.properties")
-    buglyProperties.load(new FileInputStream(buglyPropertiesFile))
-
-    appId = buglyProperties['APP_ID']
-    appKey = buglyProperties['APP_KEY']
-}
+//bugly {
+//    def buglyProperties = new Properties()
+//    def buglyPropertiesFile = project.rootProject.file("bugly.properties")
+//    buglyProperties.load(new FileInputStream(buglyPropertiesFile))
+//
+//    appId = buglyProperties['APP_ID']
+//    appKey = buglyProperties['APP_KEY']
+//}

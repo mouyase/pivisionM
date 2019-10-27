@@ -331,8 +331,7 @@ public class ViewActivity extends AppCompatActivity implements View.OnClickListe
 
         @Override
         public Fragment getItem(int position) {
-            ImageFragment fragment = (ImageFragment) ImageFragment.newInstance(position, mWorks.get(position));
-            return fragment;
+            return ImageFragment.newInstance(position, mWorks.get(position));
         }
 
         @Override

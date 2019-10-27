@@ -14,7 +14,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.fragment.app.FragmentActivity;
-import androidx.multidex.MultiDex;
 
 import com.bumptech.glide.Glide;
 import com.reiya.pixiv.bean.Theme;
@@ -49,7 +48,6 @@ public class BaseApplication extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        MultiDex.install(base);
     }
 
     public static long getTime(String name) {

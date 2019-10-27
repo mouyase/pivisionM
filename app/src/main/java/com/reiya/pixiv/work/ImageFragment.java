@@ -4,9 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -14,12 +12,10 @@ import android.text.Html;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -146,13 +142,10 @@ public class ImageFragment extends BaseFragment<WorkPresenter> implements WorkCo
                                 layout.addView(recyclerView);
                                 if (comments.size() > 5) {
                                     View btnMore = inflater.inflate(R.layout.item_more, layout, false);
-                                    btnMore.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            Intent intent = new Intent(getActivity(), CommentActivity.class);
-                                            intent.putExtra("id", mWork.getId());
-                                            getActivity().startActivity(intent);
-                                        }
+                                    btnMore.setOnClickListener(v1 -> {
+                                        Intent intent = new Intent(getActivity(), CommentActivity.class);
+                                        intent.putExtra("id", mWork.getId());
+                                        getActivity().startActivity(intent);
                                     });
                                     layout.addView(btnMore);
                                 }
@@ -173,11 +166,15 @@ public class ImageFragment extends BaseFragment<WorkPresenter> implements WorkCo
                             @Override
                             public void onNext(HttpService.IllustListResponse illustListResponse) {
                                 List<Work> works = illustListResponse.getWorks();
-                                LinearLayout layout = (LinearLayout) view.findViewById(R.id.RelatedWorksLayout);
+                                LinearLayout layout = view.findViewById(R.id.RelatedWorksLayout);
                                 layout.removeViewAt(1);
                                 RecyclerView recyclerView = new RecyclerView(getActivity());
                                 recyclerView.setLayoutManager(new WorkGridLayoutManager(getActivity()));
                                 recyclerView.setAdapter(new ImageAdapter(getActivity(), works));
+                                //修复滑动卡顿
+                                recyclerView.setHasFixedSize(true);
+                                recyclerView.setNestedScrollingEnabled(false);
+                                //结束
                                 layout.addView(recyclerView);
                             }
                         });
@@ -228,29 +225,23 @@ public class ImageFragment extends BaseFragment<WorkPresenter> implements WorkCo
                 }
             }
         });
-        mCbFav.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                BookmarkAddDialog dialog = new BookmarkAddDialog();
-                dialog.setId(mWork.getId());
-                dialog.setBookmarked(mCbFav.isChecked());
-                dialog.setOnBookmarkChangedCallback(ImageFragment.this);
-                dialog.show(getActivity().getSupportFragmentManager(), BookmarkAddDialog.class.getName());
+        mCbFav.setOnLongClickListener(v -> {
+            BookmarkAddDialog dialog = new BookmarkAddDialog();
+            dialog.setId(mWork.getId());
+            dialog.setBookmarked(mCbFav.isChecked());
+            dialog.setOnBookmarkChangedCallback(ImageFragment.this);
+            dialog.show(getActivity().getSupportFragmentManager(), BookmarkAddDialog.class.getName());
 //                if (!cbFav.isChecked()) {
 //                    ItemOperation.addBookmark(getActivity(), mWork.getId(), "private");
 //                    mWork.setIsBookmarked(true);
 //                    cbFav.setChecked(true);
 //                }
-                return true;
-            }
+            return true;
         });
-        view.findViewById(R.id.relativeLayout).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ProfileActivity.class);
-                intent.putExtra("id", mWork.getUser().getId());
-                getActivity().startActivity(intent);
-            }
+        view.findViewById(R.id.relativeLayout).setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), ProfileActivity.class);
+            intent.putExtra("id", mWork.getUser().getId());
+            getActivity().startActivity(intent);
         });
 
         View ivDyn = view.findViewById(R.id.ivDyn);
@@ -278,56 +269,44 @@ public class ImageFragment extends BaseFragment<WorkPresenter> implements WorkCo
             tags.add(tag.getName());
         }
         tagGroup.setTags(tags);
-        tagGroup.setOnTagClickListener(new TagGroup.OnTagClickListener() {
-            @Override
-            public void onTagClick(String tag) {
-                Intent intent = new Intent(getActivity(), SearchActivity.class);
-                intent.putExtra("tag", tag);
-                getActivity().startActivity(intent);
-            }
+        tagGroup.setOnTagClickListener(tag -> {
+            Intent intent = new Intent(getActivity(), SearchActivity.class);
+            intent.putExtra("tag", tag);
+            getActivity().startActivity(intent);
         });
 
-        view.findViewById(R.id.userInfoLayout).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ProfileActivity.class);
-                intent.putExtra("id", mWork.getUser().getId());
-                getActivity().startActivity(intent);
-            }
+        view.findViewById(R.id.userInfoLayout).setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), ProfileActivity.class);
+            intent.putExtra("id", mWork.getUser().getId());
+            getActivity().startActivity(intent);
         });
-        final CheckBox cbFollow = (CheckBox) view.findViewById(R.id.btnFollow);
+        final CheckBox cbFollow = view.findViewById(R.id.btnFollow);
         cbFollow.setChecked(mWork.getUser().isFollowed());
-        cbFollow.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (mWork.getUser().isFollowed() != isChecked) {
-                    mWork.getUser().setFollowed(isChecked);
-                    if (isChecked) {
-                        UserOperation.favorite(getActivity(), mWork.getUser().getId(), "public");
+        cbFollow.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (mWork.getUser().isFollowed() != isChecked) {
+                mWork.getUser().setFollowed(isChecked);
+                if (isChecked) {
+                    UserOperation.favorite(getActivity(), mWork.getUser().getId(), "public");
 //                    ItemOperation.addBookmark(getActivity(), mWork);
-                        if (PreferenceManager.getDefaultSharedPreferences(getActivity())
-                                .getBoolean(getString(R.string.key_show_toast_long_click_follow), true)) {
-                            Toast.makeText(getActivity(), R.string.toast_long_click_private, Toast.LENGTH_LONG).show();
-                            PreferenceManager.getDefaultSharedPreferences(getActivity()).edit()
-                                    .putBoolean(getString(R.string.key_show_toast_long_click_follow), false)
-                                    .apply();
-                        }
-                    } else {
-                        UserOperation.outFavorite(getActivity(), mWork.getUser().getId());
+                    if (PreferenceManager.getDefaultSharedPreferences(getActivity())
+                            .getBoolean(getString(R.string.key_show_toast_long_click_follow), true)) {
+                        Toast.makeText(getActivity(), R.string.toast_long_click_private, Toast.LENGTH_LONG).show();
+                        PreferenceManager.getDefaultSharedPreferences(getActivity()).edit()
+                                .putBoolean(getString(R.string.key_show_toast_long_click_follow), false)
+                                .apply();
                     }
+                } else {
+                    UserOperation.outFavorite(getActivity(), mWork.getUser().getId());
                 }
             }
         });
-        cbFollow.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                if (!cbFollow.isChecked()) {
-                    UserOperation.favorite(getActivity(), mWork.getUser().getId(), "private");
-                    mWork.getUser().setFollowed(true);
-                    cbFollow.setChecked(true);
-                }
-                return true;
+        cbFollow.setOnLongClickListener(v -> {
+            if (!cbFollow.isChecked()) {
+                UserOperation.favorite(getActivity(), mWork.getUser().getId(), "private");
+                mWork.getUser().setFollowed(true);
+                cbFollow.setChecked(true);
             }
+            return true;
         });
 
 //        content = new RecordDAO(getActivity()).getContent(id);
@@ -407,55 +386,46 @@ public class ImageFragment extends BaseFragment<WorkPresenter> implements WorkCo
                     .thumbnail(0.1f)
                     .load(iv);
         }
-        iv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mWork.isDynamic()) {
-                    Intent intent = new Intent(getActivity(), GifActivity.class);
-                    intent.putExtra("work", mWork);
-                    startActivity(intent);
-                } else if (mWork.getPageCount() == 1) {
-                    Intent intent = new Intent(getActivity(), ZoomActivity.class);
-                    intent.putExtra("url", mWork.getImageUrl(3));
-                    startActivity(intent);
-                    getActivity().overridePendingTransition(0, 0);
-                } else {
-                    Intent intent = new Intent(getActivity(), GridActivity.class);
-                    intent.putExtra("work", mWork);
-                    startActivity(intent);
-                    getActivity().overridePendingTransition(0, 0);
-                }
+        iv.setOnClickListener(v -> {
+            if (mWork.isDynamic()) {
+                Intent intent = new Intent(getActivity(), GifActivity.class);
+                intent.putExtra("work", mWork);
+                startActivity(intent);
+            } else if (mWork.getPageCount() == 1) {
+                Intent intent = new Intent(getActivity(), ZoomActivity.class);
+                intent.putExtra("url", mWork.getImageUrl(3));
+                startActivity(intent);
+                getActivity().overridePendingTransition(0, 0);
+            } else {
+                Intent intent = new Intent(getActivity(), GridActivity.class);
+                intent.putExtra("work", mWork);
+                startActivity(intent);
+                getActivity().overridePendingTransition(0, 0);
             }
         });
-        iv.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                MenuDialog menuDialog = new MenuDialog();
-                menuDialog.setListener(new String[]{"复制id", "分享"}, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case 0:
-                                int id = mWork.getId();
-                                ClipboardManager cb = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-                                ClipData data = ClipData.newPlainText("id", String.valueOf(id));
-                                cb.setPrimaryClip(data);
-                                Toast.makeText(getActivity(), getString(R.string.clip_info_id), Toast.LENGTH_SHORT).show();
-                                break;
-                            case 1:
-                                String text = mWork.getTitle() + " / " + mWork.getUser().getName() + " #pixiv " + Value.URL_ILLUST_PAGE + mWork.getId();
-                                Intent sendIntent = new Intent();
-                                sendIntent.setAction(Intent.ACTION_SEND);
-                                sendIntent.putExtra(Intent.EXTRA_TEXT, text);
-                                sendIntent.setType("text/plain");
-                                startActivity(sendIntent);
-                                break;
-                        }
-                    }
-                });
-                menuDialog.show(getFragmentManager(), "menu");
-                return true;
-            }
+        iv.setOnLongClickListener(v -> {
+            MenuDialog menuDialog = new MenuDialog();
+            menuDialog.setListener(new String[]{"复制ID", "分享"}, (dialog, which) -> {
+                switch (which) {
+                    case 0:
+                        int id = mWork.getId();
+                        ClipboardManager cb = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                        ClipData data = ClipData.newPlainText("id", String.valueOf(id));
+                        cb.setPrimaryClip(data);
+                        Toast.makeText(getActivity(), getString(R.string.clip_info_id), Toast.LENGTH_SHORT).show();
+                        break;
+                    case 1:
+                        String text = mWork.getTitle() + " / " + mWork.getUser().getName() + " #pixiv " + Value.URL_ILLUST_PAGE + mWork.getId();
+                        Intent sendIntent = new Intent();
+                        sendIntent.setAction(Intent.ACTION_SEND);
+                        sendIntent.putExtra(Intent.EXTRA_TEXT, text);
+                        sendIntent.setType("text/plain");
+                        startActivity(sendIntent);
+                        break;
+                }
+            });
+            menuDialog.show(getFragmentManager(), "menu");
+            return true;
         });
     }
 
