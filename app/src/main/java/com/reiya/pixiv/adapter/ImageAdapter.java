@@ -32,21 +32,18 @@ public class ImageAdapter extends BaseAdapter<Work> {
 
     public ImageAdapter(Context context, List<Work> works) {
         super(context, new int[]{R.layout.item_image, R.layout.item_header}, works);
-        setOnItemClickListener(new BaseAdapter.OnItemClickListener() {
-            @Override
-            public void onClick(Object item, List list, int position) {
-                if (mHasHeader && position == 0) {
-                    Intent intent = new Intent(mContext, RankingActivity.class);
-                    mContext.startActivity(intent);
-                } else {
-                    Intent intent = new Intent(mContext, ViewActivity.class);
-                    intent.putExtra("id", ((Work) item).getId());
-                    TempData.put("works", list);
-                    intent.putExtra("position", position);
-                    mContext.startActivity(intent);
-                }
-
+        setOnItemClickListener((item, list, position) -> {
+            if (mHasHeader && position == 0) {
+                Intent intent = new Intent(mContext, RankingActivity.class);
+                mContext.startActivity(intent);
+            } else {
+                Intent intent = new Intent(mContext, ViewActivity.class);
+                intent.putExtra("id", ((Work) item).getId());
+                TempData.put("works", list);
+                intent.putExtra("position", position);
+                mContext.startActivity(intent);
             }
+
         });
 
         setStyle();

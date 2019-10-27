@@ -120,7 +120,7 @@ public class ImageFragment extends BaseFragment<WorkPresenter> implements WorkCo
                             @Override
                             public void onNext(HttpService.CommentResponse commentResponse) {
                                 List<Comment> comments = commentResponse.getComments();
-                                LinearLayout layout = (LinearLayout) view.findViewById(R.id.commentLayout);
+                                LinearLayout layout = view.findViewById(R.id.commentLayout);
                                 layout.removeAllViews();
 //                                    int n = Math.min(comments.size(), 5);
 //                                    for (int i = 0; i < n; i++) {
