@@ -4,14 +4,16 @@ android {
     compileSdkVersion 29
     defaultConfig {
         applicationId "tech.yojigen.pivisionm"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 29
-        versionCode 443003
-        versionName '4.4.3(443003)'
+        versionCode 443004
+        versionName '4.4.3(443004)'
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled = true
     }
-
+    dexOptions {
+        preDexLibraries = false
+    }
     signingConfigs {
         releaseConfig {
             def keystoreProperties = new Properties()
@@ -87,13 +89,13 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 }
 
-apply plugin: 'bugly'
+//apply plugin: 'bugly'
 
-bugly {
-    def buglyProperties = new Properties()
-    def buglyPropertiesFile = project.rootProject.file("bugly.properties")
-    buglyProperties.load(new FileInputStream(buglyPropertiesFile))
-
-    appId = buglyProperties['APP_ID']
-    appKey = buglyProperties['APP_KEY']
-}
+//bugly {
+//    def buglyProperties = new Properties()
+//    def buglyPropertiesFile = project.rootProject.file("bugly.properties")
+//    buglyProperties.load(new FileInputStream(buglyPropertiesFile))
+//
+//    appId = buglyProperties['APP_ID']
+//    appKey = buglyProperties['APP_KEY']
+//}

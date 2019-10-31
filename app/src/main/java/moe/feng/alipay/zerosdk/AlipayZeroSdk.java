@@ -10,6 +10,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.service.quicksettings.TileService;
 
+import androidx.annotation.RequiresApi;
+
 import java.net.URISyntaxException;
 
 public class AlipayZeroSdk {
@@ -100,6 +102,7 @@ public class AlipayZeroSdk {
      * @param context Context
      * @return 是否成功打开 Activity
      */
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public static boolean openAlipayScan(Context context) {
         try {
             Uri uri = Uri.parse("alipayqr://platformapi/startapp?saId=10000007");
@@ -123,6 +126,7 @@ public class AlipayZeroSdk {
      * @param context Context
      * @return 是否成功打开 Activity
      */
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public static boolean openAlipayBarcode(Context context) {
         try {
             Uri uri = Uri.parse("alipayqr://platformapi/startapp?saId=20000056");

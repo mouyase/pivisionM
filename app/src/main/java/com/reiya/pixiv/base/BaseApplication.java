@@ -45,6 +45,11 @@ public class BaseApplication extends Application {
         return sInstance;
     }
 
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+    }
+
     public static long getTime(String name) {
         return sInstance.getSharedPreferences(name, MODE_PRIVATE).getLong("time", 0);
     }

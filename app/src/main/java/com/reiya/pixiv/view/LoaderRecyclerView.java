@@ -38,7 +38,8 @@ public class LoaderRecyclerView extends RecyclerView {
                 if (layoutManager instanceof LinearLayoutManager) {
                     lastVisibleItem = ((LinearLayoutManager) getLayoutManager()).findLastVisibleItemPosition() + 1;
                 } else {
-                    lastVisibleItem = ((StaggeredGridLayoutManager) getLayoutManager()).findLastVisibleItemPositions(null)[0] + ((StaggeredGridLayoutManager) getLayoutManager()).getSpanCount();
+                    int[] lastPositions = new int[((StaggeredGridLayoutManager) layoutManager).getSpanCount()];
+                    lastVisibleItem = ((StaggeredGridLayoutManager) getLayoutManager()).findLastVisibleItemPositions(lastPositions)[0] + ((StaggeredGridLayoutManager) getLayoutManager()).getSpanCount();
                 }
             }
         });

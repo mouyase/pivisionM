@@ -78,8 +78,7 @@ public class HttpClient {
         int connectMode = Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.key_connect_mode), "0"));
         switch (connectMode) {
             case 0:
-                builder.sslSocketFactory(PixivSSLSocketFactory.getInstance(), PixivTrustManager.getInstance())
-                        .dns(PixivDNS.getInstance());
+                builder.sslSocketFactory(PixivSSLSocketFactory.getInstance(), PixivTrustManager.getInstance()).dns(PixivDNS.getInstance());
                 break;
             case 1:
                 break;
