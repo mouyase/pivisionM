@@ -76,7 +76,7 @@ public class SearchAdapter extends BaseAdapter implements Filterable {
                 type = "作品ID";
                 break;
             case 2:
-                type = "画师IDm";
+                type = "画师ID";
                 break;
             case -1:
                 type = "清除搜索历史";

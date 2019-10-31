@@ -6,8 +6,8 @@ android {
         applicationId "tech.yojigen.pivisionm"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 443003
-        versionName '4.4.3(443003)'
+        versionCode 443004
+        versionName '4.4.3(443004)'
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled = true
     }
@@ -89,7 +89,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 }
 
-apply plugin: 'bugly'
+//apply plugin: 'bugly'
 
 //bugly {
 //    def buglyProperties = new Properties()

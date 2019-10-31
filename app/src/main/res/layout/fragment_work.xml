@@ -74,7 +74,7 @@
                     android:layout_height="48dp"
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="8dp"
-                    android:layout_marginRight="56dp"
+                    android:layout_marginRight="8dp"
                     android:button="@drawable/ic_favourite" />
 
                 <ImageView
@@ -83,7 +83,7 @@
                     android:layout_height="48dp"
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="8dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_marginRight="56dp"
                     android:padding="4dp"
                     app:srcCompat="@drawable/ic_save_grey_24px" />
             </RelativeLayout>
