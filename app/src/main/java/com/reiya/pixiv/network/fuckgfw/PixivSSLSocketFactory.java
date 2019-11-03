@@ -3,9 +3,6 @@ package com.reiya.pixiv.network.fuckgfw;
 
 import android.net.SSLCertificateSocketFactory;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
@@ -28,28 +25,28 @@ public class PixivSSLSocketFactory extends SSLSocketFactory {
         return mPixivSSLSocketFactory;
     }
 
-    @Nullable
-    public Socket createSocket(@Nullable String paramString, int paramInt) {
+
+    public Socket createSocket(String paramString, int paramInt) {
         return null;
     }
 
-    @Nullable
-    public Socket createSocket(@Nullable String paramString, int paramInt1, @Nullable InetAddress paramInetAddress, int paramInt2) {
+
+    public Socket createSocket(String paramString, int paramInt1, InetAddress paramInetAddress, int paramInt2) {
         return null;
     }
 
-    @Nullable
-    public Socket createSocket(@Nullable InetAddress paramInetAddress, int paramInt) {
+
+    public Socket createSocket(InetAddress paramInetAddress, int paramInt) {
         return null;
     }
 
-    @Nullable
-    public Socket createSocket(@Nullable InetAddress paramInetAddress1, int paramInt1, @Nullable InetAddress paramInetAddress2, int paramInt2) {
+
+    public Socket createSocket(InetAddress paramInetAddress1, int paramInt1, InetAddress paramInetAddress2, int paramInt2) {
         return null;
     }
 
-    @NotNull
-    public Socket createSocket(@Nullable Socket paramSocket, @Nullable String paramString, int paramInt, boolean paramBoolean) throws IOException {
+
+    public Socket createSocket(Socket paramSocket, String paramString, int paramInt, boolean paramBoolean) throws IOException {
         if (paramSocket == null)
             Intrinsics.throwNpe();
         InetAddress inetAddress = paramSocket.getInetAddress();
@@ -77,12 +74,12 @@ public class PixivSSLSocketFactory extends SSLSocketFactory {
         throw new TypeCastException("null cannot be cast to non-null type android.net.SSLCertificateSocketFactory");
     }
 
-    @NotNull
+
     public String[] getDefaultCipherSuites() {
         return new String[0];
     }
 
-    @NotNull
+
     public String[] getSupportedCipherSuites() {
         return new String[0];
     }

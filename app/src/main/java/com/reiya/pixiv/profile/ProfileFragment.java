@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 
 import com.reiya.pixiv.adapter.ImageAdapter;
@@ -55,9 +54,9 @@ public class ProfileFragment extends BaseFragment<ProfilePresenter> implements P
         mPresenter.setView(this);
     }
 
-    @Nullable
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         switch (mPage) {
             case 1:
                 mView = LayoutInflater.from(getActivity()).inflate(R.layout.layout_profile_info, null);
@@ -85,7 +84,7 @@ public class ProfileFragment extends BaseFragment<ProfilePresenter> implements P
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         switch (mPage) {
             case 0:

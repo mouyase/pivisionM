@@ -14,8 +14,6 @@ import androidx.viewpager.widget.ViewPager;
 import com.reiya.pixiv.bean.Work;
 import com.reiya.pixiv.util.ItemOperation;
 
-import org.jetbrains.annotations.NotNull;
-
 import tech.yojigen.pivisionm.R;
 
 public class GroupViewActivity extends AppCompatActivity implements View.OnClickListener {
@@ -86,7 +84,7 @@ public class GroupViewActivity extends AppCompatActivity implements View.OnClick
             this.count = count;
         }
 
-        @NotNull
+
         @Override
         public Fragment getItem(int position) {
             return GroupFragment.newInstance(position, mWork.getImageUrl(2, position));
