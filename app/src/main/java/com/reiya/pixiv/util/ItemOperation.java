@@ -13,7 +13,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 
 import com.reiya.pixiv.bean.Task;
@@ -254,12 +253,12 @@ public class ItemOperation {
 //        }
     }
 
-    @Nullable
+
     private static File getFile(Context context, Work work, int index, OnCheckExist onCheckExist) {
         return getFile(context, work, index, null, onCheckExist);
     }
 
-    @Nullable
+
     private static File getFile(Context context, Work work, int index, String independentFolderName, OnCheckExist onCheckExist) {
         final File file = getNewFile(context, work, index, independentFolderName);
         if (file.exists()) {

@@ -27,8 +27,6 @@ import com.reiya.pixiv.network.HttpService;
 import com.reiya.pixiv.network.NetworkRequest;
 import com.reiya.pixiv.view.WorkGridLayoutManager;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -174,7 +172,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             fragmentTransaction.commitNow();
         }
 
-        @NotNull
+
         @Override
         public Fragment getItem(int position) {
             return SearchFragment.newInstance(position, mKeyword);

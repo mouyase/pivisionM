@@ -6,8 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.Nullable;
-
 import com.google.android.material.snackbar.Snackbar;
 import com.reiya.pixiv.adapter.ImageAdapter;
 import com.reiya.pixiv.network.HttpService;
@@ -38,14 +36,14 @@ public class SubscribeFragment extends MainFragment {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBlacklist = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString(getString(R.string.key_blacklist), "").split("\n");
     }
 
-    @Nullable
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mRecyclerView = (LoaderRecyclerView) inflater.inflate(R.layout.recycler_view, container, false);
         mAdapter = new ImageAdapter(getActivity());
         mAdapter.setBlackList(mBlacklist);
@@ -81,7 +79,7 @@ public class SubscribeFragment extends MainFragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (UserData.isLoggedIn()) {
             getList();

@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.reiya.pixiv.image.ImageLoader;
@@ -41,9 +40,9 @@ public class GroupFragment extends Fragment {
 //        urlBig = getArguments().getString(URL_BIG);
     }
 
-    @Nullable
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final ImageView iv = new ImageView(getActivity().getApplicationContext());
         if (!url.equals("")) {
             ImageLoader.loadImage(getActivity(), url)

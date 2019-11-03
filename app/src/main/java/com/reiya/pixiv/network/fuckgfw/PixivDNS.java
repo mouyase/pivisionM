@@ -1,6 +1,5 @@
 package com.reiya.pixiv.network.fuckgfw;
 
-import org.jetbrains.annotations.NotNull;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -64,8 +63,7 @@ public class PixivDNS implements Dns {
     }
 
 
-    @NotNull
-    public List<InetAddress> lookup(@NotNull String s) throws UnknownHostException {
+    public List<InetAddress> lookup(String s) throws UnknownHostException {
         if (s.contains("pixiv.net")) {
             try {
                 return newDns;

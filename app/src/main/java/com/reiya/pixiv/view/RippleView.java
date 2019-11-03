@@ -8,8 +8,6 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
-import androidx.annotation.Nullable;
-
 import tech.yojigen.pivisionm.R;
 
 /**
@@ -23,7 +21,7 @@ public class RippleView extends View {
     private int mMaxRadius;
     private Paint mPaint = new Paint();
 
-    public RippleView(Context context, @Nullable AttributeSet attrs) {
+    public RippleView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.RippleView);
