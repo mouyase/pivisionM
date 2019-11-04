@@ -8,8 +8,8 @@ android {
         applicationId "tech.yojigen.pivisionm"
         minSdkVersion 19
         targetSdkVersion 29
-        versionCode 443006
-        versionName '4.4.3(443006)'
+        versionCode 443007
+        versionName '4.4.3(443007)'
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled = true
     }
