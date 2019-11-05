@@ -14,12 +14,14 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.fragment.app.FragmentActivity;
+import androidx.multidex.MultiDex;
 
 import com.bumptech.glide.Glide;
 import com.reiya.pixiv.bean.Theme;
 import com.reiya.pixiv.bean.User;
 import com.reiya.pixiv.db.RecordDAO;
 import com.reiya.pixiv.dialog.LoginDialog;
+import com.reiya.pixiv.main.MainActivity;
 import com.reiya.pixiv.network.HttpClient;
 import com.reiya.pixiv.network.HttpService;
 import com.reiya.pixiv.network.NetworkRequest;
@@ -28,6 +30,7 @@ import com.reiya.pixiv.util.Serializer;
 import com.reiya.pixiv.util.StringHelper;
 import com.reiya.pixiv.util.UserData;
 import com.tencent.bugly.Bugly;
+import com.tencent.bugly.beta.Beta;
 
 import java.io.IOException;
 
@@ -48,6 +51,7 @@ public class BaseApplication extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
+        MultiDex.install(base);
     }
 
     public static long getTime(String name) {

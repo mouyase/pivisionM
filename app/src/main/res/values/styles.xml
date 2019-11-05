@@ -99,8 +99,6 @@
     </style>
 
     <style name="Translucent" parent="AppTheme">
-        <item name="android:windowIsTranslucent">false</item>
-        <item name="android:windowDisablePreview">true</item>
     </style>
 
     <style name="TranslucentNoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
