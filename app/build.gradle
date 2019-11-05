@@ -8,8 +8,8 @@ android {
         applicationId "tech.yojigen.pivisionm"
         minSdkVersion 19
         targetSdkVersion 29
-        versionCode 443006
-        versionName '4.4.3(443006)'
+        versionCode 443008
+        versionName '4.4.3(443008)'
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled = true
     }
@@ -60,7 +60,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
+    implementation 'com.android.support:multidex:1.0.3'
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'

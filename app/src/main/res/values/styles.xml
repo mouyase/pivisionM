@@ -99,7 +99,6 @@
     </style>
 
     <style name="Translucent" parent="AppTheme">
-
     </style>
 
     <style name="TranslucentNoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
@@ -110,9 +109,7 @@
         <item name="android:textSize">16sp</item>
     </style>
 
-    <style name="Splash" parent="AppTheme" android:windowIsTranslucent="false">
-        <item name="android:windowIsTranslucent">false</item>
-        <item name="android:windowDisablePreview">true</item>
+    <style name="Splash" parent="AppTheme">
         <item name="android:windowBackground">@drawable/bg_splash</item>
     </style>
 

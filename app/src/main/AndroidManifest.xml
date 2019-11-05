@@ -15,9 +15,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:targetApi="n">
+        tools:targetApi="q">
         <activity
             android:name="com.reiya.pixiv.other.SplashActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -136,7 +137,6 @@
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
-            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent" />
         <provider
             android:name="androidx.core.content.FileProvider"
