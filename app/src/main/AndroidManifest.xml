@@ -18,6 +18,7 @@
         tools:targetApi="q">
         <activity
             android:name="com.reiya.pixiv.other.SplashActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
