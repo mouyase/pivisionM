@@ -55,8 +55,8 @@ public class NetworkRequest {
                 .getAuth(account,
                         password,
                         "password",
-                        "BVO2E8vAAikgUBW8FYpi6amXOjQj",
-                        "LI1WsFUDrrquaINOdarrJclCrkTtc3eojCOswlog",
+                        "MOBrBDS8blbauoSck0ZfDbtuzpyT",
+                        "lsACyCD94FhDUtGTXi3QzcFE2uU1hqtDaKeqrdwj",
                         "")
                 .compose(RxHelper.getSchedulerHelper());
     }

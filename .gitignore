@@ -87,5 +87,6 @@ lint/reports/
 /debug
 /release
 
+.idea/
 keystore.properties
 bugly.properties
