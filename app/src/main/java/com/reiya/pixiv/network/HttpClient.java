@@ -69,7 +69,6 @@ public class HttpClient {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE);
 
-
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
                 .cache(cache)
                 .addInterceptor(interceptor)

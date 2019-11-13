@@ -144,8 +144,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(this, R.string.mobile_network_now, Toast.LENGTH_SHORT).show();
         }
 
-        mViewPager = (ViewPager) findViewById(R.id.viewPager);
-        mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        mViewPager = findViewById(R.id.viewPager);
+        mTabLayout = findViewById(R.id.tabLayout);
         mViewPager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
         mTabLayout.setupWithViewPager(mViewPager);
 
@@ -214,25 +214,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.ivProfile:
                 if (!UserData.isLoggedIn()) {
-                    final BaseApplication.OnLoginDone onLoginDone = new BaseApplication.OnLoginDone() {
-                        @Override
-                        public void onLoginDone(User user) {
-                            showUserInfoOnNavigationHeader(user);
-                            mViewPager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
-                            mTabLayout.setupWithViewPager(mViewPager);
-                        }
+                    final BaseApplication.OnLoginDone onLoginDone = user -> {
+                        showUserInfoOnNavigationHeader(user);
+                        mViewPager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
+                        mTabLayout.setupWithViewPager(mViewPager);
                     };
                     SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
                     String account = sharedPreferences.getString(getString(R.string.key_account), "");
                     String password = sharedPreferences.getString(getString(R.string.key_password), "");
                     if (account.equals("") || password.equals("")) {
                         LoginDialog loginDialog = new LoginDialog();
-                        loginDialog.setListener(new LoginDialog.LoginListener() {
-                            @Override
-                            public void onLogin(String account, String password) {
-                                BaseApplication.getInstance().login(account, password, true, onLoginDone);
-                            }
-                        });
+                        loginDialog.setListener((account1, password1) -> BaseApplication.getInstance().login(account1, password1, true, onLoginDone));
                         loginDialog.show(getSupportFragmentManager(), "Login");
                     } else {
                         BaseApplication.getInstance().login(account, password, false, onLoginDone);

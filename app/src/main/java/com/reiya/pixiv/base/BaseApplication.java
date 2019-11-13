@@ -9,6 +9,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -17,11 +18,11 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.multidex.MultiDex;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 import com.reiya.pixiv.bean.Theme;
 import com.reiya.pixiv.bean.User;
 import com.reiya.pixiv.db.RecordDAO;
 import com.reiya.pixiv.dialog.LoginDialog;
-import com.reiya.pixiv.main.MainActivity;
 import com.reiya.pixiv.network.HttpClient;
 import com.reiya.pixiv.network.HttpService;
 import com.reiya.pixiv.network.NetworkRequest;
@@ -30,12 +31,16 @@ import com.reiya.pixiv.util.Serializer;
 import com.reiya.pixiv.util.StringHelper;
 import com.reiya.pixiv.util.UserData;
 import com.tencent.bugly.Bugly;
-import com.tencent.bugly.beta.Beta;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
 import rx.Subscriber;
 import tech.yojigen.pivisionm.R;
+import tech.yojigen.pixiv.Pixiv;
+import tech.yojigen.pixiv.network.PixivListener;
 
 /**
  * Created by Administrator on 2015/11/21 0021.
@@ -170,6 +175,8 @@ public class BaseApplication extends Application {
         } else {
             Bugly.init(getApplicationContext(), "0fc124925c", false);
         }
+        //初始化Pixiv库
+        Pixiv.init(this);
 
         HttpClient.init(this);
 
@@ -217,6 +224,59 @@ public class BaseApplication extends Application {
 //            Toast.makeText(this, R.string.logining, Toast.LENGTH_SHORT).show();
 
         Toast.makeText(this, R.string.processing_login, Toast.LENGTH_SHORT).show();
+        Pixiv.getPixiv().accountLogin(account, password, new PixivListener() {
+            @Override
+            public void onFailure(IOException e) {
+                Looper.prepare();
+                Toast.makeText(getApplicationContext(), "登陆失败，请检查网路", Toast.LENGTH_LONG).show();
+                Looper.loop();
+                if (onLoginFailed != null) {
+                    onLoginFailed.onLoginFailed();
+                }
+            }
+
+            @Override
+            public void onResponse(String json) {
+                JSONObject jsonObject;
+                String token = null;
+                try {
+                    jsonObject = new JSONObject(json);
+                    token = jsonObject.getString("access_token");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                if (token == null || token.equals("")) {
+                    Looper.prepare();
+                    Toast.makeText(getApplicationContext(), R.string.fail_to_login_account_err, Toast.LENGTH_SHORT).show();
+                    Looper.loop();
+                    if (onLoginFailed != null) {
+                        onLoginFailed.onLoginFailed();
+                    }
+                } else {
+                    Gson gson = new Gson();
+                    User user = gson.fromJson(json, User.class);
+                    BaseApplication.writeToken(token);
+                    BaseApplication.writeUser(user);
+                    UserData.setBearer(token);
+//                                Log.e("token", token);
+                    UserData.user = user;
+                    UserData.setLoggedInState();
+                    Looper.prepare();
+                    Toast.makeText(getApplicationContext(), R.string.login_successfully, Toast.LENGTH_SHORT).show();
+                    Looper.loop();
+                    if (onLoginDone != null) {
+                        onLoginDone.onLoginDone(user);
+                    }
+                    if (save) {
+                        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
+                        editor.putString(getString(R.string.key_account), account);
+                        editor.putString(getString(R.string.key_password), password);
+                        editor.putBoolean(getString(R.string.key_auto_login), true);
+                        editor.apply();
+                    }
+                }
+            }
+        });
         NetworkRequest.getAuth(account, password)
                 .subscribe(new Subscriber<HttpService.AuthResponse>() {
                     @Override
