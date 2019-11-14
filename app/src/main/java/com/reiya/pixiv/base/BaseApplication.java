@@ -238,10 +238,12 @@ public class BaseApplication extends Application {
             @Override
             public void onResponse(String json) {
                 JSONObject jsonObject;
-                String token = null;
+                String token = "";
+                String responseJson = "";
                 try {
                     jsonObject = new JSONObject(json);
-                    token = jsonObject.getString("access_token");
+                    token = jsonObject.getJSONObject("response").getString("access_token");
+                    responseJson = jsonObject.getJSONObject("response").toString();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -254,7 +256,7 @@ public class BaseApplication extends Application {
                     }
                 } else {
                     Gson gson = new Gson();
-                    User user = gson.fromJson(json, User.class);
+                    User user = gson.fromJson(responseJson, User.class);
                     BaseApplication.writeToken(token);
                     BaseApplication.writeUser(user);
                     UserData.setBearer(token);

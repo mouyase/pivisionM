@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -45,7 +46,14 @@ import com.reiya.pixiv.spotlight.SpotlightActivity;
 import com.reiya.pixiv.util.TimeUtil;
 import com.reiya.pixiv.util.UserData;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
 import tech.yojigen.pivisionm.R;
+import tech.yojigen.pixiv.Pixiv;
+import tech.yojigen.pixiv.network.PixivListener;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -67,10 +75,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        Handler handler = new Handler();
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("大概是Run了");
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+                String account = sharedPreferences.getString(getString(R.string.key_account), "");
+                String password = sharedPreferences.getString(getString(R.string.key_password), "");
+                Pixiv.getPixiv().accountLogin(account, password, new PixivListener() {
+                    @Override
+                    public void onFailure(IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onResponse(String json) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(json);
+                            String token = jsonObject.getJSONObject("response").getString("access_token");
+                            UserData.setBearer(token);
+                            System.out.println(token);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                handler.postDelayed(this, 1000 * 60 * 5);
+            }
+        };
+        handler.postDelayed(runnable, 1000 * 60 * 5);
+
+
         setTheme(Theme.getTheme());
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_white_24px);
@@ -79,62 +121,54 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        collapsingToolbarLayout.setExpandedTitleColor(Color.WHITE);
 //        collapsingToolbarLayout.setCollapsedTitleTextColor(Color.WHITE);
 
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        drawerLayout = findViewById(R.id.drawerLayout);
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, 0, 0);
         drawerToggle.setDrawerIndicatorEnabled(false);
-        drawerToggle.setToolbarNavigationClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                drawerLayout.openDrawer(GravityCompat.START);
-            }
-        });
+        drawerToggle.setToolbarNavigationClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
         drawerToggle.syncState();
         drawerLayout.addDrawerListener(drawerToggle);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navigationView);
+        NavigationView navigationView = findViewById(R.id.navigationView);
         navigationView.setItemIconTintList(null);
         View header = navigationView.getHeaderView(0);
-        ivProfile = (ImageView) header.findViewById(R.id.ivProfile);
+        ivProfile = header.findViewById(R.id.ivProfile);
         ivProfile.setOnClickListener(this);
-        tvName = (TextView) header.findViewById(R.id.tvName);
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem item) {
-                Intent intent;
-                switch (item.getItemId()) {
-                    case R.id.collection:
-                        UserData.openCollection(MainActivity.this);
-                        break;
-                    case R.id.concern:
-                        UserData.openConcern(MainActivity.this);
-                        break;
+        tvName = header.findViewById(R.id.tvName);
+        navigationView.setNavigationItemSelectedListener(item -> {
+            Intent intent;
+            switch (item.getItemId()) {
+                case R.id.collection:
+                    UserData.openCollection(MainActivity.this);
+                    break;
+                case R.id.concern:
+                    UserData.openConcern(MainActivity.this);
+                    break;
 //                    case R.id.history_ranking:
 //                        intent = new Intent(getApplicationContext(), HistoryRankingActivity.class);
 //                        startActivity(intent);
 //                        break;
-                    case R.id.history:
-                        intent = new Intent(getApplicationContext(), HistoryActivity.class);
-                        startActivity(intent);
-                        break;
-                    case R.id.download:
-                        intent = new Intent(getApplicationContext(), DownloadActivity.class);
-                        startActivity(intent);
-                        break;
-                    case R.id.spotlight:
-                        intent = new Intent(getApplicationContext(), SpotlightActivity.class);
-                        startActivity(intent);
-                        break;
-                    case R.id.settings:
-                        intent = new Intent(getApplicationContext(), SettingsActivity.class);
-                        startActivityForResult(intent, 1);
-                        break;
-                    case R.id.about:
-                        AboutDialog aboutDialog = new AboutDialog();
-                        aboutDialog.show(getSupportFragmentManager(), "About");
-                        break;
-                }
-                return false;
+                case R.id.history:
+                    intent = new Intent(getApplicationContext(), HistoryActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.download:
+                    intent = new Intent(getApplicationContext(), DownloadActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.spotlight:
+                    intent = new Intent(getApplicationContext(), SpotlightActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.settings:
+                    intent = new Intent(getApplicationContext(), SettingsActivity.class);
+                    startActivityForResult(intent, 1);
+                    break;
+                case R.id.about:
+                    AboutDialog aboutDialog = new AboutDialog();
+                    aboutDialog.show(getSupportFragmentManager(), "About");
+                    break;
             }
+            return false;
         });
 
         NetworkInfo info = ((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
