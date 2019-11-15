@@ -36,6 +36,13 @@ public interface HttpService {
                                      @Field("client_secret") String cs,
                                      @Field("device_token") String dt);
 
+    @FormUrlEncoded
+    @POST("auth/token")
+    Observable<AuthResponse> getAuth(@Field("refresh_token") String userName,
+                                     @Field("grant_type") String gt,
+                                     @Field("client_id") String ci,
+                                     @Field("client_secret") String cs,
+                                     @Field("device_token") String dt);
 
     @GET("v1/illust/ranking")
     Observable<IllustListResponse> getRanking(@Header("Authorization") String authorization, @Query("mode") String mode);
@@ -199,6 +206,10 @@ public interface HttpService {
             return mResponse.mUser;
         }
 
+        public String getRefreshToken() {
+            return mResponse.mRefreshToken;
+        }
+
         static class Response {
             @SerializedName("access_token")
             @Expose
@@ -206,6 +217,9 @@ public interface HttpService {
             @SerializedName("user")
             @Expose
             User mUser;
+            @SerializedName("refresh_token")
+            @Expose
+            String mRefreshToken;
         }
     }
 

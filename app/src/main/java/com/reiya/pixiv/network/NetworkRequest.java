@@ -61,6 +61,17 @@ public class NetworkRequest {
                 .compose(RxHelper.getSchedulerHelper());
     }
 
+    //refresh_token登陆
+    public static Observable<HttpService.AuthResponse> getAuth(String refreshToken) {
+        return getService(Value.URL_AUTH)
+                .getAuth(refreshToken,
+                        "refresh_token",
+                        "MOBrBDS8blbauoSck0ZfDbtuzpyT",
+                        "lsACyCD94FhDUtGTXi3QzcFE2uU1hqtDaKeqrdwj",
+                        "")
+                .compose(RxHelper.getSchedulerHelper());
+    }
+
     public static Observable<HttpService.FollowResponse> removeFollow(int id) {
         return getService()
                 .removeFollow(UserData.getBearer(), String.valueOf(id))

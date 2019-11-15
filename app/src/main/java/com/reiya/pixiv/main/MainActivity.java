@@ -81,7 +81,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                System.out.println("大概是Run了");
                 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
                 String account = sharedPreferences.getString(getString(R.string.key_account), "");
                 String password = sharedPreferences.getString(getString(R.string.key_password), "");
@@ -97,7 +96,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             JSONObject jsonObject = new JSONObject(json);
                             String token = jsonObject.getJSONObject("response").getString("access_token");
                             UserData.setBearer(token);
-                            System.out.println(token);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

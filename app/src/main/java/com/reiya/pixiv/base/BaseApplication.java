@@ -9,7 +9,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -18,7 +17,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.multidex.MultiDex;
 
 import com.bumptech.glide.Glide;
-import com.google.gson.Gson;
 import com.reiya.pixiv.bean.Theme;
 import com.reiya.pixiv.bean.User;
 import com.reiya.pixiv.db.RecordDAO;
@@ -32,15 +30,14 @@ import com.reiya.pixiv.util.StringHelper;
 import com.reiya.pixiv.util.UserData;
 import com.tencent.bugly.Bugly;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 
 import rx.Subscriber;
+import tech.yojigen.common.util.SettingUtil;
 import tech.yojigen.pivisionm.R;
 import tech.yojigen.pixiv.Pixiv;
-import tech.yojigen.pixiv.network.PixivListener;
 
 /**
  * Created by Administrator on 2015/11/21 0021.
@@ -175,9 +172,8 @@ public class BaseApplication extends Application {
         } else {
             Bugly.init(getApplicationContext(), "0fc124925c", false);
         }
-        //初始化Pixiv库
-        Pixiv.init(this);
 
+        Pixiv.init(this);
         HttpClient.init(this);
 
         new RecordDAO(this).removeRecords(System.currentTimeMillis() - 1000 * 60 * 60 * 24 * 7);
@@ -224,113 +220,109 @@ public class BaseApplication extends Application {
 //            Toast.makeText(this, R.string.logining, Toast.LENGTH_SHORT).show();
 
         Toast.makeText(this, R.string.processing_login, Toast.LENGTH_SHORT).show();
-        Pixiv.getPixiv().accountLogin(account, password, new PixivListener() {
-            @Override
-            public void onFailure(IOException e) {
-                Looper.prepare();
-                Toast.makeText(getApplicationContext(), "登陆失败，请检查网路", Toast.LENGTH_LONG).show();
-                Looper.loop();
-                if (onLoginFailed != null) {
-                    onLoginFailed.onLoginFailed();
-                }
-            }
+        String refresh_token = SettingUtil.getSetting(this, "account_refresh_token", "");
+        if (StringUtils.isNoneEmpty(refresh_token)) {
+            NetworkRequest.getAuth(refresh_token)
+                    .subscribe(new Subscriber<HttpService.AuthResponse>() {
+                        @Override
+                        public void onCompleted() {
+                        }
 
-            @Override
-            public void onResponse(String json) {
-                JSONObject jsonObject;
-                String token = "";
-                String responseJson = "";
-                try {
-                    jsonObject = new JSONObject(json);
-                    token = jsonObject.getJSONObject("response").getString("access_token");
-                    responseJson = jsonObject.getJSONObject("response").toString();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                if (token == null || token.equals("")) {
-                    Looper.prepare();
-                    Toast.makeText(getApplicationContext(), R.string.fail_to_login_account_err, Toast.LENGTH_SHORT).show();
-                    Looper.loop();
-                    if (onLoginFailed != null) {
-                        onLoginFailed.onLoginFailed();
-                    }
-                } else {
-                    Gson gson = new Gson();
-                    User user = gson.fromJson(responseJson, User.class);
-                    BaseApplication.writeToken(token);
-                    BaseApplication.writeUser(user);
-                    UserData.setBearer(token);
+                        @Override
+                        public void onError(Throwable e) {
+                            e.printStackTrace();
+                            SettingUtil.delSetting(BaseApplication.this, "account_refresh_token");
+                            login(account, password, save, onLoginDone, onLoginFailed);
+                        }
+
+                        @Override
+                        public void onNext(HttpService.AuthResponse authResponse) {
+                            String token = authResponse.getToken();
+                            if (token == null || token.equals("")) {
+                                Toast.makeText(getApplicationContext(), R.string.fail_to_login_account_err, Toast.LENGTH_SHORT).show();
+                                if (onLoginFailed != null) {
+                                    onLoginFailed.onLoginFailed();
+                                }
+                            } else {
+                                User user = authResponse.getUser();
+
+                                SettingUtil.setSetting(BaseApplication.this, "account_refresh_token", authResponse.getRefreshToken());
+
+
+                                BaseApplication.writeToken(token);
+                                BaseApplication.writeUser(user);
+                                UserData.setBearer(token);
 //                                Log.e("token", token);
-                    UserData.user = user;
-                    UserData.setLoggedInState();
-                    Looper.prepare();
-                    Toast.makeText(getApplicationContext(), R.string.login_successfully, Toast.LENGTH_SHORT).show();
-                    Looper.loop();
-                    if (onLoginDone != null) {
-                        onLoginDone.onLoginDone(user);
-                    }
-                    if (save) {
-                        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
-                        editor.putString(getString(R.string.key_account), account);
-                        editor.putString(getString(R.string.key_password), password);
-                        editor.putBoolean(getString(R.string.key_auto_login), true);
-                        editor.apply();
-                    }
-                }
-            }
-        });
-        NetworkRequest.getAuth(account, password)
-                .subscribe(new Subscriber<HttpService.AuthResponse>() {
-                    @Override
-                    public void onCompleted() {
+                                UserData.user = user;
+                                UserData.setLoggedInState();
+                                Toast.makeText(getApplicationContext(), R.string.login_successfully, Toast.LENGTH_SHORT).show();
+                                if (onLoginDone != null) {
+                                    onLoginDone.onLoginDone(user);
+                                }
+                                if (save) {
+                                    SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
+                                    editor.putString(getString(R.string.key_account), account);
+                                    editor.putString(getString(R.string.key_password), password);
+                                    editor.putBoolean(getString(R.string.key_auto_login), true);
+                                    editor.apply();
+                                }
+                            }
 
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        e.printStackTrace();
-                        if (e instanceof IOException) {
-                            Toast.makeText(getApplicationContext(), "网络错误，可能需要科学上网环境", Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(getApplicationContext(), R.string.fail_to_login_network_err, Toast.LENGTH_LONG).show();
                         }
-                        if (onLoginFailed != null) {
-                            onLoginFailed.onLoginFailed();
-                        }
-                    }
+                    });
+        } else {
+            NetworkRequest.getAuth(account, password)
+                    .subscribe(new Subscriber<HttpService.AuthResponse>() {
+                        @Override
+                        public void onCompleted() {
 
-                    @Override
-                    public void onNext(HttpService.AuthResponse authResponse) {
-                        String token = authResponse.getToken();
-                        if (token == null || token.equals("")) {
-                            Toast.makeText(getApplicationContext(), R.string.fail_to_login_account_err, Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            e.printStackTrace();
+                            if (e instanceof IOException) {
+                                Toast.makeText(getApplicationContext(), "网络错误，可能需要科学上网环境", Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getApplicationContext(), R.string.fail_to_login_network_err, Toast.LENGTH_LONG).show();
+                            }
                             if (onLoginFailed != null) {
                                 onLoginFailed.onLoginFailed();
                             }
-                        } else {
-                            User user = authResponse.getUser();
-                            BaseApplication.writeToken(token);
-                            BaseApplication.writeUser(user);
-                            UserData.setBearer(token);
-//                                Log.e("token", token);
-                            UserData.user = user;
-                            UserData.setLoggedInState();
-                            Toast.makeText(getApplicationContext(), R.string.login_successfully, Toast.LENGTH_SHORT).show();
-                            if (onLoginDone != null) {
-                                onLoginDone.onLoginDone(user);
-                            }
-                            if (save) {
-                                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
-                                editor.putString(getString(R.string.key_account), account);
-                                editor.putString(getString(R.string.key_password), password);
-                                editor.putBoolean(getString(R.string.key_auto_login), true);
-                                editor.apply();
-                            }
                         }
 
-                    }
-                });
+                        @Override
+                        public void onNext(HttpService.AuthResponse authResponse) {
+                            String token = authResponse.getToken();
+                            if (token == null || token.equals("")) {
+                                Toast.makeText(getApplicationContext(), R.string.fail_to_login_account_err, Toast.LENGTH_SHORT).show();
+                                if (onLoginFailed != null) {
+                                    onLoginFailed.onLoginFailed();
+                                }
+                            } else {
+                                User user = authResponse.getUser();
+                                BaseApplication.writeToken(token);
+                                BaseApplication.writeUser(user);
+                                UserData.setBearer(token);
+//                                Log.e("token", token);
+                                UserData.user = user;
+                                UserData.setLoggedInState();
+                                Toast.makeText(getApplicationContext(), R.string.login_successfully, Toast.LENGTH_SHORT).show();
+                                if (onLoginDone != null) {
+                                    onLoginDone.onLoginDone(user);
+                                }
+                                if (save) {
+                                    SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
+                                    editor.putString(getString(R.string.key_account), account);
+                                    editor.putString(getString(R.string.key_password), password);
+                                    editor.putBoolean(getString(R.string.key_auto_login), true);
+                                    editor.apply();
+                                }
+                            }
+                        }
+                    });
 //        }
+        }
     }
 
     public interface OnLoginDone {
