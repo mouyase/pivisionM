@@ -9,7 +9,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 29
         versionCode 443009
-        versionName '4.4.3(443009)'
+        versionName '4.4.3(9)'
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled = true
     }
@@ -17,7 +17,7 @@ android {
         preDexLibraries = false
     }
     signingConfigs {
-        releaseConfig {
+        release{
             def keystoreProperties = new Properties()
             def keystorePropertiesFile = project.rootProject.file("keystore.properties")
             keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
@@ -41,14 +41,14 @@ android {
 //            shrinkResources true
 //            proguardFiles 'proguard-rules.pro'
             debuggable = true
-            signingConfig signingConfigs.releaseConfig
+            signingConfig signingConfigs.release
         }
         release {
 //            minifyEnabled true
             zipAlignEnabled true
 //            shrinkResources true
 //            proguardFiles 'proguard-rules.pro'
-            signingConfig signingConfigs.releaseConfig
+            signingConfig signingConfigs.release
         }
 
     }
@@ -56,6 +56,7 @@ android {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
     }
+    buildToolsVersion = '29.0.2'
 }
 
 dependencies {
@@ -71,24 +72,24 @@ dependencies {
     //noinspection GradleDependency
     implementation 'com.squareup.okhttp3:logging-interceptor:3.12.6'
 
-    implementation 'com.squareup.retrofit2:retrofit:2.6.1'
-    implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
-    implementation 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
+    implementation 'com.squareup.retrofit2:retrofit:2.7.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
+    implementation 'com.squareup.retrofit2:adapter-rxjava:2.7.1'
 
     implementation 'io.reactivex:rxandroid:1.1.0'
     implementation 'io.reactivex:rxjava:1.1.1'
 
-    implementation 'com.github.bumptech.glide:glide:4.9.0'
-    implementation 'com.github.bumptech.glide:okhttp3-integration:4.9.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    implementation 'com.github.bumptech.glide:glide:4.10.0'
+    implementation 'com.github.bumptech.glide:okhttp3-integration:4.10.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
     annotationProcessor 'androidx.annotation:annotation:1.1.0'
 
     implementation 'com.makeramen:roundedimageview:2.2.1'
 
     implementation 'com.commit451:PhotoView:1.2.4'
 
-    implementation 'me.gujun.android.taggroup:library:1.4@aar'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'me.gujun.android.taggroup:library:1.5@aar'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
     implementation 'com.tencent.bugly:crashreport_upgrade:1.4.2'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'

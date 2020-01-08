@@ -24,6 +24,10 @@
     </group>
     <group>
         <item
+            android:id="@+id/update"
+            android:icon="@drawable/ic_update_24dp"
+            android:title="@string/check_update"/>
+        <item
             android:id="@+id/settings"
             android:icon="@drawable/ic_settings_colored_24px"
             android:title="@string/settings"/>

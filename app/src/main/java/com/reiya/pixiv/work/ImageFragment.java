@@ -5,6 +5,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -183,15 +184,18 @@ public class ImageFragment extends BaseFragment<WorkPresenter> implements WorkCo
         final ImageView iv = view.findViewById(R.id.iv);
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) iv.getLayoutParams();
         WindowManager wm = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
         int statusBarHeight = 0;
         int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP && resourceId > 0) {
             statusBarHeight = getResources().getDimensionPixelSize(resourceId);
         }
-        params.height = display.getHeight() - statusBarHeight;
+        //获取屏幕实际高度
+        Point point = new Point();
+        wm.getDefaultDisplay().getRealSize(point);
+        params.height = point.y - statusBarHeight;
         iv.setLayoutParams(params);
         loadImage(iv);
+
 
         ImageLoader.loadImage(getActivity(), mWork.getUser().getMediumImageUrl())
                 .fitCenter()
@@ -262,7 +266,7 @@ public class ImageFragment extends BaseFragment<WorkPresenter> implements WorkCo
         ((TextView) view.findViewById(R.id.tvCaption)).setText(Html.fromHtml(mWork.getCaption()));
         ((TextView) view.findViewById(R.id.tvInfo)).setText(mWork.getTime());
 
-        TagGroup tagGroup = (TagGroup) view.findViewById(R.id.tagLayout);
+        TagGroup tagGroup = view.findViewById(R.id.tagLayout);
         List<String> tags = new ArrayList<>();
         for (Tag tag : mWork.getTags()) {
             tags.add(tag.getName());

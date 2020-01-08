@@ -2,7 +2,6 @@ package com.reiya.pixiv.other;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -12,12 +11,23 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.reiya.pixiv.base.BaseApplication;
 import com.reiya.pixiv.view.RippleView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import tech.yojigen.pivisionm.R;
 
 
@@ -104,8 +114,38 @@ public class LoginActivity extends AppCompatActivity {
 
         findViewById(R.id.sign_in_button).setOnClickListener(view -> attemptLogin());
         findViewById(R.id.register_button).setOnClickListener(v -> {
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://accounts.pixiv.net/signup"));
-            startActivity(browserIntent);
+//            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://accounts.pixiv.net/signup"));
+//            startActivity(browserIntent);
+            OkHttpClient.Builder builder = new OkHttpClient.Builder();
+            OkHttpClient okHttpClient = builder.build();
+            Request request = new Request.Builder().url("https://api.yojigen.tech/pixiv/v1/account/create").build();
+            okHttpClient.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    LoginActivity.this.runOnUiThread(() -> Toast.makeText(LoginActivity.this, "获取账号失败", Toast.LENGTH_LONG).show());
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    try {
+                        String jsonString = new StringBuilder().append(response.body().string()).toString();
+                        System.out.println(jsonString);
+                        JSONObject jsonObject = new JSONObject(jsonString);
+                        String username = jsonObject.getJSONObject("body").getString("user_account");
+                        String password = jsonObject.getJSONObject("body").getString("password");
+                        LoginActivity.this.runOnUiThread(() -> {
+                                    Toast.makeText(LoginActivity.this, "获取账号成功", Toast.LENGTH_LONG).show();
+                                    mAccountView.setText(username);
+                                    mPasswordView.setText(password);
+                                    attemptLogin();
+                                }
+                        );
+                    } catch (JSONException e) {
+                        LoginActivity.this.runOnUiThread(() -> Toast.makeText(LoginActivity.this, "数据解析错误", Toast.LENGTH_LONG).show());
+                        e.printStackTrace();
+                    }
+                }
+            });
         });
         findViewById(R.id.mode_button).setOnClickListener(v -> {
 //            ConnectModeSelectDialog connectModeSelectDialog = new ConnectModeSelectDialog();

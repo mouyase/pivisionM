@@ -226,4 +226,5 @@
     <string name="mode_direct">大陆直连模式</string>
     <string name="mode_global">海外模式</string>
     <string name="mode_proxy">内置代理模式</string>
+    <string name="check_update">检查更新</string>
 </resources>

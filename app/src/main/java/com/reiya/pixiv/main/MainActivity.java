@@ -45,6 +45,7 @@ import com.reiya.pixiv.search.SearchActivity;
 import com.reiya.pixiv.spotlight.SpotlightActivity;
 import com.reiya.pixiv.util.TimeUtil;
 import com.reiya.pixiv.util.UserData;
+import com.tencent.bugly.beta.Beta;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -164,6 +165,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 case R.id.about:
                     AboutDialog aboutDialog = new AboutDialog();
                     aboutDialog.show(getSupportFragmentManager(), "About");
+                    break;
+                case R.id.update:
+                    Beta.checkUpgrade(true, false);
                     break;
             }
             return false;

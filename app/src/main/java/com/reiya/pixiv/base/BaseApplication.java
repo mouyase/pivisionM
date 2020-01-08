@@ -29,6 +29,7 @@ import com.reiya.pixiv.util.Serializer;
 import com.reiya.pixiv.util.StringHelper;
 import com.reiya.pixiv.util.UserData;
 import com.tencent.bugly.Bugly;
+import com.tencent.bugly.beta.Beta;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -172,6 +173,7 @@ public class BaseApplication extends Application {
         } else {
             Bugly.init(getApplicationContext(), "0fc124925c", false);
         }
+        Beta.autoCheckUpgrade = false;
 
         Pixiv.init(this);
         HttpClient.init(this);

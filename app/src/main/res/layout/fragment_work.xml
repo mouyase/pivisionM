@@ -131,7 +131,7 @@
             android:layout_margin="8dp"
             android:autoLink="all"
             android:text="TextView"
-            android:textIsSelectable="true" />
+            android:textIsSelectable="false" />
 
         <me.gujun.android.taggroup.TagGroup
             android:id="@+id/tagLayout"
