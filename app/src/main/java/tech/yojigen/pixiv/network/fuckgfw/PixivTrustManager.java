@@ -8,7 +8,7 @@ import javax.net.ssl.X509TrustManager;
 
 
 public class PixivTrustManager implements X509TrustManager {
-    private static PixivTrustManager mPixivTrustManager = null;
+    private static PixivTrustManager mPixivTrustManager;
 
     public static PixivTrustManager getInstance() {
         if (mPixivTrustManager == null) {

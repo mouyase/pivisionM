@@ -16,7 +16,7 @@ import kotlin.TypeCastException;
 import kotlin.jvm.internal.Intrinsics;
 
 public class PixivSSLSocketFactory extends SSLSocketFactory {
-    private static PixivSSLSocketFactory mPixivSSLSocketFactory = null;
+    private static PixivSSLSocketFactory mPixivSSLSocketFactory;
 
     public static PixivSSLSocketFactory getInstance() {
         if (mPixivSSLSocketFactory == null) {
