@@ -81,9 +81,12 @@ public class SplashActivity extends AppCompatActivity {
         if (url == null) {
             intent = new Intent(this, MainActivity.class);
         } else {
+            System.out.println(url);
             //新链接处理
-            if (url.contains("artworks")) {
-                url = url.replace("https://www.pixiv.net/artworks/", "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=");
+            if (url.contains("/artworks/")) {
+                url = url.replace("/artworks/", "/member_illust.php?mode=medium&illust_id=");
+            } else if (url.contains("/i/")) {
+                url = url.replace("/i/", "/member_illust.php?mode=medium&illust_id=");
             }
             if (url.contains("mode=medium")) {
                 intent = new Intent(this, ViewActivity.class);

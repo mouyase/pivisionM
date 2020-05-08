@@ -11,8 +11,9 @@ import okhttp3.Dns;
 public class PixivDNS implements Dns {
 
     private static PixivDNS mPixivDNS;
-    private static List<InetAddress> newDns = new ArrayList<>();
-    private static final String[] addresses = {
+    private static List<InetAddress> pixivDns = new ArrayList<>();
+    private static List<InetAddress> pximgDns = new ArrayList<>();
+    private static final String[] pixivAddresses = {
             "210.140.131.203",
             "210.140.131.204",
             "210.140.131.205",
@@ -40,13 +41,23 @@ public class PixivDNS implements Dns {
             "210.140.131.181",
             "210.140.131.182",
             "210.140.131.183",
-            "210.140.131.184"
+            "210.140.131.184",
+    };
+    private static final String[] pximgAddresses = {
+            "210.140.92.135",
     };
 
     private PixivDNS() {
-        for (String address : addresses) {
+        for (String address : pixivAddresses) {
             try {
-                newDns.add(InetAddress.getByName(address));
+                pixivDns.add(InetAddress.getByName(address));
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            }
+        }
+        for (String address : pximgAddresses) {
+            try {
+                pximgDns.add(InetAddress.getByName(address));
             } catch (UnknownHostException e) {
                 e.printStackTrace();
             }
@@ -64,7 +75,13 @@ public class PixivDNS implements Dns {
     public List<InetAddress> lookup(String s) throws UnknownHostException {
         if (s.contains("pixiv.net")) {
             try {
-                return newDns;
+                return pixivDns;
+            } catch (Exception localException) {
+                localException.printStackTrace();
+            }
+        } else if (s.contains("pximg.net")) {
+            try {
+                return pximgDns;
             } catch (Exception localException) {
                 localException.printStackTrace();
             }

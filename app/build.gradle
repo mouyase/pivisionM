@@ -8,8 +8,8 @@ android {
         applicationId "tech.yojigen.pivisionm"
         minSdkVersion 19
         targetSdkVersion 29
-        versionCode 444003
-        versionName '4.5.0(beta3)'
+        versionCode 444008
+        versionName '4.5.0(beta8)'
         vectorDrawables.useSupportLibrary true
         multiDexEnabled true
     }
@@ -63,14 +63,14 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.google.android.material:material:1.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     //向下兼容4.4，升级了4.4机型全挂
     //noinspection GradleDependency
     implementation 'com.squareup.okhttp3:okhttp:3.12.8'
     //noinspection GradleDependency
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.6'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.8'
 
     implementation 'com.squareup.retrofit2:retrofit:2.7.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.7.1'

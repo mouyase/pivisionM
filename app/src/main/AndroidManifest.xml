@@ -22,12 +22,13 @@
             android:theme="@style/Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:scheme="http" />
@@ -41,6 +42,7 @@
                 <data android:pathPrefix="/artworks" />
                 <data android:pathPrefix="/en/artworks" />
                 <data android:pathPrefix="/user" />
+                <data android:pathPrefix="/i" />
             </intent-filter>
         </activity>
         <activity

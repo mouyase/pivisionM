@@ -202,7 +202,7 @@ public class ImageFragment extends BaseFragment<WorkPresenter> implements WorkCo
         if (!isNavigationBarExist(this.getActivity())) {
             navigationBarHeight = 0;
         }
-        System.out.println("输出一下两个高度：" + statusBarHeight + "   |   " + navigationBarHeight);
+
         //获取屏幕实际高度
         Point point = new Point();
         wm.getDefaultDisplay().getRealSize(point);

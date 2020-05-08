@@ -66,6 +66,18 @@ public class HttpClient {
                     .build();
             return chain.proceed(request);
         };
+
+        Interceptor changeServerInterceptor = chain -> {
+            Request request = chain.request();
+            Response response = chain.proceed(request);
+            if (response.request().url().toString().contains("https://app-api.pixiv.net") && response.body() != null) {
+                String jsonString = response.body().string();
+                jsonString = jsonString.replace("i.pximg.net", "pximg.project-imas.cn");
+                ResponseBody newBody = ResponseBody.create(response.body().contentType(), jsonString);
+                return response.newBuilder().body(newBody).build();
+            }
+            return response;
+        };
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE);
 
@@ -77,6 +89,7 @@ public class HttpClient {
         int connectMode = Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.key_connect_mode), "0"));
         switch (connectMode) {
             case 0:
+                builder.addInterceptor(changeServerInterceptor);
                 builder.sslSocketFactory(PixivSSLSocketFactory.getInstance(), PixivTrustManager.getInstance()).dns(PixivDNS.getInstance());
                 break;
             case 1:
@@ -86,8 +99,13 @@ public class HttpClient {
                 Value.URL_PIXIV = Value.PROXY_URL_PIXIV_YOJIGEN;
                 break;
         }
+
         client = builder.build();
-        service = getRetrofit(Value.URL_PIXIV).create(HttpService.class);
+        service =
+
+                getRetrofit(Value.URL_PIXIV).
+
+                        create(HttpService.class);
     }
 
     private static Retrofit getRetrofit(String baseUrl) {

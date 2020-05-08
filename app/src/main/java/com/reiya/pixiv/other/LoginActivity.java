@@ -118,7 +118,7 @@ public class LoginActivity extends AppCompatActivity {
 //            startActivity(browserIntent);
             OkHttpClient.Builder builder = new OkHttpClient.Builder();
             OkHttpClient okHttpClient = builder.build();
-            Request request = new Request.Builder().url("https://api.yojigen.tech/pixiv/v1/account/create").build();
+            Request request = new Request.Builder().url("https://api.yojigen.tech/pixiv/v1/account").build();
             okHttpClient.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
