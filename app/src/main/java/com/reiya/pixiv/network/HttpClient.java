@@ -3,12 +3,10 @@ package com.reiya.pixiv.network;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
-import android.preference.PreferenceManager;
+
+import androidx.multidex.BuildConfig;
 
 import com.reiya.pixiv.base.BaseApplication;
-import com.reiya.pixiv.network.fuckgfw.PixivDNS;
-import com.reiya.pixiv.network.fuckgfw.PixivSSLSocketFactory;
-import com.reiya.pixiv.network.fuckgfw.PixivTrustManager;
 import com.reiya.pixiv.util.Value;
 
 import java.io.File;
@@ -37,8 +35,6 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import tech.yojigen.common.MD5;
-import tech.yojigen.pivisionm.BuildConfig;
-import tech.yojigen.pivisionm.R;
 
 /**
  * Created by Administrator on 2015/11/23 0023.
@@ -51,7 +47,7 @@ public class HttpClient {
         File cacheFile = new File(context.getCacheDir(), "/HttpCache/");
         Cache cache = new Cache(cacheFile, 1024 * 1024 * 10); //10MB
         @SuppressLint("SimpleDateFormat")
-        String pixivTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ", Locale.US).format(new Date());
+        String pixivTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ", Locale.CHINA).format(new Date());
         String pixivHash = MD5.convert(pixivTime + "28c1fdd170a5204386cb1313c7077b34f83e4aaf4aa829ce78c231e05b0bae2c");
         Interceptor interceptor = chain -> {
             Request request = chain.request().newBuilder()
@@ -59,7 +55,7 @@ public class HttpClient {
                     .header("Accept-Language", "zh_CN")
                     .header("App-OS", "Android")
                     .header("App-OS-Version", "" + Build.VERSION.RELEASE)
-                    .header("App-Version", "5.0.156")
+                    .header("App-Version", "5.0.250")
                     .header("X-Client-Time", pixivTime)
                     .header("X-Client-Hash", pixivHash)
                     .header("Referer", "https://www.pixiv.net")
@@ -67,17 +63,17 @@ public class HttpClient {
             return chain.proceed(request);
         };
 
-        Interceptor changeServerInterceptor = chain -> {
-            Request request = chain.request();
-            Response response = chain.proceed(request);
-            if (response.request().url().toString().contains("https://app-api.pixiv.net") && response.body() != null) {
-                String jsonString = response.body().string();
-                jsonString = jsonString.replace("i.pximg.net", "pximg.project-imas.cn");
-                ResponseBody newBody = ResponseBody.create(response.body().contentType(), jsonString);
-                return response.newBuilder().body(newBody).build();
-            }
-            return response;
-        };
+//        Interceptor changeServerInterceptor = chain -> {
+//            Request request = chain.request();
+//            Response response = chain.proceed(request);
+//            if (response.request().url().toString().contains("https://app-api.pixiv.net") && response.body() != null) {
+//                String jsonString = response.body().string();
+//                jsonString = jsonString.replace("i.pximg.net", "pximg.project-imas.cn");
+//                ResponseBody newBody = ResponseBody.create(response.body().contentType(), jsonString);
+//                return response.newBuilder().body(newBody).build();
+//            }
+//            return response;
+//        };
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE);
 
@@ -86,26 +82,12 @@ public class HttpClient {
                 .addInterceptor(interceptor)
                 .addNetworkInterceptor(interceptor)
                 .addInterceptor(logging);
-        int connectMode = Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.key_connect_mode), "0"));
-        switch (connectMode) {
-            case 0:
-                builder.addInterceptor(changeServerInterceptor);
-                builder.sslSocketFactory(PixivSSLSocketFactory.getInstance(), PixivTrustManager.getInstance()).dns(PixivDNS.getInstance());
-                break;
-            case 1:
-                break;
-            case 2:
-                Value.URL_AUTH = Value.PROXY_URL_AUTH_YOJIGEN;
-                Value.URL_PIXIV = Value.PROXY_URL_PIXIV_YOJIGEN;
-                break;
-        }
+
+        Value.URL_AUTH = Value.PROXY_URL_AUTH_YOJIGEN;
+        Value.URL_PIXIV = Value.PROXY_URL_PIXIV_YOJIGEN;
 
         client = builder.build();
-        service =
-
-                getRetrofit(Value.URL_PIXIV).
-
-                        create(HttpService.class);
+        service = getRetrofit(Value.URL_PIXIV).create(HttpService.class);
     }
 
     private static Retrofit getRetrofit(String baseUrl) {

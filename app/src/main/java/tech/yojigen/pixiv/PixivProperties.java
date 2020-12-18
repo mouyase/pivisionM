@@ -5,7 +5,7 @@ import android.os.Build;
 public class PixivProperties {
     public static final String BASE_HASH = "28c1fdd170a5204386cb1313c7077b34f83e4aaf4aa829ce78c231e05b0bae2c";
 
-    public static final String APP_VERSION = "5.0.164";
+    public static final String APP_VERSION = "5.0.250";
     public static final String ACCEPT_LANGUAGE = "zh_CN";
     public static final String APP_OS = "Android";
     public static final String APP_OS_VERSION = Build.VERSION.RELEASE;

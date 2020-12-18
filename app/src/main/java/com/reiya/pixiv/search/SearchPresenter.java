@@ -12,12 +12,12 @@ import rx.Subscriber;
 class SearchPresenter extends SearchContract.Presenter {
     private static final String[] SUFFIX = {" 10000users入り", " 5000users入り", " 1000users入り", ""};
     private static final String[] BOOKMARK_MIN = {"10000", "5000", "1000", "0"};
-    private static final String[] BOOKMARK_MAX = {"100000", "9999", "4999", "999"};
+    private static final String[] BOOKMARK_MAX = {"99999", "9999", "4999", "99999"};
 
     @Override
     void search(String keyword, int index) {
-        NetworkRequest.getSearchFromPixiv(keyword + SUFFIX[index])
-//        NetworkRequest.getSearchFromPixivPlus(keyword, BOOKMARK_MIN[index], BOOKMARK_MAX[index])
+//        NetworkRequest.getSearchFromPixiv(keyword + SUFFIX[index])
+        NetworkRequest.getSearchFromPixivPlus(keyword, BOOKMARK_MIN[index], BOOKMARK_MAX[index])
                 .subscribe(new Subscriber<HttpService.IllustListResponse>() {
                     @Override
                     public void onCompleted() {

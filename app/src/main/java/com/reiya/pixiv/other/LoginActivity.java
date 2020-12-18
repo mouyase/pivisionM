@@ -1,7 +1,9 @@
 package com.reiya.pixiv.other;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.multidex.BuildConfig;
 
 import com.reiya.pixiv.base.BaseApplication;
 import com.reiya.pixiv.view.RippleView;
@@ -22,12 +25,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
+import tech.yojigen.common.MD5;
 import tech.yojigen.pivisionm.R;
 
 
@@ -116,9 +126,35 @@ public class LoginActivity extends AppCompatActivity {
         findViewById(R.id.register_button).setOnClickListener(v -> {
 //            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://accounts.pixiv.net/signup"));
 //            startActivity(browserIntent);
-            OkHttpClient.Builder builder = new OkHttpClient.Builder();
+            @SuppressLint("SimpleDateFormat")
+            String pixivTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ", Locale.CHINA).format(new Date());
+            String pixivHash = MD5.convert(pixivTime + "28c1fdd170a5204386cb1313c7077b34f83e4aaf4aa829ce78c231e05b0bae2c");
+            Interceptor interceptor = chain -> {
+                Request request = chain.request().newBuilder()
+                        .header("User-Agent", BaseApplication.getUA())
+                        .header("Accept-Language", "zh_CN")
+                        .header("App-OS", "Android")
+                        .header("App-OS-Version", "" + Build.VERSION.RELEASE)
+                        .header("App-Version", "5.0.250")
+                        .header("X-Client-Time", pixivTime)
+                        .header("X-Client-Hash", pixivHash)
+                        .header("Referer", "https://www.pixiv.net")
+                        .build();
+                return chain.proceed(request);
+            };
+            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+            logging.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE);
+
+            OkHttpClient.Builder builder = new OkHttpClient.Builder()
+                    .addInterceptor(interceptor)
+                    .addNetworkInterceptor(interceptor)
+                    .addInterceptor(logging);
             OkHttpClient okHttpClient = builder.build();
-            Request request = new Request.Builder().url("https://api.yojigen.tech/pixiv/v1/account").build();
+            FormBody formBody = new FormBody.Builder()
+                    .add("user_name", "四次元科技")
+                    .add("ref", "pixiv_android_app_provisional_account")
+                    .build();
+            Request request = new Request.Builder().url("https://accounts.128512.xyz/api/provisional-accounts/create").post(formBody).build();
             okHttpClient.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
@@ -147,15 +183,15 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
         });
-        findViewById(R.id.mode_button).setOnClickListener(v -> {
-//            ConnectModeSelectDialog connectModeSelectDialog = new ConnectModeSelectDialog();
-//            connectModeSelectDialog.show(this.getSupportFragmentManager(), "Mode");
-//            PreferenceManager.
-//            ConnectModeSelectDialog connectModeSelectDialog = (ConnectModeSelectDialog) findPreference(getString(R.string.key_connect_mode));
-
-            Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-            startActivityForResult(intent, 1);
-        });
+//        findViewById(R.id.mode_button).setOnClickListener(v -> {
+////            ConnectModeSelectDialog connectModeSelectDialog = new ConnectModeSelectDialog();
+////            connectModeSelectDialog.show(this.getSupportFragmentManager(), "Mode");
+////            PreferenceManager.
+////            ConnectModeSelectDialog connectModeSelectDialog = (ConnectModeSelectDialog) findPreference(getString(R.string.key_connect_mode));
+//
+//            Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+//            startActivityForResult(intent, 1);
+//        });
         mLoginFormView = findViewById(R.id.login_form);
         mProcessingLoginView = findViewById(R.id.login_progress_view);
 

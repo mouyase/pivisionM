@@ -190,7 +190,7 @@ public class NetworkRequest {
 
     public static Observable<HttpService.IllustListResponse> getSearchFromPixivPlus(String keyword, String bookmark_min, String bookmark_max) {
         return getService()
-                .getFromPixiv(getBearer(), keyword, "illust_and_ugoira", "popular_desc", bookmark_min, bookmark_max, "partial_match_for_tags")
+                .getFromPixiv(getBearer(), "for_android", true, true, keyword, "date_desc", "partial_match_for_tags", bookmark_min, bookmark_max)
                 .compose(RxHelper.getSchedulerHelper());
     }
 
