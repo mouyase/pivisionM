@@ -16,12 +16,13 @@ class SearchPresenter extends SearchContract.Presenter {
 
     @Override
     void search(String keyword, int index) {
-//        NetworkRequest.getSearchFromPixiv(keyword + SUFFIX[index])
-        NetworkRequest.getSearchFromPixivPlus(keyword, BOOKMARK_MIN[index], BOOKMARK_MAX[index])
+        NetworkRequest.getSearchFromPixiv(keyword + SUFFIX[index])
+//        NetworkRequest.getSearchFromPixivPlus(keyword, BOOKMARK_MIN[index], BOOKMARK_MAX[index])
                 .subscribe(new Subscriber<HttpService.IllustListResponse>() {
                     @Override
                     public void onCompleted() {
                     }
+
                     @Override
                     public void onError(Throwable e) {
                         getView().failToLoad();
