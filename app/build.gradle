@@ -9,7 +9,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 30
         versionCode 444014
-        versionName '4.5.0(beta11 fix3)'
+        versionName '4.5.0(beta11 fix4)'
         vectorDrawables.useSupportLibrary true
         multiDexEnabled true
     }

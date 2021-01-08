@@ -1,14 +1,14 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-<!--    <PreferenceCategory android:title="@string/network">-->
-<!--        <ListPreference-->
-<!--            android:defaultValue="0"-->
-<!--            android:entries="@array/pref_connect_mode_strings"-->
-<!--            android:entryValues="@array/pref_connect_mode_values"-->
-<!--            android:key="@string/key_connect_mode"-->
-<!--            android:negativeButtonText="@null"-->
-<!--            android:positiveButtonText="@null"-->
-<!--            android:title="@string/string_connect_mode" />-->
-<!--    </PreferenceCategory>-->
+    <PreferenceCategory android:title="@string/network">
+        <ListPreference
+            android:defaultValue="0"
+            android:entries="@array/pref_connect_mode_strings"
+            android:entryValues="@array/pref_connect_mode_values"
+            android:key="@string/key_connect_mode"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/string_connect_mode" />
+    </PreferenceCategory>
     <PreferenceCategory android:title="@string/account">
         <EditTextPreference
             android:inputType="text"
