@@ -119,15 +119,15 @@
                     android:text="@string/action_register"
                     android:textColor="#999" />
 
-                <Button
-                    android:id="@+id/mode_button"
-                    style="@style/Widget.AppCompat.Button.Borderless"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:layout_marginStart="80dp"
-                    android:text="@string/action_mode"
-                    android:textColor="#999" />
+<!--                <Button-->
+<!--                    android:id="@+id/mode_button"-->
+<!--                    style="@style/Widget.AppCompat.Button.Borderless"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="left"-->
+<!--                    android:layout_marginStart="80dp"-->
+<!--                    android:text="@string/action_mode"-->
+<!--                    android:textColor="#999" />-->
 
                 <Button
                     android:id="@+id/sign_in_button"

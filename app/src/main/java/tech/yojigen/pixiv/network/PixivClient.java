@@ -32,7 +32,7 @@ public class PixivClient {
 
     private PixivClient() {
         Interceptor interceptor = chain -> {
-            String pixivTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ", Locale.US).format(new Date());
+            String pixivTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ", Locale.CHINA).format(new Date());
             String pixivHash = MD5.convert(pixivTime + PixivProperties.BASE_HASH);
             Request request = chain.request().newBuilder()
 //                    .header("Authorization", "Bearer 9Bfk6jJuLQLZh9eTE5jUxisnEqsdYUnASV2uBHdoDD4")
@@ -52,7 +52,7 @@ public class PixivClient {
         httpLoggingInterceptor.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE);
         builder.addInterceptor(interceptor);
         builder.addNetworkInterceptor(httpLoggingInterceptor);
-        builder.sslSocketFactory(PixivSSLSocketFactory.getInstance(), PixivTrustManager.getInstance());
+//        builder.sslSocketFactory(PixivSSLSocketFactory.getInstance(), PixivTrustManager.getInstance());
         builder.dns(PixivDNS.getInstance());
         mOkHttpClient = builder.build();
     }

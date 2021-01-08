@@ -73,26 +73,26 @@ public class SettingsActivity extends AppCompatActivity {
                 getActivity().setResult(3, getActivity().getIntent());
                 return true;
             });
-            findPreference(getString(R.string.key_connect_mode)).setOnPreferenceChangeListener((preference, newValue) -> {
-                int connectMode = Integer.parseInt(String.valueOf(newValue));
-                //解决 Toast Exception : java.lang.IllegalStateException: View has already been added to the window manager.
-                //原因 布局复用
-                Toast toast = new Toast(getActivity());
-                LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                int layoutId = Resources.getSystem().getIdentifier("transient_notification", "layout", "android");
-                View view = inflater.inflate(layoutId, null);
-                int textViewId = Resources.getSystem().getIdentifier("message", "id", "android");
-                TextView textView = view.findViewById(textViewId);
-                if (textView != null) {
-                    textView.setText("当前已设置为 " + getActivity().getResources().getStringArray(R.array.pref_connect_mode_strings)[connectMode] + " 模式\n重启后生效");
-                    textView.setGravity(Gravity.CENTER);
-                }
-                toast.setDuration(Toast.LENGTH_LONG);
-                toast.setView(view);
-                toast.show();
-                //结束
-                return true;
-            });
+//            findPreference(getString(R.string.key_connect_mode)).setOnPreferenceChangeListener((preference, newValue) -> {
+//                int connectMode = Integer.parseInt(String.valueOf(newValue));
+//                //解决 Toast Exception : java.lang.IllegalStateException: View has already been added to the window manager.
+//                //原因 布局复用
+//                Toast toast = new Toast(getActivity());
+//                LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//                int layoutId = Resources.getSystem().getIdentifier("transient_notification", "layout", "android");
+//                View view = inflater.inflate(layoutId, null);
+//                int textViewId = Resources.getSystem().getIdentifier("message", "id", "android");
+//                TextView textView = view.findViewById(textViewId);
+//                if (textView != null) {
+//                    textView.setText("当前已设置为 " + getActivity().getResources().getStringArray(R.array.pref_connect_mode_strings)[connectMode] + " 模式\n重启后生效");
+//                    textView.setGravity(Gravity.CENTER);
+//                }
+//                toast.setDuration(Toast.LENGTH_LONG);
+//                toast.setView(view);
+//                toast.show();
+//                //结束
+//                return true;
+//            });
         }
 
         @Override

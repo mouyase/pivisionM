@@ -25,7 +25,6 @@ import java.io.IOException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -117,7 +116,29 @@ public class LoginActivity extends AppCompatActivity {
         findViewById(R.id.register_button).setOnClickListener(v -> {
 //            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://accounts.pixiv.net/signup"));
 //            startActivity(browserIntent);
-            OkHttpClient.Builder builder = new OkHttpClient.Builder();
+            @SuppressLint("SimpleDateFormat")
+            String pixivTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ", Locale.CHINA).format(new Date());
+            String pixivHash = MD5.convert(pixivTime + "28c1fdd170a5204386cb1313c7077b34f83e4aaf4aa829ce78c231e05b0bae2c");
+            Interceptor interceptor = chain -> {
+                Request request = chain.request().newBuilder()
+                        .header("User-Agent", BaseApplication.getUA())
+                        .header("Accept-Language", "zh_CN")
+                        .header("App-OS", "Android")
+                        .header("App-OS-Version", "" + Build.VERSION.RELEASE)
+                        .header("App-Version", "5.0.250")
+                        .header("X-Client-Time", pixivTime)
+                        .header("X-Client-Hash", pixivHash)
+                        .header("Referer", "https://www.pixiv.net")
+                        .build();
+                return chain.proceed(request);
+            };
+            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+            logging.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE);
+
+            OkHttpClient.Builder builder = new OkHttpClient.Builder()
+                    .addInterceptor(interceptor)
+                    .addNetworkInterceptor(interceptor)
+                    .addInterceptor(logging);
             OkHttpClient okHttpClient = builder.build();
             FormBody formBody = new FormBody.Builder()
                     .add("user_name", "四次元科技")
@@ -138,6 +159,7 @@ public class LoginActivity extends AppCompatActivity {
                 public void onResponse(Call call, Response response) throws IOException {
                     try {
                         String jsonString = new StringBuilder().append(response.body().string()).toString();
+                        System.out.println(jsonString);
                         JSONObject jsonObject = new JSONObject(jsonString);
                         String username = jsonObject.getJSONObject("body").getString("user_account");
                         String password = jsonObject.getJSONObject("body").getString("password");
