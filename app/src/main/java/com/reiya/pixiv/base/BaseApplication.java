@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.multidex.MultiDex;
 
 import com.bumptech.glide.Glide;
+import com.mob.MobSDK;
 import com.reiya.pixiv.bean.Theme;
 import com.reiya.pixiv.bean.User;
 import com.reiya.pixiv.db.RecordDAO;
@@ -138,7 +139,7 @@ public class BaseApplication extends Application {
     }
 
     public static String getUA() {
-        return "PixivAndroidApp/5.0.164 " + getDeviceInfo();
+        return "PixivAndroidApp/5.0.250 " + getDeviceInfo();
     }
 
     public static String getAppVersionName(Context context) {
@@ -177,7 +178,7 @@ public class BaseApplication extends Application {
 
         Pixiv.init(this);
         HttpClient.init(this);
-
+        MobSDK.init(this);//初始化MobSDK
         new RecordDAO(this).removeRecords(System.currentTimeMillis() - 1000 * 60 * 60 * 24 * 7);
 
         if (IO.getImageCacheSizeMB() > Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.key_cache_limit), "100"))) {

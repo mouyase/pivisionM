@@ -25,6 +25,7 @@ import java.io.IOException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -118,7 +119,15 @@ public class LoginActivity extends AppCompatActivity {
 //            startActivity(browserIntent);
             OkHttpClient.Builder builder = new OkHttpClient.Builder();
             OkHttpClient okHttpClient = builder.build();
-            Request request = new Request.Builder().url("https://api.yojigen.tech/pixiv/v1/account").build();
+            FormBody formBody = new FormBody.Builder()
+                    .add("user_name", "四次元科技")
+                    .add("ref", "pixiv_android_app_provisional_account")
+                    .build();
+
+            Request request = new Request.Builder().url("https://accounts.128512.xyz/api/provisional-accounts/create")
+                    .header("Authorization", "Bearer l-f9qZ0ZyqSwRyZs8-MymbtWBbSxmCu1pmbOlyisou8")
+                    .post(formBody)
+                    .build();
             okHttpClient.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
@@ -129,7 +138,6 @@ public class LoginActivity extends AppCompatActivity {
                 public void onResponse(Call call, Response response) throws IOException {
                     try {
                         String jsonString = new StringBuilder().append(response.body().string()).toString();
-                        System.out.println(jsonString);
                         JSONObject jsonObject = new JSONObject(jsonString);
                         String username = jsonObject.getJSONObject("body").getString("user_account");
                         String password = jsonObject.getJSONObject("body").getString("password");

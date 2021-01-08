@@ -6,8 +6,12 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.3'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.50"
+        //noinspection GradleDependency
+        classpath 'com.android.tools.build:gradle:3.6.4'
+        //noinspection GradleDependency
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.72"
+        //noinspection GradleDynamicVersion
+        classpath "com.mob.sdk:MobSDK:+"
     }
 }
 
