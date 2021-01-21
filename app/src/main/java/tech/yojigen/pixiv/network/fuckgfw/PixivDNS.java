@@ -11,8 +11,8 @@ import okhttp3.Dns;
 public class PixivDNS implements Dns {
 
     private static PixivDNS mPixivDNS;
-    private static List<InetAddress> newDns = new ArrayList<>();
-    private static final String[] addresses = {
+    private static List<InetAddress> pixivDns = new ArrayList<>();
+    private static final String[] PIXIV_ADDRESSES = {
             "210.140.131.200",
             "210.140.131.201",
             "210.140.131.202",
@@ -35,11 +35,31 @@ public class PixivDNS implements Dns {
             "210.140.131.219",
             "210.140.131.220",
     };
+    private static List<InetAddress> pximgDns = new ArrayList<>();
+    private static final String[] PXIMG_ADDRESSES = {
+            "210.140.92.138",
+            "210.140.92.139",
+            "210.140.92.140",
+            "210.140.92.141",
+            "210.140.92.142",
+            "210.140.92.143",
+            "210.140.92.144",
+            "210.140.92.145",
+            "210.140.92.146",
+            "210.140.92.147",
+    };
 
     private PixivDNS() {
-        for (String address : addresses) {
+        for (String address : PIXIV_ADDRESSES) {
             try {
-                newDns.add(InetAddress.getByName(address));
+                pixivDns.add(InetAddress.getByName(address));
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            }
+        }
+        for (String address : PXIMG_ADDRESSES) {
+            try {
+                pximgDns.add(InetAddress.getByName(address));
             } catch (UnknownHostException e) {
                 e.printStackTrace();
             }
@@ -57,7 +77,14 @@ public class PixivDNS implements Dns {
     public List<InetAddress> lookup(String s) throws UnknownHostException {
         if (s.contains("pixiv.net")) {
             try {
-                return newDns;
+                return pixivDns;
+            } catch (Exception localException) {
+                localException.printStackTrace();
+            }
+        }
+        if (s.contains("pximg.net")) {
+            try {
+                return pximgDns;
             } catch (Exception localException) {
                 localException.printStackTrace();
             }

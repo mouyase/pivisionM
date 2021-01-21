@@ -139,7 +139,7 @@ public class BaseApplication extends Application {
     }
 
     public static String getUA() {
-        return "PixivAndroidApp/5.0.250 " + getDeviceInfo();
+        return "PixivAndroidApp/5.0.200 " + getDeviceInfo();
     }
 
     public static String getAppVersionName(Context context) {

@@ -135,7 +135,7 @@ public class LoginActivity extends AppCompatActivity {
                         .header("Accept-Language", "zh_CN")
                         .header("App-OS", "Android")
                         .header("App-OS-Version", "" + Build.VERSION.RELEASE)
-                        .header("App-Version", "5.0.250")
+                        .header("App-Version", "5.0.200")
                         .header("X-Client-Time", pixivTime)
                         .header("X-Client-Hash", pixivHash)
                         .header("Referer", "https://www.pixiv.net")
