@@ -39,14 +39,17 @@ public class SplashActivity extends AppCompatActivity {
             UserData.setLoggedInState();
             enter();
         } else {
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-            String account = sharedPreferences.getString(getString(R.string.key_account), null);
-            String password = sharedPreferences.getString(getString(R.string.key_password), null);
-            if (account == null || password == null) {
-                enterLoginPage();
-            } else {
-                BaseApplication.getInstance().login(account, password, false, user -> enter(), this::enterLoginPage);
-            }
+//            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+//            String account = sharedPreferences.getString(getString(R.string.key_account), null);
+//            String password = sharedPreferences.getString(getString(R.string.key_password), null);
+//            if (account == null || password == null) {
+//                enterLoginPage();
+//            } else {
+//                BaseApplication.getInstance().login(account, password, false, user -> enter(), this::enterLoginPage);
+//            }
+            Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
         }
 
         String url = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.key_splash_screen_url), "");

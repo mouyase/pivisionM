@@ -3,6 +3,7 @@ package com.reiya.pixiv.base;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -25,7 +26,9 @@ import com.reiya.pixiv.dialog.LoginDialog;
 import com.reiya.pixiv.network.HttpClient;
 import com.reiya.pixiv.network.HttpService;
 import com.reiya.pixiv.network.NetworkRequest;
+import com.reiya.pixiv.other.LoginActivity;
 import com.reiya.pixiv.util.IO;
+import com.reiya.pixiv.util.PixivOAuth;
 import com.reiya.pixiv.util.Serializer;
 import com.reiya.pixiv.util.StringHelper;
 import com.reiya.pixiv.util.UserData;
@@ -195,23 +198,19 @@ public class BaseApplication extends Application {
         if (!PreferenceManager.getDefaultSharedPreferences(this).getBoolean(getString(R.string.key_auto_login), false) && !force) {
             return;
         }
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String account = sharedPreferences.getString(getString(R.string.key_account), "");
-        String password = sharedPreferences.getString(getString(R.string.key_password), "");
-        if (account.equals("") || password.equals("") && force) {
-            LoginDialog loginDialog = new LoginDialog();
-            loginDialog.setListener((account1, password1) -> login(account1, password1, true, onLoginDone));
-            loginDialog.show(((FragmentActivity) activity).getSupportFragmentManager(), "Login");
-        } else {
-            login(account, password, false, onLoginDone);
-        }
+//        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+//        String account = sharedPreferences.getString(getString(R.string.key_account), "");
+//        String password = sharedPreferences.getString(getString(R.string.key_password), "");
+//        if (account.equals("") || password.equals("") && force) {
+//            LoginDialog loginDialog = new LoginDialog();
+//            loginDialog.setListener((account1, password1) -> login(account1, password1, true, onLoginDone));
+//            loginDialog.show(((FragmentActivity) activity).getSupportFragmentManager(), "Login");
+//        } else {
+//            login(account, password, false, onLoginDone);
+//        }
     }
 
-    public void login(final String account, final String password, final boolean save, final OnLoginDone onLoginDone) {
-        login(account, password, save, onLoginDone, null);
-    }
-
-    public void login(final String account, final String password, final boolean save, final OnLoginDone onLoginDone, final OnLoginFailed onLoginFailed) {
+    public void login(final String code, final boolean save, final OnLoginDone onLoginDone, final OnLoginFailed onLoginFailed) {
 //        if (BaseApplication.getAuthTime() + AUTH_EXPIRE_TIME > System.currentTimeMillis()) {
 //            UserData.setBearer(BaseApplication.getToken());
 ////            Log.e("token", UserData.token);
@@ -235,7 +234,10 @@ public class BaseApplication extends Application {
                         public void onError(Throwable e) {
                             e.printStackTrace();
                             SettingUtil.delSetting(BaseApplication.this, "account_refresh_token");
-                            login(account, password, save, onLoginDone, onLoginFailed);
+//                            login(account, password, save, onLoginDone, onLoginFailed);
+                            Intent intent = new Intent(BaseApplication.this, LoginActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
                         }
 
                         @Override
@@ -264,8 +266,8 @@ public class BaseApplication extends Application {
                                 }
                                 if (save) {
                                     SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
-                                    editor.putString(getString(R.string.key_account), account);
-                                    editor.putString(getString(R.string.key_password), password);
+//                                    editor.putString(getString(R.string.key_account), account);
+//                                    editor.putString(getString(R.string.key_password), password);
                                     editor.putBoolean(getString(R.string.key_auto_login), true);
                                     editor.apply();
                                 }
@@ -274,7 +276,7 @@ public class BaseApplication extends Application {
                         }
                     });
         } else {
-            NetworkRequest.getAuth(account, password)
+            NetworkRequest.getAuthNew(code, PixivOAuth.getInstance().getCodeVerifier())
                     .subscribe(new Subscriber<HttpService.AuthResponse>() {
                         @Override
                         public void onCompleted() {
@@ -316,8 +318,8 @@ public class BaseApplication extends Application {
                                 }
                                 if (save) {
                                     SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
-                                    editor.putString(getString(R.string.key_account), account);
-                                    editor.putString(getString(R.string.key_password), password);
+//                                    editor.putString(getString(R.string.key_account), account);
+//                                    editor.putString(getString(R.string.key_password), password);
                                     editor.putBoolean(getString(R.string.key_auto_login), true);
                                     editor.apply();
                                 }

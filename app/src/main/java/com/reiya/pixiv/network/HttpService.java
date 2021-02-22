@@ -38,11 +38,21 @@ public interface HttpService {
 
     @FormUrlEncoded
     @POST("auth/token")
-    Observable<AuthResponse> getAuth(@Field("refresh_token") String userName,
+    Observable<AuthResponse> getAuth(@Field("refresh_token") String refresh_token,
                                      @Field("grant_type") String gt,
                                      @Field("client_id") String ci,
                                      @Field("client_secret") String cs,
                                      @Field("device_token") String dt);
+
+    @FormUrlEncoded
+    @POST("auth/token")
+    Observable<AuthResponse> getAuth(@Field("code") String code,
+                                     @Field("code_verifier") String code_verifier,
+                                     @Field("grant_type") String gt,
+                                     @Field("client_id") String ci,
+                                     @Field("client_secret") String cs,
+                                     @Field("device_token") String dt,
+                                     @Field("redirect_uri") String redirect_uri);
 
     @GET("v1/illust/ranking")
     Observable<IllustListResponse> getRanking(@Header("Authorization") String authorization, @Query("mode") String mode);

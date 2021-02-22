@@ -39,7 +39,9 @@ import com.reiya.pixiv.dialog.LoginDialog;
 import com.reiya.pixiv.download.DownloadActivity;
 import com.reiya.pixiv.history.HistoryActivity;
 import com.reiya.pixiv.image.ImageLoader;
+import com.reiya.pixiv.other.LoginActivity;
 import com.reiya.pixiv.other.SettingsActivity;
+import com.reiya.pixiv.other.SplashActivity;
 import com.reiya.pixiv.ranking.RankingActivity;
 import com.reiya.pixiv.search.SearchActivity;
 import com.reiya.pixiv.spotlight.SpotlightActivity;
@@ -78,34 +80,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
 
 
-        Handler handler = new Handler();
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-                String account = sharedPreferences.getString(getString(R.string.key_account), "");
-                String password = sharedPreferences.getString(getString(R.string.key_password), "");
-                Pixiv.getPixiv().accountLogin(account, password, new PixivListener() {
-                    @Override
-                    public void onFailure(IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    @Override
-                    public void onResponse(String json) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(json);
-                            String token = jsonObject.getJSONObject("response").getString("access_token");
-                            UserData.setBearer(token);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                handler.postDelayed(this, 1000 * 60 * 5);
-            }
-        };
-        handler.postDelayed(runnable, 1000 * 60 * 5);
+//        Handler handler = new Handler();
+//        Runnable runnable = new Runnable() {
+//            @Override
+//            public void run() {
+//                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+//                String account = sharedPreferences.getString(getString(R.string.key_account), "");
+//                String password = sharedPreferences.getString(getString(R.string.key_password), "");
+//                Pixiv.getPixiv().accountLogin(account, password, new PixivListener() {
+//                    @Override
+//                    public void onFailure(IOException e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                    @Override
+//                    public void onResponse(String json) {
+//                        try {
+//                            JSONObject jsonObject = new JSONObject(json);
+//                            String token = jsonObject.getJSONObject("response").getString("access_token");
+//                            UserData.setBearer(token);
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                });
+//                handler.postDelayed(this, 1000 * 60 * 5);
+//            }
+//        };
+//        handler.postDelayed(runnable, 1000 * 60 * 5);
 
 
         setTheme(Theme.getTheme());
@@ -255,16 +257,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         mViewPager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
                         mTabLayout.setupWithViewPager(mViewPager);
                     };
-                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-                    String account = sharedPreferences.getString(getString(R.string.key_account), "");
-                    String password = sharedPreferences.getString(getString(R.string.key_password), "");
-                    if (account.equals("") || password.equals("")) {
-                        LoginDialog loginDialog = new LoginDialog();
-                        loginDialog.setListener((account1, password1) -> BaseApplication.getInstance().login(account1, password1, true, onLoginDone));
-                        loginDialog.show(getSupportFragmentManager(), "Login");
-                    } else {
-                        BaseApplication.getInstance().login(account, password, false, onLoginDone);
-                    }
+//                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+//                    String account = sharedPreferences.getString(getString(R.string.key_account), "");
+//                    String password = sharedPreferences.getString(getString(R.string.key_password), "");
+//                    if (account.equals("") || password.equals("")) {
+//                        LoginDialog loginDialog = new LoginDialog();
+//                        loginDialog.setListener((account1, password1) -> BaseApplication.getInstance().login(account1, password1, true, onLoginDone));
+//                        loginDialog.show(getSupportFragmentManager(), "Login");
+//                    } else {
+//                        BaseApplication.getInstance().login(account, password, false, onLoginDone);
+//                    }
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
                 if (UserData.isLoggedIn()) {
                     numClickCount++;

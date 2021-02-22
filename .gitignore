@@ -83,5 +83,4 @@ lint/reports/
 /release
 
 .idea/
-keystore.properties
-bugly.properties
+app.properties
