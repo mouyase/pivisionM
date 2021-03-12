@@ -65,6 +65,7 @@
     <string name="key_account" translatable="false">account</string>
     <string name="key_password" translatable="false">password</string>
     <string name="key_auto_login" translatable="false">auto_login</string>
+    <string name="key_logout" translatable="false">logout</string>
     <string name="key_path" translatable="false">saving_path</string>
     <string name="key_file_name_mode" translatable="false">file_name_mode</string>
     <string name="key_cache_limit" translatable="false">cache_limit</string>
@@ -206,6 +207,7 @@
     <string name="processing_login">登录中</string>
     <string name="pic_saving">图片保存</string>
     <string name="saving_path">保存位置</string>
+    <string name="logout">登出</string>
     <string name="saving_file_name">保存文件名</string>
     <string name="auto_create_subfolder">自动建立子文件夹</string>
     <string name="user_interface">界面</string>

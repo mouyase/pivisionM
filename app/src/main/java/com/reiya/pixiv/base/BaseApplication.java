@@ -14,7 +14,6 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
-import androidx.fragment.app.FragmentActivity;
 import androidx.multidex.MultiDex;
 
 import com.bumptech.glide.Glide;
@@ -22,7 +21,6 @@ import com.mob.MobSDK;
 import com.reiya.pixiv.bean.Theme;
 import com.reiya.pixiv.bean.User;
 import com.reiya.pixiv.db.RecordDAO;
-import com.reiya.pixiv.dialog.LoginDialog;
 import com.reiya.pixiv.network.HttpClient;
 import com.reiya.pixiv.network.HttpService;
 import com.reiya.pixiv.network.NetworkRequest;
@@ -210,7 +208,7 @@ public class BaseApplication extends Application {
 //        }
     }
 
-    public void login(final String code, final boolean save, final OnLoginDone onLoginDone, final OnLoginFailed onLoginFailed) {
+    public void login(final String code, final OnLoginDone onLoginDone, final OnLoginFailed onLoginFailed) {
 //        if (BaseApplication.getAuthTime() + AUTH_EXPIRE_TIME > System.currentTimeMillis()) {
 //            UserData.setBearer(BaseApplication.getToken());
 ////            Log.e("token", UserData.token);
@@ -223,7 +221,7 @@ public class BaseApplication extends Application {
 
         Toast.makeText(this, R.string.processing_login, Toast.LENGTH_SHORT).show();
         String refresh_token = SettingUtil.getSetting(this, "account_refresh_token", "");
-        if (StringUtils.isNoneEmpty(refresh_token)) {
+        if (!StringUtils.isEmpty(refresh_token)) {
             NetworkRequest.getAuth(refresh_token)
                     .subscribe(new Subscriber<HttpService.AuthResponse>() {
                         @Override
@@ -250,10 +248,7 @@ public class BaseApplication extends Application {
                                 }
                             } else {
                                 User user = authResponse.getUser();
-
                                 SettingUtil.setSetting(BaseApplication.this, "account_refresh_token", authResponse.getRefreshToken());
-
-
                                 BaseApplication.writeToken(token);
                                 BaseApplication.writeUser(user);
                                 UserData.setBearer(token);
@@ -264,15 +259,12 @@ public class BaseApplication extends Application {
                                 if (onLoginDone != null) {
                                     onLoginDone.onLoginDone(user);
                                 }
-                                if (save) {
-                                    SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
+                                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
 //                                    editor.putString(getString(R.string.key_account), account);
 //                                    editor.putString(getString(R.string.key_password), password);
-                                    editor.putBoolean(getString(R.string.key_auto_login), true);
-                                    editor.apply();
-                                }
+                                editor.putBoolean(getString(R.string.key_auto_login), true);
+                                editor.apply();
                             }
-
                         }
                     });
         } else {
@@ -280,7 +272,6 @@ public class BaseApplication extends Application {
                     .subscribe(new Subscriber<HttpService.AuthResponse>() {
                         @Override
                         public void onCompleted() {
-
                         }
 
                         @Override
@@ -306,6 +297,7 @@ public class BaseApplication extends Application {
                                 }
                             } else {
                                 User user = authResponse.getUser();
+                                SettingUtil.setSetting(BaseApplication.this, "account_refresh_token", authResponse.getRefreshToken());
                                 BaseApplication.writeToken(token);
                                 BaseApplication.writeUser(user);
                                 UserData.setBearer(token);
@@ -316,13 +308,11 @@ public class BaseApplication extends Application {
                                 if (onLoginDone != null) {
                                     onLoginDone.onLoginDone(user);
                                 }
-                                if (save) {
-                                    SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
+                                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
 //                                    editor.putString(getString(R.string.key_account), account);
 //                                    editor.putString(getString(R.string.key_password), password);
-                                    editor.putBoolean(getString(R.string.key_auto_login), true);
-                                    editor.apply();
-                                }
+                                editor.putBoolean(getString(R.string.key_auto_login), true);
+                                editor.apply();
                             }
                         }
                     });

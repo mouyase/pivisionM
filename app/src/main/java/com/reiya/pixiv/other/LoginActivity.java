@@ -1,10 +1,8 @@
 package com.reiya.pixiv.other;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -14,34 +12,13 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.reiya.pixiv.base.BaseApplication;
-import com.reiya.pixiv.main.MainActivity;
 import com.reiya.pixiv.util.PixivOAuth;
 import com.reiya.pixiv.view.RippleView;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.FormBody;
-import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.logging.HttpLoggingInterceptor;
-import tech.yojigen.common.MD5;
-import tech.yojigen.common.util.SettingUtil;
-import tech.yojigen.pivisionm.BuildConfig;
 import tech.yojigen.pivisionm.R;
 
 
@@ -267,7 +244,7 @@ public class LoginActivity extends AppCompatActivity {
             // perform the user login attempt.
             showProgress(true);
             // Try to login
-            BaseApplication.getInstance().login(code, true,
+            BaseApplication.getInstance().login(code,
                     user -> {
                         Intent intent = new Intent(LoginActivity.this, SplashActivity.class);
                         startActivity(intent);

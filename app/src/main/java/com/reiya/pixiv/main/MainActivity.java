@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,7 +40,6 @@ import com.reiya.pixiv.history.HistoryActivity;
 import com.reiya.pixiv.image.ImageLoader;
 import com.reiya.pixiv.other.LoginActivity;
 import com.reiya.pixiv.other.SettingsActivity;
-import com.reiya.pixiv.other.SplashActivity;
 import com.reiya.pixiv.ranking.RankingActivity;
 import com.reiya.pixiv.search.SearchActivity;
 import com.reiya.pixiv.spotlight.SpotlightActivity;
@@ -49,14 +47,10 @@ import com.reiya.pixiv.util.TimeUtil;
 import com.reiya.pixiv.util.UserData;
 import com.tencent.bugly.beta.Beta;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.apache.commons.lang3.StringUtils;
 
-import java.io.IOException;
-
+import tech.yojigen.common.util.SettingUtil;
 import tech.yojigen.pivisionm.R;
-import tech.yojigen.pixiv.Pixiv;
-import tech.yojigen.pixiv.network.PixivListener;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -252,24 +246,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.ivProfile:
                 if (!UserData.isLoggedIn()) {
-                    final BaseApplication.OnLoginDone onLoginDone = user -> {
+                    BaseApplication.OnLoginDone onLoginDone = user -> {
                         showUserInfoOnNavigationHeader(user);
                         mViewPager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
                         mTabLayout.setupWithViewPager(mViewPager);
                     };
+                    BaseApplication.OnLoginFailed onLoginFailed = () -> {
+                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    };
 //                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 //                    String account = sharedPreferences.getString(getString(R.string.key_account), "");
 //                    String password = sharedPreferences.getString(getString(R.string.key_password), "");
-//                    if (account.equals("") || password.equals("")) {
-//                        LoginDialog loginDialog = new LoginDialog();
-//                        loginDialog.setListener((account1, password1) -> BaseApplication.getInstance().login(account1, password1, true, onLoginDone));
-//                        loginDialog.show(getSupportFragmentManager(), "Login");
-//                    } else {
-//                        BaseApplication.getInstance().login(account, password, false, onLoginDone);
-//                    }
-                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                    finish();
+                    String refresh_token = SettingUtil.getSetting(this, "account_refresh_token", "");
+                    if (!StringUtils.isEmpty(refresh_token)) {
+                        LoginDialog loginDialog = new LoginDialog();
+                        loginDialog.setListener(() -> BaseApplication.getInstance().login("", onLoginDone, onLoginFailed));
+                        loginDialog.show(getSupportFragmentManager(), "Login");
+                    } else {
+                        BaseApplication.getInstance().login("", onLoginDone, onLoginFailed);
+                    }
                 }
                 if (UserData.isLoggedIn()) {
                     numClickCount++;

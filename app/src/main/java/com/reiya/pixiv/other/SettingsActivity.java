@@ -30,6 +30,7 @@ import com.reiya.pixiv.dialog.ColorSelectDialog;
 import com.reiya.pixiv.dialog.PathSelectDialog;
 import com.reiya.pixiv.util.IO;
 
+import tech.yojigen.common.util.SettingUtil;
 import tech.yojigen.pivisionm.R;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -135,6 +136,13 @@ public class SettingsActivity extends AppCompatActivity {
 //                ConnectModeSelectDialog connectModeSelectDialog = new ConnectModeSelectDialog();
 //                connectModeSelectDialog.show(((FragmentActivity) getActivity()).getSupportFragmentManager(), "Mode");
 //            }
+            else if (preference.getKey().equals(getString(R.string.key_logout))) {
+                SettingUtil.delSetting(getActivity(), "account_refresh_token");
+//                            login(account, password, save, onLoginDone, onLoginFailed);
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
             return false;
         }
     }

@@ -1,7 +1,6 @@
 package com.reiya.pixiv.other;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,6 +16,9 @@ import com.reiya.pixiv.profile.ProfileActivity;
 import com.reiya.pixiv.util.UserData;
 import com.reiya.pixiv.work.ViewActivity;
 
+import org.apache.commons.lang3.StringUtils;
+
+import tech.yojigen.common.util.SettingUtil;
 import tech.yojigen.pivisionm.R;
 
 import static com.reiya.pixiv.base.BaseApplication.AUTH_EXPIRE_TIME;
@@ -47,9 +49,14 @@ public class SplashActivity extends AppCompatActivity {
 //            } else {
 //                BaseApplication.getInstance().login(account, password, false, user -> enter(), this::enterLoginPage);
 //            }
-            Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-            startActivity(intent);
-            finish();
+            String refresh_token = SettingUtil.getSetting(this, "account_refresh_token", "");
+            if (!StringUtils.isEmpty(refresh_token)) {
+                BaseApplication.getInstance().login("", user -> enter(), this::enterLoginPage);
+            } else {
+                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
         }
 
         String url = PreferenceManager.getDefaultSharedPreferences(this).getString(getString(R.string.key_splash_screen_url), "");
