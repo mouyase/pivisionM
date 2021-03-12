@@ -11,8 +11,8 @@ android {
         applicationId "tech.yojigen.pivisionm"
         minSdkVersion 19
         targetSdkVersion 30
-        versionCode 444016
-        versionName '4.5.0(beta11 fix6)'
+        versionCode 444017
+        versionName '4.5.0(beta11 fix7)'
         vectorDrawables.useSupportLibrary true
         multiDexEnabled true
     }
