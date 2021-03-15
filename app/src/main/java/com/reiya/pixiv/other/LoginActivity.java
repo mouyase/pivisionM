@@ -13,9 +13,11 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.reiya.pixiv.base.BaseApplication;
+import com.reiya.pixiv.main.MainActivity;
 import com.reiya.pixiv.util.PixivOAuth;
 import com.reiya.pixiv.view.RippleView;
 
@@ -105,15 +107,8 @@ public class LoginActivity extends AppCompatActivity {
             return true;
         });
 
-        findViewById(R.id.sign_in_button).setOnClickListener(view -> {
-            Uri uri = Uri.parse("https://app-api.pixiv.net/web/v1/login?code_challenge=" +
-                    PixivOAuth.getInstance().getChallenge() +
-                    "&code_challenge_method=S256&client=pixiv-android");
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            startActivity(intent);
-            finish();
-        });
-        findViewById(R.id.register_button).setOnClickListener(v -> {
+
+        View.OnClickListener jumpToBrowserListener = view -> {
 //            @SuppressLint("SimpleDateFormat")
 //            String pixivTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ", Locale.CHINA).format(new Date());
 //            String pixivHash = MD5.convert(pixivTime + "28c1fdd170a5204386cb1313c7077b34f83e4aaf4aa829ce78c231e05b0bae2c");
@@ -174,13 +169,30 @@ public class LoginActivity extends AppCompatActivity {
 //                    }
 //                }
 //            });
-            Uri uri = Uri.parse("https://app-api.pixiv.net/web/v1/login?code_challenge=" +
+            String loginUrl = "https://app-api.pixiv.net/web/v1/login?code_challenge=" +
                     PixivOAuth.getInstance().getChallenge() +
-                    "&code_challenge_method=S256&client=pixiv-android");
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            startActivity(intent);
-            finish();
-        });
+                    "&code_challenge_method=S256&client=pixiv-android";
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("请选择模式")
+                    .setMessage("是否使用代理模式(如果你无法打开登陆页面请选择是)")
+                    .setPositiveButton("是", (dialog, which) -> {
+                        Intent intent = new Intent(this, BrowserActivity.class);
+                        intent.putExtra("isNeedProxy", true);
+                        intent.putExtra("loginUrl", loginUrl);
+                        startActivity(intent);
+                        finish();
+                    })
+                    .setNegativeButton("否", (dialog, which) -> {
+                        Intent intent = new Intent(this, BrowserActivity.class);
+                        intent.putExtra("isNeedProxy", false);
+                        intent.putExtra("loginUrl", loginUrl);
+                        startActivity(intent);
+                        finish();
+                    })
+                    .create().show();
+        };
+        findViewById(R.id.sign_in_button).setOnClickListener(jumpToBrowserListener);
+        findViewById(R.id.register_button).setOnClickListener(jumpToBrowserListener);
         findViewById(R.id.setting_button).setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
             startActivityForResult(intent, 1);
@@ -190,10 +202,13 @@ public class LoginActivity extends AppCompatActivity {
 
         mHandler = new Handler(getMainLooper());
 
-        Uri code_uri = getIntent().getData();
-        if (code_uri != null && !TextUtils.isEmpty(code_uri.getQueryParameter("code"))) {
-            code = code_uri.getQueryParameter("code");
-            attemptLogin();
+        String codeUrl = getIntent().getStringExtra("codeUrl");
+        if (!TextUtils.isEmpty(codeUrl)){
+            Uri codeUri = Uri.parse(codeUrl);
+            if (codeUri != null && !TextUtils.isEmpty(codeUri.getQueryParameter("code"))) {
+                code = codeUri.getQueryParameter("code");
+                attemptLogin();
+            }
         }
     }
 

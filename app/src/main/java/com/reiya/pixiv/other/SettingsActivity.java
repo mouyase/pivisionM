@@ -3,8 +3,10 @@ package com.reiya.pixiv.other;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.os.AsyncTask;
@@ -138,10 +140,12 @@ public class SettingsActivity extends AppCompatActivity {
 //            }
             else if (preference.getKey().equals(getString(R.string.key_logout))) {
                 SettingUtil.delSetting(getActivity(), "account_refresh_token");
-//                            login(account, password, save, onLoginDone, onLoginFailed);
+                getActivity().getSharedPreferences("v2", MODE_PRIVATE).edit().clear().apply();
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
+                System.exit(0);
             }
             return false;
         }

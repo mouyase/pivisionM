@@ -115,18 +115,7 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name="com.reiya.pixiv.other.LoginActivity"
-            android:theme="@style/Translucent">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data android:scheme="pixiv" />
-                <data android:host="account" />
-                <data android:pathPrefix="/login" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/Translucent"></activity>
 
         <service android:name="com.reiya.pixiv.service.DownloadService" />
         <!--集成腾讯Bugly-->
@@ -143,6 +132,9 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+        <activity
+            android:name="com.reiya.pixiv.other.BrowserActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
     </application>
 
     <uses-permission

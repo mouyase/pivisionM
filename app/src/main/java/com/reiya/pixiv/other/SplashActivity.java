@@ -91,7 +91,6 @@ public class SplashActivity extends AppCompatActivity {
         if (url == null) {
             intent = new Intent(this, MainActivity.class);
         } else {
-            System.out.println(url);
             //新链接处理
             if (url.contains("/artworks/")) {
                 url = url.replace("/artworks/", "/member_illust.php?mode=medium&illust_id=");
