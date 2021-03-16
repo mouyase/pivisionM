@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">pivisionM</string>
 
-    <string name="app_update_log">1. 修复了登陆状态无法保存\n2. 这个APP大概之后不会再更新了，请各位到我的博客(https://yojigen.tech)，酷安(ID: 某亚瑟)等平台等待新的APP的发布</string>
+    <string name="app_update_log">1. 增加了免代理登陆\n2. 这个APP大概之后不会再更新了，请各位到我的博客(https://yojigen.tech)，酷安(ID: 某亚瑟)等平台等待新的APP的发布</string>
 
     <string name="about">关于</string>
     <string name="account">账号</string>
