@@ -139,13 +139,10 @@ public class SettingsActivity extends AppCompatActivity {
 //                connectModeSelectDialog.show(((FragmentActivity) getActivity()).getSupportFragmentManager(), "Mode");
 //            }
             else if (preference.getKey().equals(getString(R.string.key_logout))) {
-                SettingUtil.delSetting(getActivity(), "account_refresh_token");
-                getActivity().getSharedPreferences("v2", MODE_PRIVATE).edit().clear().apply();
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                Intent intent = new Intent(getActivity(), ExitActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
-                System.exit(0);
             }
             return false;
         }

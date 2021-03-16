@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">PivisionM</string>
+    <string name="app_name">pivisionM</string>
     <string name="app_update_log">1.バッチ保存収集機能を追加する \n2.追加のラベル機能のコレクションを増やす</string>
     <string name="about">について</string>
     <string name="account">アカウント</string>

@@ -132,9 +132,11 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+
         <activity
             android:name="com.reiya.pixiv.other.BrowserActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name="com.reiya.pixiv.other.ExitActivity" />
     </application>
 
     <uses-permission
