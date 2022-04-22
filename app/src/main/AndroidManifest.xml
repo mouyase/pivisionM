@@ -115,7 +115,7 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name="com.reiya.pixiv.other.LoginActivity"
-            android:theme="@style/Translucent"></activity>
+            android:theme="@style/Translucent" />
 
         <service android:name="com.reiya.pixiv.service.DownloadService" />
         <!--集成腾讯Bugly-->

@@ -18,10 +18,10 @@
         android:layout_height="wrap_content"
         android:text="@string/mode_global" />
 
-    <Button
-        android:id="@+id/button_proxy"
-        style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/mode_proxy" />
+<!--    <Button-->
+<!--        android:id="@+id/button_proxy"-->
+<!--        style="@style/Widget.AppCompat.Button.Borderless.Colored"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/mode_proxy" />-->
 </LinearLayout>

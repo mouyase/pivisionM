@@ -27,15 +27,14 @@ import tech.yojigen.pixiv.network.fuckgfw.PixivSSLSocketFactory;
 import tech.yojigen.pixiv.network.fuckgfw.PixivTrustManager;
 
 public class PixivClient {
-    private static PixivClient mPixivClient = new PixivClient();
-    private OkHttpClient mOkHttpClient;
+    private static final PixivClient mPixivClient = new PixivClient();
+    private final OkHttpClient mOkHttpClient;
 
     private PixivClient() {
         Interceptor interceptor = chain -> {
             String pixivTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ", Locale.CHINA).format(new Date());
             String pixivHash = MD5.convert(pixivTime + PixivProperties.BASE_HASH);
             Request request = chain.request().newBuilder()
-//                    .header("Authorization", "Bearer 9Bfk6jJuLQLZh9eTE5jUxisnEqsdYUnASV2uBHdoDD4")
                     .header("User-Agent", PixivProperties.USER_AGENT)
                     .header("Accept-Language", PixivProperties.ACCEPT_LANGUAGE)
                     .header("App-OS", PixivProperties.APP_OS)
@@ -52,7 +51,6 @@ public class PixivClient {
         httpLoggingInterceptor.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE);
         builder.addInterceptor(interceptor);
         builder.addNetworkInterceptor(httpLoggingInterceptor);
-//        builder.sslSocketFactory(PixivSSLSocketFactory.getInstance(), PixivTrustManager.getInstance());
         builder.dns(PixivDNS.getInstance());
         mOkHttpClient = builder.build();
     }

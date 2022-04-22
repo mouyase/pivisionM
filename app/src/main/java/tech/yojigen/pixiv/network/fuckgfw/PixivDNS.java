@@ -35,7 +35,7 @@ public class PixivDNS implements Dns {
             "210.140.131.219",
             "210.140.131.220",
     };
-    private static List<InetAddress> pximgDns = new ArrayList<>();
+    private static final List<InetAddress> pximgDns = new ArrayList<>();
     private static final String[] PXIMG_ADDRESSES = {
             "210.140.92.138",
             "210.140.92.139",

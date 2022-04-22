@@ -3,12 +3,23 @@ package com.reiya.pixiv.other;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.http.SslError;
 import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.util.Log;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
+
+import PixivLocalReverseProxy.PixivLocalReverseProxy;
+import tech.yojigen.pivisionm.R;
+
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,10 +29,8 @@ import androidx.webkit.ProxyController;
 import androidx.webkit.WebViewClientCompat;
 import androidx.webkit.WebViewFeature;
 
-import tech.yojigen.pivisionm.R;
-
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BrowserActivity extends AppCompatActivity {
     private WebView mWebView;
@@ -32,9 +41,9 @@ public class BrowserActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browser);
+        PixivLocalReverseProxy.startServer("12345");
         mWebView = findViewById(R.id.webview);
         mProgressBar = findViewById(R.id.bar);
-
         findViewById(R.id.close).setOnClickListener(v -> {
             Intent intent = new Intent(BrowserActivity.this, LoginActivity.class);
             startActivity(intent);
@@ -52,6 +61,12 @@ public class BrowserActivity extends AppCompatActivity {
             }
         });
         mWebView.setWebViewClient(new WebViewClientCompat() {
+            @SuppressLint("WebViewClientOnReceivedSslError")
+            @Override
+            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+                handler.proceed();
+            }
+
             @Override
             public boolean shouldOverrideUrlLoading(@NonNull WebView view, @NonNull WebResourceRequest request) {
                 if (request.getUrl().getScheme().equals("pixiv")) {
@@ -64,16 +79,34 @@ public class BrowserActivity extends AppCompatActivity {
                 return super.shouldOverrideUrlLoading(view, request);
             }
         });
+        System.out.println(isNeedProxy);
         if (isNeedProxy) {
             if (WebViewFeature.isFeatureSupported(WebViewFeature.PROXY_OVERRIDE)) {
-                ProxyConfig proxyConfig = new ProxyConfig.Builder()
-                        .addProxyRule("socks://113.31.126.172:7891")
-                        .addDirect().build();
-                ProxyController.getInstance().setProxyOverride(proxyConfig, command -> {
-                }, () -> {
+                ProxyConfig proxyConfig = new ProxyConfig.Builder().addProxyRule("127.0.0.1:12345").addDirect().build();
+                ProxyController.getInstance().setProxyOverride(proxyConfig, Runnable::run, () -> {
+                    Log.w("PixivWebView", "WebView proxy init");
+                    Map<String, String> header = new HashMap<>();
+                    header.put("Accept-Language", "zh_CN");
+                    header.put("App-Accept-Language", "zh-hans");
+                    mWebView.loadUrl(loginUrl, header);
+                });
+            }
+        }else{
+            if (WebViewFeature.isFeatureSupported(WebViewFeature.PROXY_OVERRIDE)) {
+                ProxyConfig proxyConfig = new ProxyConfig.Builder().addDirect().build();
+                ProxyController.getInstance().setProxyOverride(proxyConfig, Runnable::run, () -> {
+                    Map<String, String> header = new HashMap<>();
+                    header.put("Accept-Language", "zh_CN");
+                    header.put("App-Accept-Language", "zh-hans");
+                    mWebView.loadUrl(loginUrl, header);
                 });
             }
         }
-        mWebView.loadUrl(loginUrl);
+    }
+
+    @Override
+    protected void onDestroy() {
+        PixivLocalReverseProxy.stopServer();
+        super.onDestroy();
     }
 }

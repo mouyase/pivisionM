@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">pivisionM</string>
 
-    <string name="app_update_log">1. 增加了免代理登陆\n2. 这个APP大概之后不会再更新了，请各位到我的博客(https://yojigen.tech)，酷安(ID: 某亚瑟)等平台等待新的APP的发布</string>
+    <string name="app_update_log">诈尸更新\n1. 修复了免代理登陆\n2. 去除了内置代理(服务器已到期)</string>
 
     <string name="about">关于</string>
     <string name="account">账号</string>
@@ -118,7 +118,7 @@
     <string-array name="pref_connect_mode_strings" translatable="false">
         <item>大陆免代理直连</item>
         <item>海外直连</item>
-        <item>内置代理</item>
+<!--        <item>内置代理</item>-->
     </string-array>
 
     <string-array name="pref_connect_mode_values" translatable="false">
@@ -224,9 +224,9 @@
     <string name="bookmark_tag">收藏标签</string>
     <string name="add_collection">收藏</string>
     <string name="too_many_tags">标签数量超过上限</string>
-    <string name="network">网络</string>
-    <string name="mode_direct">大陆直连模式</string>
-    <string name="mode_global">海外模式</string>
-    <string name="mode_proxy">内置代理模式</string>
-    <string name="check_update">检查更新</string>
+    <string name="network" tools:ignore="MissingTranslation">网络</string>
+    <string name="mode_direct" tools:ignore="MissingTranslation">大陆直连模式</string>
+    <string name="mode_global" tools:ignore="MissingTranslation">海外模式</string>
+    <string name="mode_proxy" tools:ignore="MissingTranslation">内置代理模式</string>
+    <string name="check_update" tools:ignore="MissingTranslation">检查更新</string>
 </resources>
