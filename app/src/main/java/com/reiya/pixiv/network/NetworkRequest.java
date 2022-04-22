@@ -1,6 +1,7 @@
 package com.reiya.pixiv.network;
 
 
+import com.reiya.pixiv.util.PixivOAuth;
 import com.reiya.pixiv.util.RxHelper;
 import com.reiya.pixiv.util.UserData;
 import com.reiya.pixiv.util.Value;
@@ -55,9 +56,32 @@ public class NetworkRequest {
                 .getAuth(account,
                         password,
                         "password",
-                        "BVO2E8vAAikgUBW8FYpi6amXOjQj",
-                        "LI1WsFUDrrquaINOdarrJclCrkTtc3eojCOswlog",
+                        "MOBrBDS8blbauoSck0ZfDbtuzpyT",
+                        "lsACyCD94FhDUtGTXi3QzcFE2uU1hqtDaKeqrdwj",
                         "")
+                .compose(RxHelper.getSchedulerHelper());
+    }
+
+    //refresh_token登陆
+    public static Observable<HttpService.AuthResponse> getAuth(String refreshToken) {
+        return getService(Value.URL_AUTH)
+                .getAuth(refreshToken,
+                        "refresh_token",
+                        "MOBrBDS8blbauoSck0ZfDbtuzpyT",
+                        "lsACyCD94FhDUtGTXi3QzcFE2uU1hqtDaKeqrdwj",
+                        "")
+                .compose(RxHelper.getSchedulerHelper());
+    }
+
+    public static Observable<HttpService.AuthResponse> getAuthNew(String code, String codeVerifier) {
+        return getService(Value.URL_AUTH)
+                .getAuth(code,
+                        codeVerifier,
+                        "authorization_code",
+                        "MOBrBDS8blbauoSck0ZfDbtuzpyT",
+                        "lsACyCD94FhDUtGTXi3QzcFE2uU1hqtDaKeqrdwj",
+                        "",
+                        "https://app-api.pixiv.net/web/v1/users/auth/pixiv/callback")
                 .compose(RxHelper.getSchedulerHelper());
     }
 
@@ -179,7 +203,7 @@ public class NetworkRequest {
 
     public static Observable<HttpService.IllustListResponse> getSearchFromPixivPlus(String keyword, String bookmark_min, String bookmark_max) {
         return getService()
-                .getFromPixiv(getBearer(), keyword, "illust_and_ugoira", "popular_desc", bookmark_min, bookmark_max, "partial_match_for_tags")
+                .getFromPixiv(getBearer(), "for_android", true, true, keyword, "date_desc", "partial_match_for_tags", bookmark_min, bookmark_max)
                 .compose(RxHelper.getSchedulerHelper());
     }
 

@@ -72,7 +72,6 @@ public class GroupViewActivity extends AppCompatActivity implements View.OnClick
             case R.id.btnSave:
                 ItemOperation.save(GroupViewActivity.this, mWork, index);
                 break;
-
         }
     }
 

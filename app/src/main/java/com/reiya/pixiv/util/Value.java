@@ -24,8 +24,6 @@ public class Value {
 //    public static final String URL_PIXIV = "https://api.pixiv.4cy.me/";
     public static String BASE_URL_PIXIV = "https://app-api.pixiv.net/";
     public static String BASE_URL_AUTH = "https://oauth.secure.pixiv.net/";
-    public static final String PROXY_URL_AUTH_YOJIGEN = "https://oauth-secure.yojigen.tech/";
-    public static final String PROXY_URL_PIXIV_YOJIGEN = "https://app-api.yojigen.tech/";
-    public static final String PROXY_URL_AUTH_4CY = "https://oauth.pixiv.4cy.me/";
-    public static final String PROXY_URL_PIXIV_4CY = "https://api.pixiv.4cy.me/";
+    public static final String PROXY_URL_AUTH_YOJIGEN = "https://oauth-secure.128512.xyz/";
+    public static final String PROXY_URL_PIXIV_YOJIGEN = "https://app-api.128512.xyz/";
 }

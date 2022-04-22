@@ -18,10 +18,11 @@
         tools:targetApi="q">
         <activity
             android:name="com.reiya.pixiv.other.SplashActivity"
-            android:screenOrientation="portrait"
+            android:label="@string/app_name"
             android:theme="@style/Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
@@ -32,32 +33,32 @@
 
                 <data android:scheme="http" />
                 <data android:scheme="https" />
+                <data android:host="pixiv.me" />
+                <data android:host="pixiv.net" />
+                <data android:host="www.pixiv.me" />
                 <data android:host="www.pixiv.net" />
                 <data android:pathPrefix="/member.php" />
                 <data android:pathPrefix="/member_illust.php" />
                 <data android:pathPrefix="/artworks" />
                 <data android:pathPrefix="/en/artworks" />
+                <data android:pathPrefix="/user" />
+                <data android:pathPrefix="/i" />
             </intent-filter>
         </activity>
         <activity
             android:name="com.reiya.pixiv.work.ViewActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.zoom.ZoomActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.group.GroupViewActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.gif.GifActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.search.SearchActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/Translucent"
             android:windowSoftInputMode="adjustPan">
             <meta-data
@@ -66,70 +67,54 @@
         </activity>
         <activity
             android:name="com.reiya.pixiv.profile.ProfileActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.collection.FavoriteWorksActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.concern.FavoriteUsersActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.history.HistoryActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.spotlight.SpotlightActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.article.ArticleActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.other.SettingsActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.comment.CommentActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.grid.GridActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.historyranking.HistoryRankingActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.download.DownloadActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
         <activity
             android:name="com.reiya.pixiv.other.OpenSourceActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
 
         <activity
             android:name="com.reiya.pixiv.ranking.RankingActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
 
         <activity
             android:name="com.reiya.pixiv.main.MainActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/TranslucentNoActionBar" />
         <activity
             android:name="com.reiya.pixiv.search.KeywordActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/Translucent"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name="com.reiya.pixiv.other.LoginActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
 
         <service android:name="com.reiya.pixiv.service.DownloadService" />
@@ -147,6 +132,11 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+
+        <activity
+            android:name="com.reiya.pixiv.other.BrowserActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name="com.reiya.pixiv.other.ExitActivity" />
     </application>
 
     <uses-permission

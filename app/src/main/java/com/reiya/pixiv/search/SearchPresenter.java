@@ -12,7 +12,7 @@ import rx.Subscriber;
 class SearchPresenter extends SearchContract.Presenter {
     private static final String[] SUFFIX = {" 10000users入り", " 5000users入り", " 1000users入り", ""};
     private static final String[] BOOKMARK_MIN = {"10000", "5000", "1000", "0"};
-    private static final String[] BOOKMARK_MAX = {"100000", "9999", "4999", "999"};
+    private static final String[] BOOKMARK_MAX = {"99999", "9999", "4999", "99999"};
 
     @Override
     void search(String keyword, int index) {
@@ -22,6 +22,7 @@ class SearchPresenter extends SearchContract.Presenter {
                     @Override
                     public void onCompleted() {
                     }
+
                     @Override
                     public void onError(Throwable e) {
                         getView().failToLoad();

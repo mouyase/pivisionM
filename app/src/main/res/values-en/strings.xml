@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">PivisionM</string>
+    <string name="app_name">pivisionM</string>
     <string name="app_update_log">1. Add the batch save collection function \n2. Add the collection of additional label function</string>
     <string name="about">About</string>
     <string name="account">Account</string>
@@ -122,5 +122,6 @@
     <string name="download_all_author_hint">Save all the works of the artist (which may take long)? Make sure to save the path and the remaining size of the storage space.</string>
     <string name="download_all_bookmark_hint">Save all your collection (which may take long)? Make sure to save the path and the remaining size of the storage space.</string>
     <string name="too_many_tags">The number of tags exceeds the upper limit</string>
+    <string name="logout">Logout</string>
 
 </resources>

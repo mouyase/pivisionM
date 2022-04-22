@@ -9,28 +9,6 @@
             android:positiveButtonText="@null"
             android:title="@string/string_connect_mode" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/account">
-        <EditTextPreference
-            android:inputType="text"
-            android:key="@string/key_account"
-            android:maxLines="1"
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
-            android:title="@string/account" />
-
-        <EditTextPreference
-            android:inputType="textPassword"
-            android:key="@string/key_password"
-            android:maxLines="1"
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
-            android:title="@string/password" />
-
-        <!--<SwitchPreference-->
-        <!--android:defaultValue="false"-->
-        <!--android:key="@string/key_auto_login"-->
-        <!--android:title="自动登录" />-->
-    </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/pic_saving">
 
@@ -124,5 +102,30 @@
             android:key="@string/key_blacklist"
             android:summary="@string/blacklist_summary"
             android:title="@string/blacklist_title" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/account">
+        <!--        <EditTextPreference-->
+        <!--            android:inputType="text"-->
+        <!--            android:key="@string/key_account"-->
+        <!--            android:maxLines="1"-->
+        <!--            android:selectAllOnFocus="true"-->
+        <!--            android:singleLine="true"-->
+        <!--            android:title="@string/account" />-->
+
+        <!--        <EditTextPreference-->
+        <!--            android:inputType="textPassword"-->
+        <!--            android:key="@string/key_password"-->
+        <!--            android:maxLines="1"-->
+        <!--            android:selectAllOnFocus="true"-->
+        <!--            android:singleLine="true"-->
+        <!--            android:title="@string/password" />-->
+
+        <!--        &lt;!&ndash;<SwitchPreference&ndash;&gt;-->
+        <!--        &lt;!&ndash;android:defaultValue="false"&ndash;&gt;-->
+        <!--        &lt;!&ndash;android:key="@string/key_auto_login"&ndash;&gt;-->
+        <!--        &lt;!&ndash;android:title="自动登录" />&ndash;&gt;-->
+        <Preference
+            android:key="@string/key_logout"
+            android:title="@string/logout" />
     </PreferenceCategory>
 </PreferenceScreen>

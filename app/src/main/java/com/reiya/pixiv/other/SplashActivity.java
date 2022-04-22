@@ -1,7 +1,6 @@
 package com.reiya.pixiv.other;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,6 +16,9 @@ import com.reiya.pixiv.profile.ProfileActivity;
 import com.reiya.pixiv.util.UserData;
 import com.reiya.pixiv.work.ViewActivity;
 
+import org.apache.commons.lang3.StringUtils;
+
+import tech.yojigen.common.util.SettingUtil;
 import tech.yojigen.pivisionm.R;
 
 import static com.reiya.pixiv.base.BaseApplication.AUTH_EXPIRE_TIME;
@@ -39,13 +41,21 @@ public class SplashActivity extends AppCompatActivity {
             UserData.setLoggedInState();
             enter();
         } else {
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-            String account = sharedPreferences.getString(getString(R.string.key_account), null);
-            String password = sharedPreferences.getString(getString(R.string.key_password), null);
-            if (account == null || password == null) {
-                enterLoginPage();
+//            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+//            String account = sharedPreferences.getString(getString(R.string.key_account), null);
+//            String password = sharedPreferences.getString(getString(R.string.key_password), null);
+//            if (account == null || password == null) {
+//                enterLoginPage();
+//            } else {
+//                BaseApplication.getInstance().login(account, password, false, user -> enter(), this::enterLoginPage);
+//            }
+            String refresh_token = SettingUtil.getSetting(this, "account_refresh_token", "");
+            if (!StringUtils.isEmpty(refresh_token)) {
+                BaseApplication.getInstance().login("", user -> enter(), this::enterLoginPage);
             } else {
-                BaseApplication.getInstance().login(account, password, false, user -> enter(), this::enterLoginPage);
+                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
             }
         }
 
@@ -82,8 +92,10 @@ public class SplashActivity extends AppCompatActivity {
             intent = new Intent(this, MainActivity.class);
         } else {
             //新链接处理
-            if (url.contains("artworks")) {
-                url = url.replace("https://www.pixiv.net/artworks/", "https://www.pixiv.net/member_illust.php?mode=medium&illust_id=");
+            if (url.contains("/artworks/")) {
+                url = url.replace("/artworks/", "/member_illust.php?mode=medium&illust_id=");
+            } else if (url.contains("/i/")) {
+                url = url.replace("/i/", "/member_illust.php?mode=medium&illust_id=");
             }
             if (url.contains("mode=medium")) {
                 intent = new Intent(this, ViewActivity.class);

@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">PivisionM</string>
+    <string name="app_name">pivisionM</string>
 
-    <string name="app_update_log">1. 增加了连接模式切换功能\n2. 优化了保存地址选择窗口\n3. 修复了pixivision模块\n4. 增加了新链接打开支持\n5. 增加底部保存按钮\n6. 修复搜索失灵\n7. 增加内部更新提示\n8. 优化部分UI\n9. 修复日期选择失灵\n10. 优化部分组件卡顿</string>
+    <string name="app_update_log">诈尸更新\n1. 修复了免代理登陆\n2. 去除了内置代理(服务器已到期)</string>
 
     <string name="about">关于</string>
     <string name="account">账号</string>
@@ -65,6 +65,7 @@
     <string name="key_account" translatable="false">account</string>
     <string name="key_password" translatable="false">password</string>
     <string name="key_auto_login" translatable="false">auto_login</string>
+    <string name="key_logout" translatable="false">logout</string>
     <string name="key_path" translatable="false">saving_path</string>
     <string name="key_file_name_mode" translatable="false">file_name_mode</string>
     <string name="key_cache_limit" translatable="false">cache_limit</string>
@@ -117,7 +118,7 @@
     <string-array name="pref_connect_mode_strings" translatable="false">
         <item>大陆免代理直连</item>
         <item>海外直连</item>
-        <item>内置代理</item>
+<!--        <item>内置代理</item>-->
     </string-array>
 
     <string-array name="pref_connect_mode_values" translatable="false">
@@ -206,6 +207,7 @@
     <string name="processing_login">登录中</string>
     <string name="pic_saving">图片保存</string>
     <string name="saving_path">保存位置</string>
+    <string name="logout">登出</string>
     <string name="saving_file_name">保存文件名</string>
     <string name="auto_create_subfolder">自动建立子文件夹</string>
     <string name="user_interface">界面</string>
@@ -222,8 +224,9 @@
     <string name="bookmark_tag">收藏标签</string>
     <string name="add_collection">收藏</string>
     <string name="too_many_tags">标签数量超过上限</string>
-    <string name="network">网络</string>
-    <string name="mode_direct">大陆直连模式</string>
-    <string name="mode_global">海外模式</string>
-    <string name="mode_proxy">内置代理模式</string>
+    <string name="network" tools:ignore="MissingTranslation">网络</string>
+    <string name="mode_direct" tools:ignore="MissingTranslation">大陆直连模式</string>
+    <string name="mode_global" tools:ignore="MissingTranslation">海外模式</string>
+    <string name="mode_proxy" tools:ignore="MissingTranslation">内置代理模式</string>
+    <string name="check_update" tools:ignore="MissingTranslation">检查更新</string>
 </resources>

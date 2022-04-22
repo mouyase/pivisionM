@@ -19,9 +19,14 @@ public class Tag implements Parcelable {
             return new Tag[size];
         }
     };
+
     @SerializedName("name")
     @Expose
     String name;
+
+    @SerializedName("translated_name")
+    @Expose
+    String translated_name;
 
     public Tag() {
     }
@@ -42,6 +47,14 @@ public class Tag implements Parcelable {
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getTranslated_name() {
+        return translated_name;
+    }
+
+    public void setTranslated_name(String translated_name) {
+        this.translated_name = translated_name;
     }
 
     @Override

@@ -36,6 +36,23 @@ public interface HttpService {
                                      @Field("client_secret") String cs,
                                      @Field("device_token") String dt);
 
+    @FormUrlEncoded
+    @POST("auth/token")
+    Observable<AuthResponse> getAuth(@Field("refresh_token") String refresh_token,
+                                     @Field("grant_type") String gt,
+                                     @Field("client_id") String ci,
+                                     @Field("client_secret") String cs,
+                                     @Field("device_token") String dt);
+
+    @FormUrlEncoded
+    @POST("auth/token")
+    Observable<AuthResponse> getAuth(@Field("code") String code,
+                                     @Field("code_verifier") String code_verifier,
+                                     @Field("grant_type") String gt,
+                                     @Field("client_id") String ci,
+                                     @Field("client_secret") String cs,
+                                     @Field("device_token") String dt,
+                                     @Field("redirect_uri") String redirect_uri);
 
     @GET("v1/illust/ranking")
     Observable<IllustListResponse> getRanking(@Header("Authorization") String authorization, @Query("mode") String mode);
@@ -110,12 +127,14 @@ public interface HttpService {
     //高级搜索测试
     @GET("v1/search/illust")
     Observable<IllustListResponse> getFromPixiv(@Header("Authorization") String authorization,
+                                                @Query("filter") String filter,
+                                                @Query("include_translated_tag_results") boolean include_translated_tag_results,
+                                                @Query("merge_plain_keyword_results") boolean merge_plain_keyword_results,
                                                 @Query("word") String word,
-                                                @Query("content_type") String contentType,
                                                 @Query("sort") String sort,
+                                                @Query("search_target") String searchTarget,
                                                 @Query("bookmark_num_min") String bookmark_min,
-                                                @Query("bookmark_num_max") String bookmark_max,
-                                                @Query("search_target") String searchTarget);
+                                                @Query("bookmark_num_max") String bookmark_max);
 
     @GET
     Observable<IllustListResponse> getFromPixiv(@Header("Authorization") String authorization,
@@ -199,6 +218,10 @@ public interface HttpService {
             return mResponse.mUser;
         }
 
+        public String getRefreshToken() {
+            return mResponse.mRefreshToken;
+        }
+
         static class Response {
             @SerializedName("access_token")
             @Expose
@@ -206,6 +229,9 @@ public interface HttpService {
             @SerializedName("user")
             @Expose
             User mUser;
+            @SerializedName("refresh_token")
+            @Expose
+            String mRefreshToken;
         }
     }
 

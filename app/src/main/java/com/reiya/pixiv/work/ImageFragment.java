@@ -1,16 +1,16 @@
 package com.reiya.pixiv.work;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Html;
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +23,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -49,12 +50,16 @@ import com.reiya.pixiv.util.Value;
 import com.reiya.pixiv.view.WorkGridLayoutManager;
 import com.reiya.pixiv.zoom.ZoomActivity;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import me.gujun.android.taggroup.TagGroup;
 import rx.Subscriber;
 import tech.yojigen.pivisionm.R;
+
+import static android.view.View.NO_ID;
 
 /**
  * Created by Administrator on 2015/12/2 0002.
@@ -183,15 +188,28 @@ public class ImageFragment extends BaseFragment<WorkPresenter> implements WorkCo
         final ImageView iv = view.findViewById(R.id.iv);
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) iv.getLayoutParams();
         WindowManager wm = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
         int statusBarHeight = 0;
-        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP && resourceId > 0) {
-            statusBarHeight = getResources().getDimensionPixelSize(resourceId);
+        int resourceId_status = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId_status > 0) {
+            statusBarHeight = getResources().getDimensionPixelSize(resourceId_status);
         }
-        params.height = display.getHeight() - statusBarHeight;
+
+        int navigationBarHeight = 0;
+        int resourceId_navigation = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
+        if (resourceId_navigation > 0) {
+            navigationBarHeight = getResources().getDimensionPixelSize(resourceId_navigation);
+        }
+        if (!isNavigationBarExist(this.getActivity())) {
+            navigationBarHeight = 0;
+        }
+
+        //获取屏幕实际高度
+        Point point = new Point();
+        wm.getDefaultDisplay().getRealSize(point);
+        params.height = point.y - navigationBarHeight;
         iv.setLayoutParams(params);
         loadImage(iv);
+
 
         ImageLoader.loadImage(getActivity(), mWork.getUser().getMediumImageUrl())
                 .fitCenter()
@@ -262,18 +280,24 @@ public class ImageFragment extends BaseFragment<WorkPresenter> implements WorkCo
         ((TextView) view.findViewById(R.id.tvCaption)).setText(Html.fromHtml(mWork.getCaption()));
         ((TextView) view.findViewById(R.id.tvInfo)).setText(mWork.getTime());
 
-        TagGroup tagGroup = (TagGroup) view.findViewById(R.id.tagLayout);
+        TagGroup tagGroup = view.findViewById(R.id.tagLayout);
         List<String> tags = new ArrayList<>();
         for (Tag tag : mWork.getTags()) {
-            tags.add(tag.getName());
+            if (StringUtils.isNotEmpty(tag.getTranslated_name())) {
+                tags.add(tag.getName() + "「" + tag.getTranslated_name() + "」");
+            } else {
+                tags.add(tag.getName());
+            }
         }
         tagGroup.setTags(tags);
         tagGroup.setOnTagClickListener(tag -> {
             Intent intent = new Intent(getActivity(), SearchActivity.class);
+            if (tag.contains("「") && tag.contains("」")) {
+                tag = tag.substring(0, tag.indexOf("「"));
+            }
             intent.putExtra("tag", tag);
             getActivity().startActivity(intent);
         });
-
         view.findViewById(R.id.userInfoLayout).setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), ProfileActivity.class);
             intent.putExtra("id", mWork.getUser().getId());
@@ -374,6 +398,21 @@ public class ImageFragment extends BaseFragment<WorkPresenter> implements WorkCo
 //        });
 //    }
 
+    private static final String NAVIGATION = "navigationBarBackground";
+
+    // 该方法需要在View完全被绘制出来之后调用，否则判断不了
+    //在比如 onWindowFocusChanged（）方法中可以得到正确的结果
+    private boolean isNavigationBarExist(@NonNull Activity activity) {
+        ViewGroup vp = (ViewGroup) activity.getWindow().getDecorView();
+        for (int i = 0; i < vp.getChildCount(); i++) {
+            vp.getChildAt(i).getContext().getPackageName();
+            if (vp.getChildAt(i).getId() != NO_ID && NAVIGATION.equals(activity.getResources().getResourceEntryName(vp.getChildAt(i).getId()))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void loadImage(ImageView iv) {
 //        if (onItemLoadedListener != null) {
 //            onItemLoadedListener.onItemLoaded(item, mPage);
@@ -404,7 +443,7 @@ public class ImageFragment extends BaseFragment<WorkPresenter> implements WorkCo
         });
         iv.setOnLongClickListener(v -> {
             MenuDialog menuDialog = new MenuDialog();
-            menuDialog.setListener(new String[]{"复制ID", "分享"}, (dialog, which) -> {
+            menuDialog.setListener(new String[]{"复制ID", "分享" }, (dialog, which) -> {
                 switch (which) {
                     case 0:
                         int id = mWork.getId();

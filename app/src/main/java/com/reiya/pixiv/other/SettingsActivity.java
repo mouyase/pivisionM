@@ -3,8 +3,10 @@ package com.reiya.pixiv.other;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.os.AsyncTask;
@@ -30,6 +32,7 @@ import com.reiya.pixiv.dialog.ColorSelectDialog;
 import com.reiya.pixiv.dialog.PathSelectDialog;
 import com.reiya.pixiv.util.IO;
 
+import tech.yojigen.common.util.SettingUtil;
 import tech.yojigen.pivisionm.R;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -135,6 +138,12 @@ public class SettingsActivity extends AppCompatActivity {
 //                ConnectModeSelectDialog connectModeSelectDialog = new ConnectModeSelectDialog();
 //                connectModeSelectDialog.show(((FragmentActivity) getActivity()).getSupportFragmentManager(), "Mode");
 //            }
+            else if (preference.getKey().equals(getString(R.string.key_logout))) {
+                Intent intent = new Intent(getActivity(), ExitActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
             return false;
         }
     }

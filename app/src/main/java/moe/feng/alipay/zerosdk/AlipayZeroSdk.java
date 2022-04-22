@@ -45,7 +45,7 @@ public class AlipayZeroSdk {
      * @param intentFullUrl Intent 跳转地址
      * @return 是否成功调用
      */
-    public static boolean startIntentUrl(Activity activity, String intentFullUrl) {
+    private static boolean startIntentUrl(Activity activity, String intentFullUrl) {
         try {
             Intent intent = Intent.parseUri(
                     intentFullUrl,
@@ -53,10 +53,7 @@ public class AlipayZeroSdk {
             );
             activity.startActivity(intent);
             return true;
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-            return false;
-        } catch (ActivityNotFoundException e) {
+        } catch (URISyntaxException | ActivityNotFoundException e) {
             e.printStackTrace();
             return false;
         }

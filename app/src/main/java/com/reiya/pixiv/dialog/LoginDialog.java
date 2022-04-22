@@ -44,7 +44,7 @@ public class LoginDialog extends DialogFragment {
                 tilPassword.setErrorEnabled(true);
                 return;
             }
-            listener.onLogin(account, password);
+            listener.onLogin();
             dismiss();
         });
         return view;
@@ -63,6 +63,6 @@ public class LoginDialog extends DialogFragment {
     }
 
     public interface LoginListener {
-        void onLogin(String account, String password);
+        void onLogin();
     }
 }

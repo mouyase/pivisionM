@@ -1,0 +1,9 @@
+#签名相关
+storeFile=
+storePassword=
+keyAlias=
+keyPassword=
+
+#MobSDK
+appKey=
+appSecret=

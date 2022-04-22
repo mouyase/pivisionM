@@ -18,6 +18,8 @@ public class WorkFilter {
 
     public List<Work> getFilteredList(List<Work> works) {
         for (int i = 0, l = works.size(); i < l; i++) {
+            //修复屏蔽失灵
+            if (i == works.size()) break;
             Work work = works.get(i);
             boolean filter = false;
             for (Tag tag : work.getTags()) {
